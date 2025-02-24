@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Francisco Javier Rodríguez Martín",
+        "gitUser": "Frarodmar19",
+        "avatar": "https://avatars.githubusercontent.com/u/92883501?s=88&v=4"
+    },
+    {
+        "id": 2,
+        "name": "Jaime Duffy Panés",
+        "gitUser": "jaimeduffy",
+        "avatar": "https://avatars.githubusercontent.com/u/79634577?s=88&amp;v=4"
+    },
+    {
+        "id": 3,
+        "name": "Páblo Dominguez Galván",
+        "gitUser": "pabdomgal",
+        "avatar": "https://avatars.githubusercontent.com/u/92788663?s=88&v=4"
+    }
+]
