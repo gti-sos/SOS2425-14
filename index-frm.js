@@ -29,14 +29,14 @@ const mediaDesempleo = () => {
 
 // Calcular ccaa que superan la media de desemppleo
 const ccaaMasDesempleo = () => {
-    let media = mediaDesempleo();
+    const media = mediaDesempleo();
     let ccaa = [];
     data.forEach(ca => {
         if(ca.desempleo > media){
             ccaa.push(ca.ccaa);
         }
     })
-    console.log(`CCAA por encima de la media de desempleo: ${ccaa} \n`);
+    console.log(`CCAA por encima de la media de desempleo: ${ccaa}`);
 }
 
 ccaaMasDesempleo();
@@ -62,5 +62,5 @@ const totalEspaña = () => {
         return false;
     }
 }
-console.log(`Media de desempleo: ${mediaDesempleo}`);
+console.log(`Media de desempleo: ${mediaDesempleo()} \n`);
 console.log(totalEspaña() ? `Se han añadido correctamente los datos\n` : `Los datos ya existen \n`);
