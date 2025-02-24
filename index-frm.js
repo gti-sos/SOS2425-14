@@ -4,16 +4,16 @@
 //      c. Al hacer “node index-YYY.js” se muestra el resultado del cálculo.
 
 const data = [
-    { ccaa: "Andalucía", poblacion: 8400000, pib: 160000, desempleo: 18.5, anyo: 2020},
-    { ccaa: "Cataluña", poblacion: 7700000, pib: 260000, desempleo: 12.3, anyo: 2020},
-    { ccaa: "Madrid", poblacion: 6800000, pib: 240000, desempleo: 11.0, anyo: 2020},
-    { ccaa: "Valencia", poblacion: 5000000, pib: 130000, desempleo: 14.8, anyo: 2020},
-    { ccaa: "Galicia", poblacion: 2700000, pib: 62000, desempleo: 10.5, anyo: 2020},
-    { ccaa: "Castilla y León", poblacion: 2400000, pib: 59000, desempleo: 9.7, anyo: 2020},
-    { ccaa: "País Vasco", poblacion: 2200000, pib: 75000, desempleo: 8.9, anyo: 2020},
-    { ccaa: "Canarias", poblacion: 2200000, pib: 49000, desempleo: 20.1, anyo: 2020},
-    { ccaa: "Aragón", poblacion: 1300000, pib: 41000, desempleo: 9.3, anyo: 2020},
-    { ccaa: "Castilla-La Mancha", poblacion: 2000000, pib: 52000, desempleo: 12.0, anyo: 2020}
+    { ccaa: "Andalucía", poblacion: 8400000, pib: 160000, desempleo: 18.5 },
+    { ccaa: "Cataluña", poblacion: 7700000, pib: 260000, desempleo: 12.3 },
+    { ccaa: "Madrid", poblacion: 6800000, pib: 240000, desempleo: 11.0 },
+    { ccaa: "Valencia", poblacion: 5000000, pib: 130000, desempleo: 14.8 },
+    { ccaa: "Galicia", poblacion: 2700000, pib: 62000, desempleo: 10.5 },
+    { ccaa: "Castilla y León", poblacion: 2400000, pib: 59000, desempleo: 9.7 },
+    { ccaa: "País Vasco", poblacion: 2200000, pib: 75000, desempleo: 8.9 },
+    { ccaa: "Canarias", poblacion: 2200000, pib: 49000, desempleo: 20.1 },
+    { ccaa: "Aragón", poblacion: 1300000, pib: 41000, desempleo: 9.3 },
+    { ccaa: "Castilla-La Mancha", poblacion: 2000000, pib: 52000, desempleo: 12.0 }
 ];
 
 // Calcular media de desempleo
@@ -63,10 +63,5 @@ const totalEspaña = () => {
     }
 }
 
-function impData(){
-    data.forEach(d => console.log(d));
-}
-
-
 console.log(`Media de desempleo: ${mediaDesempleo()} \n`);
-console.log(totalEspaña() ? `Se han añadido correctamente los datos\n ${impData()}` : `Los datos ya existen \n`);
+console.log(totalEspaña() ? `Se han añadido correctamente los datos\n` : `Los datos ya existen \n`);
