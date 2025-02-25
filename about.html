@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <div id="menu">
+        <!-- Menu goes here -->
+    </div>
     <header id="navbar">
         <!-- Navbar goes here -->
     </header>
@@ -35,9 +38,9 @@
                 </ul>
                 <p>The analysis will provide insights into how these factors may be interconnected and their potential
                     social implications.</p>
-            </div>
+            </div><br>
             <div class="article variant" id="team">
-                <h3 style="text-align: center;">Team</h3>
+                <h3 style="text-align: center;">Team Members</h3>
                 <!-- Team members go here -->
             </div>
         </div>
@@ -46,12 +49,14 @@
         <!-- Footer goes here -->
     </footer>
     <script type="module" src="./src/js/main/navbar.js"></script>
+    <script type="module" src="./src/js/main/menu.js"></script>
     <script type="module" src="./src/js/main/about.js"></script>
     <script src="./src/js/utils/include.js"></script>
     <script>
         include("src/html/navbar.html", "#navbar");
         include("src/html/github.html", "#github");
         include("src/html/footer.html", "#footer");
+        include("src/html/menu.html", "#menu");
     </script>
 </body>
 </html>
