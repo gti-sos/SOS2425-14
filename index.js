@@ -12,6 +12,10 @@ app.get("/", (request, response) => {
     response.sendFile(path.join(__dirname, 'about.html'));
 });
 
+app.get("/about", (request, response) => {
+    response.sendFile(path.join(__dirname, 'about.html'));
+});
+
 app.get("/cool", (request, response )=>{
     response.send(cool());
 });
