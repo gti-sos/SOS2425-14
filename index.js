@@ -24,8 +24,9 @@ app.get("/cool", (request, response )=>{
 });
 
 app.get("/samples/JDP", (request, response )=>{
+    console.log("Accediendo a /samples/JDP");
     const result = getJDPData(); // Ejecuta el script
-    response.send(result); // Envía el resultado como respuesta
+    response.json(result); // Envía el resultado como respuesta
 });
 
 app.get("/hello", (request, response )=>{
