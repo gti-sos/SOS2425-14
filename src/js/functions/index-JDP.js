@@ -1,8 +1,11 @@
 const fs = require("fs");    //modulo de node.js para manejar archivos
 const Papa = require("papaparse");  //librería para convertir csv a JSON
+const path = require("path");
+
+module.exports = getJDPData; // Exporta la función
 
 // Ruta del archivo CSV
-const fileCSV = "../../datafiles/data-jdp.csv";
+const fileCSV = path.join(__dirname, "../../datafiles/data-jdp.csv");
 
 // Función para leer el CSV y convertirlo a un array de objetos
 function readCSV(fileroute) {
@@ -26,27 +29,32 @@ function readCSV(fileroute) {
     }));
 }
 
+
 // Leer y mostrar los datos en el formato deseado
-const data = readCSV(fileCSV);
+function getJDPData() {
+    const data = readCSV(fileCSV);
+    const ccaa = "Navarra"; // definimos la constante Navarra
+
+    const filteredData = data.filter(item => item.autonomous_community.includes(ccaa));   // filteredData contiene solo las entradas con ccaa "Navarra"
+
+    const getAvg = (field) => {
+        const values = filteredData.map(item => item[field]);  // En values se almacenan los datos numéricos del campo seleccionado
+        const sum = values.reduce((acc, valor) => acc + valor, 0); // Calcula la suma
+        return values.length > 0 ? sum / values.length : 0;  // Devuelve la media, asegurando no dividir por cero
+    };
+
+    const activityAvg = getAvg("activity_rate");
+    const employmentAvg = getAvg("employment_rate");
+    const unemploymentAvg = getAvg("unemployment_rate");
+
+    // Devolvemos un objeto con los resultados
+    return {
+        autonomous_community: ccaa,
+        activity_rate_avg: activityAvg.toFixed(2),
+        employment_rate_avg: employmentAvg.toFixed(2),
+        unemployment_rate_avg: unemploymentAvg.toFixed(2)
+    };
+}
 
 
-const ccaa = "Navarra";  //defino la constante navarra
-
-const filteredData = data.filter(item => item.autonomous_community.includes(ccaa));   //filteredData contiene solo las entradas con ccaa "Navarra"
-
-const getAvg = (field) => {
-    const values = filteredData.map(item => item[field]);  //En values se almacenan los datos numermicos del campo seleccionado
-    const sum = values.reduce((acc, valor) => acc + valor, 0); // Calcula la suma
-    return values.length > 0 ? sum / values.length : 0;  //Devuelve la media, asegurando no dividir por cero
-};
-
-const activityAvg = getAvg("activity_rate");
-const employmentAvg = getAvg("employment_rate");
-const unemploymentAvg = getAvg("unemployment_rate");
-
-//Imprimimos por pantalla
-
-console.log(`Media de la tasa de actividad en ${ccaa}: ${activityAvg.toFixed(2)}`);
-console.log(`Media de la tasa de empleo en ${ccaa}: ${employmentAvg.toFixed(2)}`);
-console.log(`Media de la tasa de paro en ${ccaa}: ${unemploymentAvg.toFixed(2)}`);
-
+module.exports = getJDPData;
