@@ -1,11 +1,12 @@
 const fs = require("fs");    //modulo de node.js para manejar archivos
+const { get } = require("http");
 const Papa = require("papaparse");  //librería para convertir csv a JSON
 const path = require("path");
 
 module.exports = getJDPData; // Exporta la función
 
 // Ruta del archivo CSV
-const fileCSV = path.join(__dirname, "../../datafiles/data-jdp.csv");
+const fileCSV = path.join(__dirname, "../../data/data-jdp.csv");
 
 // Función para leer el CSV y convertirlo a un array de objetos
 function readCSV(fileroute) {
@@ -34,7 +35,6 @@ function readCSV(fileroute) {
 function getJDPData() {
     const data = readCSV(fileCSV);
     const ccaa = "Navarra"; // definimos la constante Navarra
-
     const filteredData = data.filter(item => item.autonomous_community.includes(ccaa));   // filteredData contiene solo las entradas con ccaa "Navarra"
 
     const getAvg = (field) => {
@@ -56,5 +56,6 @@ function getJDPData() {
     };
 }
 
+getJDPData();
 
 module.exports = getJDPData;

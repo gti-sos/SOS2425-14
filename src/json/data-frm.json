@@ -1,0 +1,562 @@
+[
+  {
+    "autonomous_community": "TOTAL",
+    "basic_fp": 8.1,
+    "middle_grade": 36.3,
+    "higher_grade": 40,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "basic_fp": 7.5,
+    "middle_grade": 36.7,
+    "higher_grade": 37.4,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Aragón",
+    "basic_fp": 10.6,
+    "middle_grade": 36.2,
+    "higher_grade": 40.1,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Asturias, Principado de",
+    "basic_fp": 5.6,
+    "middle_grade": 37.4,
+    "higher_grade": 49.3,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Baleares, Illes",
+    "basic_fp": 8.4,
+    "middle_grade": 32.5,
+    "higher_grade": 23.1,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Canarias",
+    "basic_fp": 8.2,
+    "middle_grade": 28.1,
+    "higher_grade": 33.2,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "basic_fp": 8.4,
+    "middle_grade": 42.1,
+    "higher_grade": 44.7,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "basic_fp": 11,
+    "middle_grade": 38.2,
+    "higher_grade": 42.1,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "basic_fp": 11.8,
+    "middle_grade": 34.1,
+    "higher_grade": 32.5,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "basic_fp": 0,
+    "middle_grade": 40.4,
+    "higher_grade": 41.7,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "basic_fp": 11.6,
+    "middle_grade": 44.2,
+    "higher_grade": 46.5,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "basic_fp": 10.4,
+    "middle_grade": 34.8,
+    "higher_grade": 33.6,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Galicia",
+    "basic_fp": 11.7,
+    "middle_grade": 43.9,
+    "higher_grade": 53,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Madrid, Comunidad de",
+    "basic_fp": 8.7,
+    "middle_grade": 27,
+    "higher_grade": 36.5,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Murcia, Región de",
+    "basic_fp": 12.7,
+    "middle_grade": 30.6,
+    "higher_grade": 35.1,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Navarra, Comunidad Foral de",
+    "basic_fp": 8.8,
+    "middle_grade": 32.6,
+    "higher_grade": 31.7,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "basic_fp": 11.6,
+    "middle_grade": 37.5,
+    "higher_grade": 55.3,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Rioja, La",
+    "basic_fp": 11.6,
+    "middle_grade": 44.5,
+    "higher_grade": 40.7,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Ceuta",
+    "basic_fp": 21.6,
+    "middle_grade": 45.7,
+    "higher_grade": 35.3,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "Melilla",
+    "basic_fp": 21.6,
+    "middle_grade": 31.5,
+    "higher_grade": 32.5,
+    "year": 2020
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "basic_fp": 7.6,
+    "middle_grade": 36.5,
+    "higher_grade": 42.5,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "basic_fp": 7.3,
+    "middle_grade": 37.4,
+    "higher_grade": 41.2,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Aragón",
+    "basic_fp": 10.2,
+    "middle_grade": 36,
+    "higher_grade": 42.6,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Asturias, Principado de",
+    "basic_fp": 4.9,
+    "middle_grade": 37.5,
+    "higher_grade": 54.8,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Baleares, Illes",
+    "basic_fp": 8,
+    "middle_grade": 36.1,
+    "higher_grade": 26.5,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Canarias",
+    "basic_fp": 7.2,
+    "middle_grade": 28.2,
+    "higher_grade": 35,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "basic_fp": 7.1,
+    "middle_grade": 39.9,
+    "higher_grade": 45.9,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "basic_fp": 10.4,
+    "middle_grade": 38.2,
+    "higher_grade": 44.7,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "basic_fp": 11.5,
+    "middle_grade": 35.8,
+    "higher_grade": 37.3,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "basic_fp": 0,
+    "middle_grade": 37.7,
+    "higher_grade": 40.3,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "basic_fp": 10.9,
+    "middle_grade": 44.7,
+    "higher_grade": 48.9,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "basic_fp": 9.9,
+    "middle_grade": 37.2,
+    "higher_grade": 37,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Galicia",
+    "basic_fp": 10.6,
+    "middle_grade": 43.8,
+    "higher_grade": 56.1,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Madrid, Comunidad de",
+    "basic_fp": 8.2,
+    "middle_grade": 28.8,
+    "higher_grade": 41.5,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Murcia, Región de",
+    "basic_fp": 12.5,
+    "middle_grade": 31.1,
+    "higher_grade": 38.1,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Navarra, Comunidad Foral de",
+    "basic_fp": 8.4,
+    "middle_grade": 32.9,
+    "higher_grade": 34.1,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "basic_fp": 11.2,
+    "middle_grade": 35.8,
+    "higher_grade": 55,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Rioja, La",
+    "basic_fp": 11.1,
+    "middle_grade": 42.5,
+    "higher_grade": 44.5,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Ceuta",
+    "basic_fp": 20.1,
+    "middle_grade": 43.7,
+    "higher_grade": 37.2,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "Melilla",
+    "basic_fp": 19.7,
+    "middle_grade": 30.8,
+    "higher_grade": 32.2,
+    "year": 2021
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "basic_fp": 7.5,
+    "middle_grade": 37,
+    "higher_grade": 41.7,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "basic_fp": 6.9,
+    "middle_grade": 37.5,
+    "higher_grade": 40.6,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Aragón",
+    "basic_fp": 10,
+    "middle_grade": 36.7,
+    "higher_grade": 40.8,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Asturias, Principado de",
+    "basic_fp": 4.9,
+    "middle_grade": 35.9,
+    "higher_grade": 50.3,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Baleares, Illes",
+    "basic_fp": 8.2,
+    "middle_grade": 37.5,
+    "higher_grade": 27.5,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Canarias",
+    "basic_fp": 7.2,
+    "middle_grade": 28.8,
+    "higher_grade": 35.9,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "basic_fp": 6.9,
+    "middle_grade": 40.3,
+    "higher_grade": 45,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "basic_fp": 10.1,
+    "middle_grade": 37.8,
+    "higher_grade": 42.2,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "basic_fp": 11.1,
+    "middle_grade": 34,
+    "higher_grade": 35,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "basic_fp": 0,
+    "middle_grade": 39.2,
+    "higher_grade": 40.1,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "basic_fp": 10.5,
+    "middle_grade": 45.5,
+    "higher_grade": 50,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "basic_fp": 9.9,
+    "middle_grade": 35.8,
+    "higher_grade": 35.2,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Galicia",
+    "basic_fp": 10.4,
+    "middle_grade": 42.8,
+    "higher_grade": 53.7,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Madrid, Comunidad de",
+    "basic_fp": 8.6,
+    "middle_grade": 29.9,
+    "higher_grade": 40.6,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Murcia, Región de",
+    "basic_fp": 12.2,
+    "middle_grade": 31.3,
+    "higher_grade": 35.8,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Navarra, Comunidad Foral de",
+    "basic_fp": 6.7,
+    "middle_grade": 31.4,
+    "higher_grade": 33,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "basic_fp": 11,
+    "middle_grade": 36.4,
+    "higher_grade": 53.3,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Rioja, La",
+    "basic_fp": 10.2,
+    "middle_grade": 41.8,
+    "higher_grade": 42.3,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Ceuta",
+    "basic_fp": 20.2,
+    "middle_grade": 43.5,
+    "higher_grade": 36,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "Melilla",
+    "basic_fp": 20.5,
+    "middle_grade": 31.2,
+    "higher_grade": 29,
+    "year": 2022
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "basic_fp": 7.6,
+    "middle_grade": 36.9,
+    "higher_grade": 41.2,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "basic_fp": 7.2,
+    "middle_grade": 36.8,
+    "higher_grade": 41,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Aragón",
+    "basic_fp": 9.8,
+    "middle_grade": 36.3,
+    "higher_grade": 41.1,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Asturias, Principado de",
+    "basic_fp": 5.1,
+    "middle_grade": 35.5,
+    "higher_grade": 49.2,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Baleares, Illes",
+    "basic_fp": 8.1,
+    "middle_grade": 34.9,
+    "higher_grade": 24.6,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Canarias",
+    "basic_fp": 7.3,
+    "middle_grade": 28.4,
+    "higher_grade": 35,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "basic_fp": 7,
+    "middle_grade": 39.7,
+    "higher_grade": 44.8,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "basic_fp": 9.9,
+    "middle_grade": 37.6,
+    "higher_grade": 41.8,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "basic_fp": 11.3,
+    "middle_grade": 32.7,
+    "higher_grade": 34.8,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "basic_fp": 0.6,
+    "middle_grade": 40.6,
+    "higher_grade": 38.4,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "basic_fp": 10.1,
+    "middle_grade": 44.9,
+    "higher_grade": 49.5,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "basic_fp": 10.1,
+    "middle_grade": 36,
+    "higher_grade": 36,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Galicia",
+    "basic_fp": 10,
+    "middle_grade": 41,
+    "higher_grade": 51.4,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Madrid, Comunidad de",
+    "basic_fp": 8.4,
+    "middle_grade": 31.1,
+    "higher_grade": 41.2,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Murcia, Región de",
+    "basic_fp": 12.4,
+    "middle_grade": 31.5,
+    "higher_grade": 35.5,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Navarra, Comunidad Foral de",
+    "basic_fp": 7.4,
+    "middle_grade": 31.4,
+    "higher_grade": 32.7,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "basic_fp": 11.1,
+    "middle_grade": 35.4,
+    "higher_grade": 50.7,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Rioja, La",
+    "basic_fp": 11.6,
+    "middle_grade": 42.9,
+    "higher_grade": 40.7,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Ceuta",
+    "basic_fp": 21.8,
+    "middle_grade": 48.2,
+    "higher_grade": 37.4,
+    "year": 2023
+  },
+  {
+    "autonomous_community": "Melilla",
+    "basic_fp": 23.3,
+    "middle_grade": 31.4,
+    "higher_grade": 30.1,
+    "year": 2023
+  }
+]

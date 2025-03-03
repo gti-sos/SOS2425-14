@@ -91,6 +91,10 @@ header#navbar.scrolled{
                 color: var(--main);
             }
 
+            nav ul li a:hover span{ 
+                border-top-color: var(--main);
+            }
+
     #navbar i{
         display: none;
         font-size: 1.3em;
@@ -147,7 +151,7 @@ header#navbar.scrolled{
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-top: 5px solid #fff;
-        transition: transform 0.3s;
+        transition: all 0.3s;
     }
 
     .dropdown.show .dropdown-arrow {
