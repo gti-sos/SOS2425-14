@@ -4,6 +4,14 @@ import { membersRenderer } from "../renders/teamRenderer.js";
 
 function about() {
     loadTeam();
+    
+    const samplesLink = document.getElementById('samples-link');
+    const dropdown = document.querySelector('.dropdown');
+
+    samplesLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita la redirección
+        dropdown.classList.toggle('show');
+    });
 }
 
 function loadTeam(){
