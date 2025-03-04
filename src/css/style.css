@@ -532,8 +532,9 @@ div.article{
 
 div.article.variant{
     border-radius: 10px;
-    background-color: #001d2c;
-    box-shadow: 0 0 20px #00000011;
+    background: rgb(0,29,44);
+    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
+    box-shadow: 0 0 20px #00000028;
     width: 100%;
 
     transition: all 0.3s;
@@ -558,10 +559,13 @@ div.article.variant:hover{
         }
 
 div.article.borderless{
-    border: 2px solid #fff;
-    border-radius: 10px;
-    margin-top: 4em;
+    border-radius: 15px 50px;
+    margin-top: 2.5em;
     padding: 3em;
+    box-shadow: 0 0 20px #00000028;
+
+    background: rgb(0,29,44);
+    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
 }
 
     div.article.borderless h3{
@@ -569,14 +573,24 @@ div.article.borderless{
     }
 
     div.article.borderless p{
-        margin-bottom: 2.5em;
+        margin-bottom: 3em;
     }
 
     div.article.borderless a{
         border: 2px solid #fff;
+        font-weight: 600;
         color: #fff;
         text-decoration: none;
-        padding: 15px 30px;
+        padding: 15px 45px;
+        box-shadow: 0 0 15px #00000050;
+
+
+        transition: all ease 0.3s;
+    }
+
+    div.article.borderless a:hover{
+        border-color: var(--git);
+        background-color: var(--git);
     }
 
 @media screen and (max-width:900px){
