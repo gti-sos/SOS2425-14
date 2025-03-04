@@ -557,6 +557,28 @@ div.article.variant:hover{
             margin: 1em 0;
         }
 
+div.article.borderless{
+    border: 2px solid #fff;
+    border-radius: 10px;
+    margin-top: 4em;
+    padding: 3em;
+}
+
+    div.article.borderless h3{
+        margin-top: 0;
+    }
+
+    div.article.borderless p{
+        margin-bottom: 2.5em;
+    }
+
+    div.article.borderless a{
+        border: 2px solid #fff;
+        color: #fff;
+        text-decoration: none;
+        padding: 15px 30px;
+    }
+
 @media screen and (max-width:900px){
     div.article{
         font-size: 1em;
