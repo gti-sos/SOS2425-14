@@ -58,6 +58,7 @@ header#navbar{
 
     animation: loadNavbar 1s;
     transition: background-color 0.3s;
+    z-index: 1000;
 }
 
 header#navbar.scrolled{
@@ -121,7 +122,7 @@ header#navbar.scrolled{
     .dropdown-content {
         display: none;
         position: absolute;
-        padding: 0;
+        padding: 10px 0;
         top: 50px;
         background-color: var(--bg);
         min-width: 120px; /* Ajusta el ancho del menú desplegable */
@@ -211,7 +212,7 @@ header#navbar.scrolled{
     background-color: var(--bg);
     width: 100vw;
     height: 100vh;
-    z-index: 1000;
+    z-index: 1001;
     header#navbar h1{
         margin-left: 25px;
     }
@@ -226,7 +227,7 @@ header#navbar.scrolled{
 
     #menu i{
         position: absolute;
-        top: 30px;
+        top: 20px;
         right: 50px;
         font-size: 1.75em;
         font-weight: 800;
@@ -408,7 +409,7 @@ footer{
 
     footer .footer-container{
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
         flex-direction: row;
 
@@ -518,8 +519,21 @@ footer{
     }
 }
 
-@media screen and (max-width:600px){
-
+@media screen and (max-width:700px){
+    footer{
+        padding: 1em 0;
+    }
+    footer .footer-container{
+        flex-wrap: wrap;
+        text-align: center;
+        margin-left: 0.5em;
+    }
+    footer .footer-container * {
+        flex: 1 50%;
+    }
+    footer p{
+        padding: 0 2em;
+    }
 }
 
 /* Articles */
@@ -535,7 +549,6 @@ div.article.variant{
     background: rgb(0,29,44);
     background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
     box-shadow: 0 0 20px #00000028;
-    width: 100%;
 
     transition: all 0.3s;
 }
@@ -582,7 +595,7 @@ div.article.borderless{
         color: #fff;
         text-decoration: none;
         padding: 15px 45px;
-        box-shadow: 0 0 15px #00000050;
+        box-shadow: 0 0 15px #0000003b;
 
 
         transition: all ease 0.3s;
@@ -695,6 +708,71 @@ ul.members{
     }
     ul.members li h4{
         font-size: 1.3em;
+    }
+}
+
+/* APIs */
+
+div.apis-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.api{
+    text-align: center;
+    flex: 1 33%;
+    box-shadow: 0 0 20px #00000028;
+    padding: 1.5em 1.5em 2.5em 1.5em;
+    background: rgb(0,29,44);
+    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
+    margin: 0 5px;
+    border-radius: 30px 10px;
+
+    transition: all 0.3s;
+}
+
+div.api:hover{
+    transform: translateY(-10px);
+}
+
+    div.api h4{
+        margin-top: 0;
+        margin-bottom: 0.5em;
+        font-size: 1.5em;
+    }
+
+    div.api p{
+        margin: 1.5em 0 2.5em 0;
+    }
+
+    div.api a{
+        border: 2px solid #fff;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        padding: 15px 45px;
+        box-shadow: 0 0 15px #0000003b;
+
+
+        transition: all ease 0.3s;
+    }
+
+    div.api a:hover{
+        border-color: var(--git);
+        background-color: var(--git);
+    }
+
+@media screen and (max-width: 1300px){
+    div.apis-container{
+        flex-wrap: wrap;
+    }
+    div.api{
+        flex: 1 40%;
+        margin: 0.25em;
+    }
+    div.api:hover{
+        transform: none;
     }
 }
 
