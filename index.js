@@ -4,6 +4,13 @@ const app = express();
 const path = require("path");
 const PORT =  process.env.PORT || 16078;
 
+// Middleware para parsear JSON
+app.use(express.json());
+
+// Servir archivos estáticos de múltiples directorios
+app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const getJDPData = require("./src/js/functions/index-JDP.js");
 const getFRMData = require("./src/js/functions/index-FRM.js");
@@ -17,7 +24,7 @@ app.get("/", (request, response) => {
 });
 
 app.get("/about", (request, response) => {
-    response.sendFile(path.join(__dirname, 'about.html'));
+    response.sendFile(path.join(__dirname, 'public','about.html'));
 });
 
 app.get("/cool", (request, response )=>{
@@ -25,9 +32,14 @@ app.get("/cool", (request, response )=>{
 });
 
 app.get("/samples/JDP", (request, response )=>{
-    console.log("Accediendo a /samples/JDP");
-    const result = getJDPData(); // Ejecuta el script
-    response.json(result); // Envía el resultado como respuesta
+    response.sendFile(path.join(__dirname, 'src', 'html', 'samplesJDP.html'));
+});
+
+// Modificación: Cambiar a método POST y recibir el parámetro de comunidad
+app.post("/api/JDP", (request, response) => {
+    const { community } = request.body;
+    const data = getJDPData(community);
+    response.json(data);
 });
 
 app.get("/samples/FRM", (request, response )=>{

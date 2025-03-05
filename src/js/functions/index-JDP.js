@@ -32,9 +32,8 @@ function readCSV(fileroute) {
 
 
 // Leer y mostrar los datos en el formato deseado
-function getJDPData() {
+function getJDPData(ccaa) {
     const data = readCSV(fileCSV);
-    const ccaa = "Navarra"; // definimos la constante Navarra
     const filteredData = data.filter(item => item.autonomous_community.includes(ccaa));   // filteredData contiene solo las entradas con ccaa "Navarra"
 
     const getAvg = (field) => {

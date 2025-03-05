@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Samples-JDP</title>
+</head>
+<body>
+    <div id="menu"></div>
+    <header id="navbar"></header>
+    
+    <div class="wrapper">
+        <div class="JDP-container">
+            <h2>Samples-JDP</h2>
+            <hr>
+            <form id="communityForm">
+                <label for="community">Comunidad Autónoma:</label>
+                <select id="community" name="community">
+                    <option value="Andalucía">Andalucía</option>
+                    <option value="Aragón">Aragón</option>
+                    <option value="Asturias">Asturias</option>
+                    <option value="Baleares">Baleares</option>
+                    <option value="Canarias">Canarias</option>
+                    <option value="Cantabria">Cantabria</option>
+                    <option value="Castilla y León">Castilla y León</option>
+                    <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+                    <option value="Cataluña">Cataluña</option>
+                    <option value="Comunitat Valenciana">Comunitat Valenciana</option>
+                    <option value="Extremadura">Extremadura</option>
+                    <option value="Galicia">Galicia</option>
+                    <option value="Madrid">Madrid</option>
+                    <option value="Murcia">Murcia</option>
+                    <option value="Navarra">Navarra</option>
+                    <option value="País Vasco">País Vasco</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="Ceuta y Melilla">Ceuta y Melilla</option>
+                </select>
+                <button type="submit">Enviar</button>
+            </form>
+            <div id="results"></div>
+        </div>
+    </div>
+    
+    <footer id="footer"></footer>
+
+    <script src="/js/utils/include.js"></script>
+    <script>
+        include("/html/navbar.html", "#navbar");
+        include("/html/footer.html", "#footer");
+        include("/html/menu.html", "#menu");
+    </script>
+    <script type="module" src="/js/main/samplesJDP.js"></script>
+</body>
+</html>
