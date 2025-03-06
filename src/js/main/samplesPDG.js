@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mostramos los resultados en la página web
             resultsContainer.innerHTML = `
                 <h3>Resultados para ${data.autonomous_community}</h3>
-                <p>Media de Delitos Criminales: ${data.criminal_offense_avg}</p>
-                <p>Media de Ciberseguridad: ${data.cybersecurity_avg}</p>
-                <p>Media de Detenidos/Investigados: ${data.arrested_investigated_avg}</p>
+                <p>Media de Delitos Criminales: ${data.criminal_offense}</p>
+                <p>Media de Ciberseguridad: ${data.cybersecurity}</p>
+                <p>Media de Detenidos/Investigados: ${data.arrested_investigated}</p>
             `;
         } catch (error) {
             console.error('Error:', error);
