@@ -32,7 +32,7 @@ app.get("/cool", (request, response )=>{
 });
 
 app.get("/samples/JDP", (request, response )=>{
-    response.sendFile(path.join(__dirname, 'src', 'html', 'samplesJDP.html'));
+    response.sendFile(path.join(__dirname, 'samplesJDP.html'));
 });
 
 // Cambiar a método POST y recibir el parámetro de comunidad

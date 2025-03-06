@@ -30,6 +30,13 @@ function readCSV(fileroute) {
     }));
 }
 
+// Ruta del archivo de salida
+const outputDir = path.join(__dirname, '../../json');
+const outputFile = path.join(outputDir, 'data-jdp.json');
+
+// Convertir a JSON y guardar en un archivo
+fs.writeFileSync(outputFile, JSON.stringify(readCSV(fileCSV), null, 2));
+
 
 // Leer y mostrar los datos en el formato deseado
 function getJDPData(ccaa) {
