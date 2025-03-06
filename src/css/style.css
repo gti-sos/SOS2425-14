@@ -827,9 +827,10 @@ div.api:hover{
     max-width: 400px;
     margin: 0 auto 1.5rem auto; 
     padding: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.1); 
-    border-radius: 6px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgb(0,29,44);
+    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
+    box-shadow: 0 0 20px #00000028;
+    border-radius: 10px;
 }
   
 #communityForm label {
@@ -864,17 +865,19 @@ div.api:hover{
 }
 
 .description {
-    background: linear-gradient(to right, #0f172a, #1e293b); 
+    background: rgb(0,29,44);
+    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
+    box-shadow: 0 0 20px #00000028;
+    transition: all 0.3s;
     padding: 20px;
     border-radius: 10px;
-    color: #ffffff; 
+    color: #ffffff;
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
     text-align: justify;
     max-width: 800px;
     margin: 20px auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .description h3 {
@@ -882,6 +885,8 @@ div.api:hover{
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 10px;
-    color: #ffffff;
+    color: #ffffff; 
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2); 
+    padding-bottom: 5px; 
 }
 
