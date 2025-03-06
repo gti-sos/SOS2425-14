@@ -43,11 +43,11 @@ async function handleSubmit(event) {
         const resultsContainer = document.getElementById('results');
         
         resultsContainer.innerHTML = `
-            <h3>Resultados para: ${data.autonomous_community}</h3>
+            <h3>Results for: ${data.autonomous_community}</h3>
             <ul>
-                <li><strong>Tasa de Actividad:</strong> ${data.activity_rate_avg}%</li>
-                <li><strong>Tasa de Empleo</strong>: ${data.employment_rate_avg}%</li>
-                <li><strong>Tasa de Desempleo</strong>: ${data.unemployment_rate_avg}%</li>
+                <li><strong>Activity rate:</strong> ${data.activity_rate_avg}%</li>
+                <li><strong>Employment rate</strong>: ${data.employment_rate_avg}%</li>
+                <li><strong>Unemployment rate</strong>: ${data.unemployment_rate_avg}%</li>
             </ul>
         `;
     } catch (error) {
