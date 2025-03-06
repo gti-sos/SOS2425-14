@@ -823,8 +823,8 @@ div#results{
     justify-content: center;
 }
 
-#community-form-container > *:first-child {
-    margin: 0 2em 0 0;
+#community-form-container > * {
+    margin: 1em;
 }
 
 #communityForm {

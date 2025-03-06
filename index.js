@@ -43,9 +43,14 @@ app.post("/api/JDP", (request, response) => {
 });
 
 app.get("/samples/FRM", (request, response )=>{
-    console.log("Accediendo a /samples/FRM");
-    const result = getFRMData(); // Ejecuta el script
-    response.json(result); // Envía el resultado como respuesta
+    response.sendFile(path.join(__dirname, 'samplesFRM.html'));
+});
+
+// Cambiar a método POST y recibir el parámetro de comunidad
+app.post("/api/FRM", (request, response) => {
+    const { community } = request.body;
+    const data = getFRMData(community);
+    response.json(data);
 });
 
 app.get("/hello", (request, response )=>{

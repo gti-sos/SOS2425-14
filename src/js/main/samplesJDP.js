@@ -10,7 +10,6 @@ function samplesJDP(){
 
 function loadComunities(){
     const container = document.getElementById('communityForm');
-    console.log(container)
     const before = document.getElementById('before-comunities');
     fetch('/src/json/data-jdp.json')
         .then(response => response.json())
