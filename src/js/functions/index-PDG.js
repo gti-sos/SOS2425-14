@@ -24,9 +24,9 @@ function getPDGData(ccaa) {
         console.warn(`No data found for the autonomous community: ${ccaa}`);
         return {
             autonomous_community: ccaa,
-            criminal_ofense_avg: "N/A",
-            cybersecurity_avg: "N/A",
-            arrested_investigated_avg: "N/A"
+            criminal_ofense: "N/A",
+            cybersecurity: "N/A",
+            arrested_investigated: "N/A"
         };
     }
     
@@ -47,9 +47,9 @@ function getPDGData(ccaa) {
     // Devolvemos el objeto con los resultados
     return {
         autonomous_community: ccaa,
-        criminal_ofense_avg: avg(totals.criminal_ofense, totalCount),
-        cybersecurity_avg: avg(totals.cybersecurity, totalCount),
-        arrested_investigated_avg: avg(totals.arrested_investigated, totalCount)
+        criminal_ofense: avg(totals.criminal_ofense, totalCount),
+        cybersecurity: avg(totals.cybersecurity, totalCount),
+        arrested_investigated: avg(totals.arrested_investigated, totalCount)
     };
 }
 

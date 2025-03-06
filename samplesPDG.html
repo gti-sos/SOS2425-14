@@ -23,25 +23,18 @@
             <hr>
             <div class="article borderless" style="padding-bottom: 1em;">
                 <h3>Program Description</h3>
-                <p>This program allows the user to select an autonomous community and, based on that selection, calculate and display the average values for PDG-related fields, such as the average crime rates, cybersecurity data, and investigated/arrested numbers for the chosen region.</p>
+                <p>This program calculates the average enrollment rate for each training cycle from 2020 to 2023 based on the user's selection.</p>
             </div>        
             <div class="article" id="community-form-container" style="flex-direction: row; padding: 1em 0; margin-top: 1em; flex-wrap: wrap;">
                 <form id="communityForm">
                     <label for="community">Autonomous Community:</label>
-                    <!-- Comunities dropdown will be inserted here -->
-                    <select id="community" name="community">
-                        <option value="Andalucía">Andalucía</option>
-                        <option value="Aragón">Aragón</option>
-                        <option value="Cataluña">Cataluña</option>
-                        <option value="Madrid">Madrid</option>
-                        <!-- Add more communities as per your data -->
-                    </select>
+                    <!-- Comunities goes here -->
                     <button id="before-comunities" type="submit">Send</button>
                 </form>
                 <div id="results">
                     <h3>No Results Yet</h3>
                     <p>Please select an autonomous community</p>
-                    <!-- Results will be inserted here -->
+                    <!-- Results goes here -->
                 </div>
             </div>
         </div>
@@ -57,7 +50,7 @@
         include("/html/footer.html", "#footer");
         include("/html/menu.html", "#menu");
     </script>
-    <script type="module" src="/js/main/samplesPDG.js"></script> <!-- Adapted script for PDG -->
+    <script type="module" src="/js/main/samplesPDG.js"></script>
     <script type="module" src="/js/main/navbar.js"></script>
     <script type="module" src="/js/main/menu.js"></script>
 </body>
