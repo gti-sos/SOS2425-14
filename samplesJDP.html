@@ -25,13 +25,17 @@
                 <h3>Program Description</h3>
                 <p>This program allows the user to select an autonomous community and, based on that selection, calculate and display the average activity, employment, and unemployment rates for the chosen region.</p>
             </div>        
-            <form id="communityForm">
-                <label for="community">Comunidad Autónoma:</label>
-                <!-- Comunities goes here -->
-                <button id="before-comunities" type="submit">Enviar</button>
-            </form>
-            <div id="results">
-                <!-- Results goes here -->
+            <div class="article" id="community-form-container" style="flex-direction: row; padding: 1em 0; margin-top: 1em;">
+                <form id="communityForm">
+                    <label for="community">Autonomous Community:</label>
+                    <!-- Comunities goes here -->
+                    <button id="before-comunities" type="submit">Send</button>
+                </form>
+                <div id="results">
+                    <h3>No Results Yet</h3>
+                    <p>Please select an autonomous community</p>
+                    <!-- Results goes here -->
+                </div>
             </div>
         </div>
     </div>

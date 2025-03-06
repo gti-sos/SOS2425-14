@@ -338,7 +338,7 @@ div.container{
     justify-content: center;
     height: 100%;
     flex-direction: column;
-    margin-top: 150px;
+    margin-top: 125px;
 }   
 
     div.container h2{
@@ -575,7 +575,7 @@ div.article.variant:hover{
 div.article.borderless{
     border-radius: 15px 50px;
     margin-top: 2.5em;
-    padding: 3em;
+    padding: 2.5em;
     box-shadow: 0 0 20px #00000028;
 
     background: rgb(0,29,44);
@@ -817,71 +817,91 @@ div#results{
 
 /* samplesJDP */
 
+#community-form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#community-form-container > *:first-child {
+    margin: 0 2em 0 0;
+}
+
 #communityForm {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto 1.5rem auto; 
-    padding: 1.2rem;
+    padding: 2em;
     background: rgb(0,29,44);
     background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
     box-shadow: 0 0 20px #00000028;
     border-radius: 10px;
+
+    transition: all 0.3s;
 }
   
 #communityForm label {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    margin-bottom: 1em;
+    font-family: "Kanit", serif;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    font-weight: 700;
     color: #fff;
 }
 
 #communityForm select {
-    padding: 0.4rem;
-    margin-bottom: 0.8rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: none;
+    padding: 0.5em;
+    margin-bottom: 1.5em;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
     border-radius: 4px;
     font-size: 0.95rem; 
 }
+
+    #communityForm select option{
+        background-color: var(--bg);
+        font-family: "Kanit", serif;
+        color: #fff;
+    }
   
 #communityForm button {
     align-self: center;
-    padding: 0.5rem 1.3rem; 
-    background-color: #8635e4; 
+    font-weight: 700;
+    font-family: "Kanit", serif;
+    padding: 0.75em 3em; 
+    background-color: transparent; 
     color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.95rem;
+    border: 2px solid #fff;
+    font-size: 0.75em;
     cursor: pointer;
     transition: background-color 0.2s;
 }
   
 #communityForm button:hover {
-    background-color: #7029c9; 
+    background-color: var(--git);
+    border-color: var(--git);
 }
 
-.description {
+#results{
     background: rgb(0,29,44);
     background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
     box-shadow: 0 0 20px #00000028;
-    transition: all 0.3s;
-    padding: 20px;
     border-radius: 10px;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.6;
-    text-align: justify;
-    max-width: 800px;
-    margin: 20px auto;
+    padding: 2em;
 }
 
-.description h3 {
-    font-size: 22px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    color: #ffffff; 
-    padding-bottom: 5px; 
-}
+    #results h3{
+        margin-top: 0;
+        font-size: 1.5em;
+    }
+
+    #results p{
+        font-size: 1.15em;
+    }
+
+    #results ul{
+        font-size: 1.15em;
+    }
 
