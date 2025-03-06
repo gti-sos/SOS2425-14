@@ -53,6 +53,17 @@ app.post("/api/FRM", (request, response) => {
     response.json(data);
 });
 
+app.get("/samples/PDG", (request, response )=>{
+    response.sendFile(path.join(__dirname, 'samplesPDG.html'));
+});
+
+// Cambiar a método POST y recibir el parámetro de comunidad
+app.post("/api/PDG", (request, response) => {
+    const { community } = request.body;
+    const data = getFRMData(community);
+    response.json(data);
+});
+
 app.get("/hello", (request, response )=>{
     response.send("Hello from server");
 });
