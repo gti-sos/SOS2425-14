@@ -8,13 +8,23 @@
     <title>Samples-JDP</title>
 </head>
 <body>
-    <div id="menu"></div>
-    <header id="navbar"></header>
+    <div id="menu">
+        <!-- Menu goes here -->
+    </div>
+    <header id="navbar">
+        <!-- Navbar goes here -->
+    </header>
     
     <div class="wrapper">
         <div class="JDP-container">
             <h2>Samples-JDP</h2>
             <hr>
+            <div class="description">
+                <h3>Project Description</h3>
+                <p>This program allows the user to select an autonomous community and, based on that selection, calculates and displays the average activity, employment, and unemployment rates for the chosen region.</p>
+            </div>
+            
+        
             <form id="communityForm">
                 <label for="community">Comunidad Autónoma:</label>
                 <select id="community" name="community">
@@ -43,9 +53,14 @@
         </div>
     </div>
     
-    <footer id="footer"></footer>
+    <footer id="footer">
+        <!-- Footer goes here -->
+    </footer>
 
     <script src="/js/utils/include.js"></script>
+    <script src="js/main/navbar.js"></script>
+    <script src="js/main/menu.js"></script>
+    <script src="/js/main/about.js"></script>
     <script>
         include("/html/navbar.html", "#navbar");
         include("/html/footer.html", "#footer");

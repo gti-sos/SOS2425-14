@@ -24,7 +24,7 @@ app.get("/", (request, response) => {
 });
 
 app.get("/about", (request, response) => {
-    response.sendFile(path.join(__dirname, 'public','about.html'));
+    response.sendFile(path.join(__dirname, 'about.html'));
 });
 
 app.get("/cool", (request, response )=>{
@@ -35,7 +35,7 @@ app.get("/samples/JDP", (request, response )=>{
     response.sendFile(path.join(__dirname, 'src', 'html', 'samplesJDP.html'));
 });
 
-// Modificación: Cambiar a método POST y recibir el parámetro de comunidad
+// Cambiar a método POST y recibir el parámetro de comunidad
 app.post("/api/JDP", (request, response) => {
     const { community } = request.body;
     const data = getJDPData(community);

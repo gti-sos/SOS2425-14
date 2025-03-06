@@ -806,3 +806,82 @@ div.api:hover{
     color: var(--git)!important;
     background-color: #d3d3d3;
 }
+
+
+/* Ajustes para samplesJDP */
+.JDP-container {
+    margin-top: 80px; 
+    text-align: center;
+    font-size: 1.9rem; 
+    margin-bottom: 1.5rem;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#communityForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto 1.5rem auto; 
+    padding: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+#communityForm label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+#communityForm select {
+    padding: 0.4rem;
+    margin-bottom: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem; 
+}
+  
+#communityForm button {
+    align-self: center;
+    padding: 0.5rem 1.3rem; 
+    background-color: #8635e4; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+  
+#communityForm button:hover {
+    background-color: #7029c9; 
+}
+
+.description {
+    background: linear-gradient(to right, #0f172a, #1e293b); 
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff; 
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: justify;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.description h3 {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
