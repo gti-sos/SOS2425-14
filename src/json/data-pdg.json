@@ -1,0 +1,566 @@
+[
+    {
+      "autonomous_community": "TOTAL",
+      "criminal_offense": 1766779,
+      "cybersecurity": 287963,
+      "arrested_investigated": 11280,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Andalucía",
+      "criminal_offense": 287594,
+      "cybersecurity": 39157,
+      "arrested_investigated": 2104,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Aragón",
+      "criminal_offense": 36024,
+      "cybersecurity": 7826,
+      "arrested_investigated": 297,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Asturias, Principado de",
+      "criminal_offense": 24324,
+      "cybersecurity": 6225,
+      "arrested_investigated": 191,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Baleares, Illes",
+      "criminal_offense": 59750,
+      "cybersecurity": 11800,
+      "arrested_investigated": 167,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Canarias",
+      "criminal_offense": 83635,
+      "cybersecurity": 14449,
+      "arrested_investigated": 512,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Cantabria",
+      "criminal_offense": 16585,
+      "cybersecurity": 2885,
+      "arrested_investigated": 93,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Castilla y León",
+      "criminal_offense": 65025,
+      "cybersecurity": 15457,
+      "arrested_investigated": 531,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Castilla-La Mancha",
+      "criminal_offense": 61908,
+      "cybersecurity": 9963,
+      "arrested_investigated": 751,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Cataluña",
+      "criminal_offense": 353052,
+      "cybersecurity": 48794,
+      "arrested_investigated": 647,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Comunitat Valenciana",
+      "criminal_offense": 193222.0,
+      "cybersecurity": 25732.0,
+      "arrested_investigated": 1142.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Extremadura",
+      "criminal_offense": 25041.0,
+      "cybersecurity": 4638.0,
+      "arrested_investigated": 257.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Galicia",
+      "criminal_offense": 73344.0,
+      "cybersecurity": 14632.0,
+      "arrested_investigated": 459.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Madrid, Comunidad de",
+      "criminal_offense": 310194.0,
+      "cybersecurity": 48678.0,
+      "arrested_investigated": 1253.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Murcia, Región de",
+      "criminal_offense": 50969.0,
+      "cybersecurity": 6828.0,
+      "arrested_investigated": 354.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Navarra, Comunidad Foral de",
+      "criminal_offense": 23596.0,
+      "cybersecurity": 4465.0,
+      "arrested_investigated": 111.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "País Vasco",
+      "criminal_offense": 77176.0,
+      "cybersecurity": 17866.0,
+      "arrested_investigated": 2292.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "La Rioja",
+      "criminal_offense": 7827.0,
+      "cybersecurity": 1992.0,
+      "arrested_investigated": 85.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Ceuta",
+      "criminal_offense": 3648.0,
+      "cybersecurity": 436.0,
+      "arrested_investigated": 19.0,
+      "year": 2020
+    },
+    {
+      "autonomous_community": "Melilla",
+      "criminal_offense": 4470.0,
+      "cybersecurity": 414.0,
+      "arrested_investigated": 15.0,
+      "year": 2020
+    },
+    {
+        "autonomous_community": "TOTAL",
+        "criminal_offense": 1957719.0,
+        "cybersecurity": 305477.0,
+        "arrested_investigated": 13801.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Andalucía",
+        "criminal_offense": 314894.0,
+        "cybersecurity": 42493.0,
+        "arrested_investigated": 2212.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Aragón",
+        "criminal_offense": 41796.0,
+        "cybersecurity": 8461.0,
+        "arrested_investigated": 345.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Asturias, Principado de",
+        "criminal_offense": 26340.0,
+        "cybersecurity": 6906.0,
+        "arrested_investigated": 235.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Baleares, Illes",
+        "criminal_offense": 61015.0,
+        "cybersecurity": 8294.0,
+        "arrested_investigated": 253.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Canarias",
+        "criminal_offense": 81232.0,
+        "cybersecurity": 10875.0,
+        "arrested_investigated": 571.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Cantabria",
+        "criminal_offense": 19894.0,
+        "cybersecurity": 3782.0,
+        "arrested_investigated": 149.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Castilla y León",
+        "criminal_offense": 74008.0,
+        "cybersecurity": 16680.0,
+        "arrested_investigated": 605.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Castilla-La Mancha",
+        "criminal_offense": 67412.0,
+        "cybersecurity": 11657.0,
+        "arrested_investigated": 1063.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Cataluña",
+        "criminal_offense": 390356.0,
+        "cybersecurity": 49755.0,
+        "arrested_investigated": 753.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Comunitat Valenciana",
+        "criminal_offense": 225337.0,
+        "cybersecurity": 29508.0,
+        "arrested_investigated": 1346.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Extremadura",
+        "criminal_offense": 27266.0,
+        "cybersecurity": 5538.0,
+        "arrested_investigated": 323.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Galicia",
+        "criminal_offense": 88255.0,
+        "cybersecurity": 22010.0,
+        "arrested_investigated": 591.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Madrid, Comunidad de",
+        "criminal_offense": 345987.0,
+        "cybersecurity": 53039.0,
+        "arrested_investigated": 1488.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Murcia, Región de",
+        "criminal_offense": 57974.0,
+        "cybersecurity": 8009.0,
+        "arrested_investigated": 415.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Navarra, Comunidad Foral de",
+        "criminal_offense": 26719.0,
+        "cybersecurity": 4362.0,
+        "arrested_investigated": 97.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "País Vasco",
+        "criminal_offense": 84781.0,
+        "cybersecurity": 16798.0,
+        "arrested_investigated": 3220.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "La Rioja",
+        "criminal_offense": 9115.0,
+        "cybersecurity": 2104.0,
+        "arrested_investigated": 90.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Ceuta",
+        "criminal_offense": 3916.0,
+        "cybersecurity": 516.0,
+        "arrested_investigated": 27.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "Melilla",
+        "criminal_offense": 4116.0,
+        "cybersecurity": 435.0,
+        "arrested_investigated": 18.0,
+        "year": 2021
+    },
+    {
+        "autonomous_community": "TOTAL",
+        "criminal_offense": 2323075.0,
+        "cybersecurity": 374737.0,
+        "arrested_investigated": 15097.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Andalucía",
+        "criminal_offense": 379133.0,
+        "cybersecurity": 56908.0,
+        "arrested_investigated": 2607.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Aragón",
+        "criminal_offense": 47889.0,
+        "cybersecurity": 9620.0,
+        "arrested_investigated": 368.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Asturias, Principado de",
+        "criminal_offense": 32093.0,
+        "cybersecurity": 8560.0,
+        "arrested_investigated": 249.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Baleares, Illes",
+        "criminal_offense": 75982.0,
+        "cybersecurity": 8701.0,
+        "arrested_investigated": 224.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Canarias",
+        "criminal_offense": 95451.0,
+        "cybersecurity": 13684.0,
+        "arrested_investigated": 528.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Cantabria",
+        "criminal_offense": 23709.0,
+        "cybersecurity": 4806.0,
+        "arrested_investigated": 185.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Castilla y León",
+        "criminal_offense": 86844.0,
+        "cybersecurity": 21302.0,
+        "arrested_investigated": 722.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Castilla-La Mancha",
+        "criminal_offense": 80842.0,
+        "cybersecurity": 15649.0,
+        "arrested_investigated": 891.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Cataluña",
+        "criminal_offense": 475031.0,
+        "cybersecurity": 63877.0,
+        "arrested_investigated": 1570.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Comunitat Valenciana",
+        "criminal_offense": 262971.0,
+        "cybersecurity": 34005.0,
+        "arrested_investigated": 1320.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Extremadura",
+        "criminal_offense": 32093.0,
+        "cybersecurity": 7528.0,
+        "arrested_investigated": 332.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Galicia",
+        "criminal_offense": 94904.0,
+        "cybersecurity": 20914.0,
+        "arrested_investigated": 560.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Madrid, Comunidad de",
+        "criminal_offense": 401924.0,
+        "cybersecurity": 63758.0,
+        "arrested_investigated": 1820.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Murcia, Región de",
+        "criminal_offense": 68717.0,
+        "cybersecurity": 9971.0,
+        "arrested_investigated": 474.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Navarra, Comunidad Foral de",
+        "criminal_offense": 33409.0,
+        "cybersecurity": 5499.0,
+        "arrested_investigated": 93.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "País Vasco",
+        "criminal_offense": 101756.0,
+        "cybersecurity": 20907.0,
+        "arrested_investigated": 3049.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "La Rioja",
+        "criminal_offense": 11754.0,
+        "cybersecurity": 2433.0,
+        "arrested_investigated": 60.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Ceuta",
+        "criminal_offense": 3635.0,
+        "cybersecurity": 567.0,
+        "arrested_investigated": 20.0,
+        "year": 2022
+    },
+    {
+        "autonomous_community": "Melilla",
+        "criminal_offense": 4309.0,
+        "cybersecurity": 405.0,
+        "arrested_investigated": 25.0,
+        "year": 2022
+    },
+      
+    {
+        "autonomous_community": "TOTAL",
+        "criminal_offense": 2464759.0,
+        "cybersecurity": 472125.0,
+        "arrested_investigated": 17173.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Andalucía",
+        "criminal_offense": 413181.0,
+        "cybersecurity": 81315.0,
+        "arrested_investigated": 3333.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Aragón",
+        "criminal_offense": 50865.0,
+        "cybersecurity": 12184.0,
+        "arrested_investigated": 558.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Asturias, Principado de",
+        "criminal_offense": 33888.0,
+        "cybersecurity": 8647.0,
+        "arrested_investigated": 160.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Baleares, Illes",
+        "criminal_offense": 78509.0,
+        "cybersecurity": 11482.0,
+        "arrested_investigated": 239.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Canarias",
+        "criminal_offense": 104222.0,
+        "cybersecurity": 17668.0,
+        "arrested_investigated": 474.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Cantabria",
+        "criminal_offense": 24212.0,
+        "cybersecurity": 5968.0,
+        "arrested_investigated": 213.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Castilla y León",
+        "criminal_offense": 89824.0,
+        "cybersecurity": 25540.0,
+        "arrested_investigated": 917.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Castilla-La Mancha",
+        "criminal_offense": 83708.0,
+        "cybersecurity": 19454.0,
+        "arrested_investigated": 938.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Cataluña",
+        "criminal_offense": 510172.0,
+        "cybersecurity": 76126.0,
+        "arrested_investigated": 1925.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Comunitat Valenciana",
+        "criminal_offense": 287379.0,
+        "cybersecurity": 47056.0,
+        "arrested_investigated": 1499.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Extremadura",
+        "criminal_offense": 35269.0,
+        "cybersecurity": 8817.0,
+        "arrested_investigated": 360.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Galicia",
+        "criminal_offense": 94800.0,
+        "cybersecurity": 21730.0,
+        "arrested_investigated": 634.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Madrid, Comunidad de",
+        "criminal_offense": 411782.0,
+        "cybersecurity": 78877.0,
+        "arrested_investigated": 2079.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Murcia, Región de",
+        "criminal_offense": 74194.0,
+        "cybersecurity": 13747.0,
+        "arrested_investigated": 503.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Navarra, Comunidad Foral de",
+        "criminal_offense": 35094.0,
+        "cybersecurity": 7474.0,
+        "arrested_investigated": 141.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "País Vasco",
+        "criminal_offense": 107823.0,
+        "cybersecurity": 27899.0,
+        "arrested_investigated": 3072.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "La Rioja",
+        "criminal_offense": 12152.0,
+        "cybersecurity": 2364.0,
+        "arrested_investigated": 92.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Ceuta",
+        "criminal_offense": 3541.0,
+        "cybersecurity": 592.0,
+        "arrested_investigated": 19.0,
+        "year": 2023
+    },
+    {
+        "autonomous_community": "Melilla",
+        "criminal_offense": 4357.0,
+        "cybersecurity": 481.0,
+        "arrested_investigated": 17.0,
+        "year": 2023
+    }
+]
+        
+    
+
