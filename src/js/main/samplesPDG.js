@@ -48,9 +48,9 @@ async function handleSubmit(event) {
         resultsContainer.innerHTML = `
             <h3>Results for: ${data.autonomous_community}</h3>
             <ul>
-                <li><strong>Media de Delitos Criminales:</strong> ${data.criminal_ofense}</li>
-                <li><strong>Media de Ciberseguridad:</strong> ${data.cybersecurity}</li>
-                <li><strong>Media de Detenidos/Investigados:</strong> ${data.arrested_investigated}</li>
+                <li><strong>Average Criminal Offenses:</strong> ${data.criminal_ofense}</li>
+                <li><strong>Average Cybersecurity:</strong> ${data.cybersecurity}</li>
+                <li><strong>Average Arrested/Investigated:</strong> ${data.arrested_investigated}</li>
             </ul>
         `;
     } catch (error) {
