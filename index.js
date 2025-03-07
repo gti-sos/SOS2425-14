@@ -14,6 +14,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const getJDPData = require("./src/js/functions/index-JDP.js");
 const getFRMData = require("./src/js/functions/index-FRM.js");
+const getPDGData = require("./src/js/functions/index-PDG.js");
+
 
 // Servir archivos estáticos desde el directorio actual
 app.use(express.static(__dirname));
@@ -60,7 +62,7 @@ app.get("/samples/PDG", (request, response )=>{
 // Cambiar a método POST y recibir el parámetro de comunidad
 app.post("/api/PDG", (request, response) => {
     const { community } = request.body;
-    const data = getFRMData(community);
+    const data = getPDGData(community);
     response.json(data);
 });
 

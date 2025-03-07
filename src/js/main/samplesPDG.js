@@ -1,5 +1,7 @@
 //use strict;
 
+import { comunityFormRenderer } from "../renders/comunityFormRenderer.js";
+
 function samplesPDG() {
     loadCommunities();  // Función para cargar las comunidades
     const form = document.getElementById('communityForm');
@@ -9,29 +11,13 @@ function samplesPDG() {
 // Función para cargar las comunidades
 function loadCommunities() {
     const container = document.getElementById('communityForm');
-    const before = document.getElementById('before-communities');  // Un div que se coloca antes de las comunidades
-
+    const before = document.getElementById('before-communities');
     fetch('/src/json/data-pdg.json')  
         .then(response => response.json())
         .then(data => {
             try {
-                // Obtenemos una lista única de comunidades
                 const communities = [...new Set(data.map(item => item.autonomous_community))];
-
-                // Crear el elemento select
-                const select = document.createElement('select');
-                select.id = 'community';  // Asegúrate de que tenga el ID correcto
-
-                // Crear las opciones para cada comunidad
-                communities.forEach(community => {
-                    const option = document.createElement('option');
-                    option.value = community;  // Valor de la opción
-                    option.textContent = community;  // Texto visible en la opción
-                    select.appendChild(option);  // Añadir la opción al select
-                });
-
-                // Insertar el select antes del botón "Send"
-                container.insertBefore(select, before);
+                container.insertBefore(comunityFormRenderer.asSelect(communities), before);
             } catch (error) {
                 console.error("Error al cargar las comunidades", error);
             }
@@ -60,7 +46,7 @@ async function handleSubmit(event) {
         
         // Mostramos los resultados en la página web
         resultsContainer.innerHTML = `
-            <h3>Resultados para: ${data.autonomous_community}</h3>
+            <h3>Results for: ${data.autonomous_community}</h3>
             <ul>
                 <li><strong>Media de Delitos Criminales:</strong> ${data.criminal_ofense}</li>
                 <li><strong>Media de Ciberseguridad:</strong> ${data.cybersecurity}</li>
