@@ -4,6 +4,7 @@
 :root {
     --main: #8635e4;
     --bg: #001520;
+    --api: #00283d;
     --git: #4f1b8a;
 }
 
@@ -41,6 +42,18 @@ body.no-scroll{
 
 h1, h2, h3, h4, h5{
     font-family: "Kanit", serif;
+}
+
+@media screen and (max-width: 500px){
+    h2{
+        font-size: 2.15em !important;  
+    }
+    h3{
+        font-size: 1.5em !important;  
+    }
+    h4{
+        font-size: 1.25em !important;  
+    }
 }
 
 /* Navbar */
@@ -210,12 +223,13 @@ header#navbar.scrolled{
     top: 0;
     left: 0;
     background-color: var(--bg);
+    background-image: url('../images/bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     width: 100vw;
     height: 100vh;
     z-index: 1001;
-    header#navbar h1{
-        margin-left: 25px;
-    }
     transform: translateX(1000px);
 
     transition: all 0.3s;
@@ -267,7 +281,7 @@ header#navbar.scrolled{
                 #menu ul li a{
                     text-decoration: none;
                     color: #fff;
-                    font-size: 2em;
+                    font-size: 1.5em;
                     font-weight: 800;
 
                     transition: all 0.3s;
@@ -392,6 +406,22 @@ div.container{
         }
         100%{
             width: 25em;
+            opacity: 1;
+        }
+    }
+}
+
+@media screen and (max-width:500px){
+    div.container hr{
+        width: 18em;
+    }
+    @keyframes loadHr{
+        0%{
+            width: 0;
+            opacity: 0;
+        }
+        100%{
+            width: 18em;
             opacity: 1;
         }
     }
@@ -619,6 +649,20 @@ div.article.borderless{
         margin: 0;
     }
 }
+@media screen and (max-width:600px){
+    div.article{
+        font-size: 90%;
+    }
+    div.article ul{
+        padding-left: 20px;
+    }
+    div.article.variant{
+        width: 100%;
+    }
+    div.article.variant ul.members{
+        padding-left: 0 !important;
+    }
+}
 
 /* Members */
 
@@ -721,14 +765,17 @@ div.apis-container{
 }
 
 div.api{
+    position: relative;
+    background-size: cover;
+    background-position: center;
+
     text-align: center;
     flex: 1 33%;
     box-shadow: 0 0 20px #00000028;
     padding: 1.5em 1.5em 2.5em 1.5em;
-    background: rgb(0,29,44);
-    background: linear-gradient(135deg, rgba(0,29,44,1) 0%, rgba(255,255,255,0) 25%, rgba(0,29,44,1) 50%, rgba(250,250,250,0) 75%, rgba(0,29,44,1) 100%);
     margin: 0 5px;
-    border-radius: 30px 10px;
+    border: 5px solid var(--api);
+    border-radius: 10px;
 
     transition: all 0.3s;
 }
@@ -738,7 +785,7 @@ div.api:hover{
 }
 
     div.api h4{
-        margin-top: 0;
+        margin-top: 1em;
         margin-bottom: 0.5em;
         font-size: 1.5em;
     }
@@ -748,20 +795,33 @@ div.api:hover{
     }
 
     div.api a{
-        border: 2px solid #fff;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: var(--api);
+        border: 2px solid var(--api);
+        border-radius: 10px 0 0 0;
         font-weight: 600;
+        font-size: 90%;
         color: #fff;
         text-decoration: none;
-        padding: 15px 45px;
-        box-shadow: 0 0 15px #0000003b;
+        padding: 10px 35px;
 
 
         transition: all ease 0.3s;
     }
 
-    div.api a:hover{
-        border-color: var(--git);
-        background-color: var(--git);
+    div.api span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: var(--api);
+        border: 2px solid var(--api);
+        border-radius: 0 0 10px 0;
+        padding: 3px 15px 5px 13px;
+        font-weight: 600;
+        font-size: 90%;
+        font-family: "Kanit", serif;
     }
 
 @media screen and (max-width: 1300px){
