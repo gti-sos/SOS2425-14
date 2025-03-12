@@ -2,7 +2,10 @@ const express = require("express");
 const cool = require("cool-ascii-faces");
 const app = express();
 const path = require("path");
+const fs = require('fs');
+
 const PORT =  process.env.PORT || 16078;
+const BASE_API = "/api/v1";
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -16,6 +19,9 @@ const getJDPData = require("./src/js/functions/index-JDP.js");
 const getFRMData = require("./src/js/functions/index-FRM.js");
 const getPDGData = require("./src/js/functions/index-PDG.js");
 
+//APIS
+const educationRoutes = require("./src/routes/education");
+app.use(BASE_API, educationRoutes);
 
 // Servir archivos estáticos desde el directorio actual
 app.use(express.static(__dirname));
@@ -40,6 +46,9 @@ app.get("/samples/JDP", (request, response )=>{
 // Cambiar a método POST y recibir el parámetro de comunidad
 app.post("/api/JDP", (request, response) => {
     const { community } = request.body;
+    if (!community) {
+        return response.status(400).json({ error: "Se requiere el parámetro 'community'" });
+    }
     const data = getJDPData(community);
     response.json(data);
 });
@@ -51,6 +60,9 @@ app.get("/samples/FRM", (request, response )=>{
 // Cambiar a método POST y recibir el parámetro de comunidad
 app.post("/api/FRM", (request, response) => {
     const { community } = request.body;
+    if (!community) {
+        return response.status(400).json({ error: "Se requiere el parámetro 'community'" });
+    }
     const data = getFRMData(community);
     response.json(data);
 });
@@ -62,6 +74,9 @@ app.get("/samples/PDG", (request, response )=>{
 // Cambiar a método POST y recibir el parámetro de comunidad
 app.post("/api/PDG", (request, response) => {
     const { community } = request.body;
+    if (!community) {
+        return response.status(400).json({ error: "Se requiere el parámetro 'community'" });
+    }
     const data = getPDGData(community);
     response.json(data);
 });

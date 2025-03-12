@@ -1,0 +1,50 @@
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
+
+const router = express.Router();
+const dataFilePath = path.join(__dirname, "../json/data-frm.json");
+const initialData = require("../json/initial-frm-data.json");
+
+router.get("/education-data", (req, res) => {
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
+        if (err) {
+            console.error("Error leyendo el archivo JSON", err);
+            return res.status(500).json({ error: "Error interno del servidor" });
+        }
+        try {
+            res.json(JSON.parse(data));
+        } catch (parseError) {
+            console.error("Error parseando JSON", parseError);
+            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+        }
+    });
+});
+
+router.get("/education-data/loadInitialData", (req, res) => {
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
+        let FRMData = [];
+
+        if (!err) {
+            try {
+                FRMData = JSON.parse(data);
+                if (FRMData.length > 0) {
+                    return res.status(200).json({ message: "Los datos ya estaban inicializados", data: FRMData });
+                }
+            } catch (parseError) {
+                console.error("Error parseando JSON, inicializando array vacío.");
+            }
+        }
+
+        // Guardar los datos iniciales directamente
+        fs.writeFile(dataFilePath, JSON.stringify(initialData, null, 2), (err) => {
+            if (err) {
+                console.error("Error guardando datos iniciales", err);
+                return res.status(500).json({ error: "Error interno del servidor" });
+            }
+            res.status(201).json({ message: "Datos inicializados correctamente", data: initialData });
+        });
+    });
+});
+
+module.exports = router;
