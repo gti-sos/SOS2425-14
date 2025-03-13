@@ -50,6 +50,43 @@ router.get("/employment-data", (req, res) => {
     });
 });
 
+
+// Acceder a una estadística concreta usando los identificadores en la URL
+router.get("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
+    // Obtener parámetros de la URL
+    const { autonomous_community, year, education_level } = req.params;
+    
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
+        if (err) {
+            console.error("Error leyendo el archivo JSON", err);
+            return res.status(500).json({ error: "Error interno del servidor" });
+        }
+        
+        try {
+            console.log(`GET request to specific employment data: ${autonomous_community}/${year}/${education_level}`);
+            const jsonData = JSON.parse(data);
+            
+            const yearNum = parseInt(year);
+            
+            const specificData = jsonData.find(item => 
+                item.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
+                item.year === yearNum &&
+                item.education_level.toLowerCase() === education_level.toLowerCase()
+            );
+            
+            if (specificData) {
+                res.json(specificData);
+            } else {
+                res.status(404).json({ error: "No se encontraron datos para los criterios especificados" });
+            }
+        } catch (parseError) {
+            console.error("Error parseando JSON", parseError);
+            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+        }
+    });
+});
+
+
 router.get("/employment-data/loadInitialData", (req, res) => {
     fs.readFile(dataFilePath, "utf8", (err, data) => {
         let JDPData = [];
