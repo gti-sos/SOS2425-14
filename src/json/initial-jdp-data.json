@@ -1,0 +1,82 @@
+[
+    {
+        "autonomous_community": "Andalucía",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 77.95,
+        "employment_rate": 62.03,
+        "unemployment_rate": 20.42
+    },
+    {
+        "autonomous_community": "Aragón",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 83.58,
+        "employment_rate": 75.77,
+        "unemployment_rate": 9.35
+    },
+    {
+        "autonomous_community": "Asturias",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 76.66,
+        "employment_rate": 67.65,
+        "unemployment_rate": 11.74
+    },
+    {
+        "autonomous_community": "Baleares",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 83.74,
+        "employment_rate": 72.73,
+        "unemployment_rate": 13.15
+    },
+    {
+        "autonomous_community": "Canarias",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 77.33,
+        "employment_rate": 60.83,
+        "unemployment_rate": 21.34
+    },
+    {
+        "autonomous_community": "Cantabria",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 80.38,
+        "employment_rate": 71.75,
+        "unemployment_rate": 10.73
+    },
+    {
+        "autonomous_community": "Castilla y León",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 80.83,
+        "employment_rate": 72.14,
+        "unemployment_rate": 10.74
+    },
+    {
+        "autonomous_community": "Castilla-La Mancha",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 81.27,
+        "employment_rate": 69.57,
+        "unemployment_rate": 14.39
+    },
+    {
+        "autonomous_community": "Cataluña",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 83.97,
+        "employment_rate": 75.26,
+        "unemployment_rate": 10.36
+    },
+    {
+        "autonomous_community": "Comunitat Valenciana",
+        "year": 2021,
+        "education_level": "TOTAL",
+        "activity_rate": 80.43,
+        "employment_rate": 68.64,
+        "unemployment_rate": null
+    }
+]

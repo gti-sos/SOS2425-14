@@ -5,7 +5,6 @@ const path = require("path");
 const fs = require('fs');
 
 const PORT =  process.env.PORT || 16078;
-const BASE_API = "/api/v1";
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -20,8 +19,13 @@ const getFRMData = require("./src/js/functions/index-FRM.js");
 const getPDGData = require("./src/js/functions/index-PDG.js");
 
 //APIS
+const BASE_API = "/api/v1";
+
 const educationRoutes = require("./src/routes/education");
 app.use(BASE_API, educationRoutes);
+
+const employmentRoutes = require("./src/routes/employment");
+app.use(BASE_API, employmentRoutes);
 
 // Servir archivos estáticos desde el directorio actual
 app.use(express.static(__dirname));
