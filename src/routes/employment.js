@@ -13,6 +13,7 @@ router.get("/employment-data", (req, res) => {
             return res.status(500).json({ error: "Error interno del servidor" });
         }
         try {
+            console.log("New GET to /education-data");
             res.json(JSON.parse(data));
         } catch (parseError) {
             console.error("Error parseando JSON", parseError);
