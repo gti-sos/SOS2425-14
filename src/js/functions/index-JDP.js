@@ -41,7 +41,7 @@ fs.writeFileSync(outputFile, JSON.stringify(readCSV(fileCSV), null, 2));
 // Leer y mostrar los datos en el formato deseado
 function getJDPData(ccaa) {
     const data = readCSV(fileCSV);
-    const filteredData = data.filter(item.autonomous_community == ccaa && item.education_level === "TOTAL"); 
+    const filteredData = data.filter(item => item.autonomous_community == ccaa && item.education_level === "TOTAL"); 
 
     const getAvg = (field) => {
         const values = filteredData.map(item => item[field]);  // En values se almacenan los datos numéricos del campo seleccionado
