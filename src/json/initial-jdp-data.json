@@ -1,2434 +1,2434 @@
 [
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 82.6,
-      "employment_rate": 74.17,
-      "unemployment_rate": 10.21
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 82.4,
-      "employment_rate": 73.34,
-      "unemployment_rate": 11
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 81.73,
-      "employment_rate": 72,
-      "unemployment_rate": 11.91
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 81.39,
-      "employment_rate": 70.29,
-      "unemployment_rate": 13.63
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 73.66,
-      "employment_rate": 62.16,
-      "unemployment_rate": 15.61
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 73.55,
-      "employment_rate": 61.4,
-      "unemployment_rate": 16.52
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 72.79,
-      "employment_rate": 59.79,
-      "unemployment_rate": 17.86
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 72.36,
-      "employment_rate": 57.88,
-      "unemployment_rate": 20.01
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 82.89,
-      "employment_rate": 74.09,
-      "unemployment_rate": 10.62
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 82.89,
-      "employment_rate": 73.32,
-      "unemployment_rate": 11.55
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 82.48,
-      "employment_rate": 72.05,
-      "unemployment_rate": 12.64
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 82.26,
-      "employment_rate": 70.61,
-      "unemployment_rate": 14.16
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 89.92,
-      "employment_rate": 84.26,
-      "unemployment_rate": 6.3
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 89.79,
-      "employment_rate": 83.67,
-      "unemployment_rate": 6.82
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 89.3,
-      "employment_rate": 82.87,
-      "unemployment_rate": 7.2
-    },
-    {
-      "autonomous_community": "TOTAL",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 89.07,
-      "employment_rate": 81.36,
-      "unemployment_rate": 8.66
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 79.12,
-      "employment_rate": 67.26,
-      "unemployment_rate": 14.99
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 78.91,
-      "employment_rate": 65.8,
-      "unemployment_rate": 16.62
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 77.85,
-      "employment_rate": 63.81,
-      "unemployment_rate": 18.03
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 77.95,
-      "employment_rate": 62.03,
-      "unemployment_rate": 20.42
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 70.64,
-      "employment_rate": 55.49,
-      "unemployment_rate": 21.45
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 70.38,
-      "employment_rate": 53.73,
-      "unemployment_rate": 23.66
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 69.7,
-      "employment_rate": 51.99,
-      "unemployment_rate": 25.41
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 70.55,
-      "employment_rate": 51.3,
-      "unemployment_rate": 27.28
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 80.19,
-      "employment_rate": 68.39,
-      "unemployment_rate": 14.71
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 80.31,
-      "employment_rate": 67.69,
-      "unemployment_rate": 15.71
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 79.75,
-      "employment_rate": 65.7,
-      "unemployment_rate": 17.61
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 79.32,
-      "employment_rate": 63.58,
-      "unemployment_rate": 19.84
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 88.31,
-      "employment_rate": 80.24,
-      "unemployment_rate": 9.14
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 88.24,
-      "employment_rate": 79.06,
-      "unemployment_rate": 10.4
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 86.92,
-      "employment_rate": 77.5,
-      "unemployment_rate": 10.85
-    },
-    {
-      "autonomous_community": "Andalucía",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 86.91,
-      "employment_rate": 75.31,
-      "unemployment_rate": 13.35
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 84.61,
-      "employment_rate": 78.71,
-      "unemployment_rate": 6.98
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 84.82,
-      "employment_rate": 78.26,
-      "unemployment_rate": 7.73
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 84.46,
-      "employment_rate": 77.16,
-      "unemployment_rate": 8.64
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 83.58,
-      "employment_rate": 75.77,
-      "unemployment_rate": 9.35
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 75.98,
-      "employment_rate": 68.2,
-      "unemployment_rate": 10.24
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 77.43,
-      "employment_rate": 68.67,
-      "unemployment_rate": 11.31
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 76.54,
-      "employment_rate": 66.13,
-      "unemployment_rate": 13.6
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 74.35,
-      "employment_rate": 65.29,
-      "unemployment_rate": 12.18
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 86.03,
-      "employment_rate": 79.38,
-      "unemployment_rate": 7.73
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 85.02,
-      "employment_rate": 78.77,
-      "unemployment_rate": 7.35
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.64,
-      "employment_rate": 77.1,
-      "unemployment_rate": 8.91
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 85.14,
-      "employment_rate": 75.94,
-      "unemployment_rate": 10.81
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 90.99,
-      "employment_rate": 87.1,
-      "unemployment_rate": 4.27
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 90.49,
-      "employment_rate": 85.49,
-      "unemployment_rate": 5.52
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 90.61,
-      "employment_rate": 85.9,
-      "unemployment_rate": 5.19
-    },
-    {
-      "autonomous_community": "Aragón",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 89.54,
-      "employment_rate": 83.65,
-      "unemployment_rate": 6.57
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 79.27,
-      "employment_rate": 72.24,
-      "unemployment_rate": 8.87
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 76.91,
-      "employment_rate": 68.14,
-      "unemployment_rate": 11.4
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 75.44,
-      "employment_rate": 66.83,
-      "unemployment_rate": 11.41
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 76.66,
-      "employment_rate": 67.65,
-      "unemployment_rate": 11.74
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 66.31,
-      "employment_rate": 56.74,
-      "unemployment_rate": 14.43
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 64.8,
-      "employment_rate": 54.17,
-      "unemployment_rate": 16.39
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 62.03,
-      "employment_rate": 52.02,
-      "unemployment_rate": 16.15
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 62.86,
-      "employment_rate": 52.79,
-      "unemployment_rate": 16.02
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 80,
-      "employment_rate": 72.21,
-      "unemployment_rate": 9.74
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 74.58,
-      "employment_rate": 64.51,
-      "unemployment_rate": 13.51
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 75.79,
-      "employment_rate": 66.34,
-      "unemployment_rate": 12.46
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 76.95,
-      "employment_rate": 66.61,
-      "unemployment_rate": 13.44
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 87.15,
-      "employment_rate": 82.22,
-      "unemployment_rate": 5.67
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 86.78,
-      "employment_rate": 80.09,
-      "unemployment_rate": 7.71
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 85.19,
-      "employment_rate": 78.1,
-      "unemployment_rate": 8.32
-    },
-    {
-      "autonomous_community": "Asturias",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 86.06,
-      "employment_rate": 78.54,
-      "unemployment_rate": 8.74
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 83.12,
-      "employment_rate": 76.45,
-      "unemployment_rate": 8.03
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 83.58,
-      "employment_rate": 75.54,
-      "unemployment_rate": 9.62
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 83.95,
-      "employment_rate": 75.81,
-      "unemployment_rate": 9.69
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 83.74,
-      "employment_rate": 72.73,
-      "unemployment_rate": 13.15
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 74.99,
-      "employment_rate": 67.02,
-      "unemployment_rate": 10.63
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 77.6,
-      "employment_rate": 67.81,
-      "unemployment_rate": 12.62
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 77.09,
-      "employment_rate": 66.87,
-      "unemployment_rate": 13.26
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 74.58,
-      "employment_rate": 61.55,
-      "unemployment_rate": 17.47
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 85.6,
-      "employment_rate": 78.41,
-      "unemployment_rate": 8.41
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 85.84,
-      "employment_rate": 78.12,
-      "unemployment_rate": 8.99
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 85.41,
-      "employment_rate": 77.56,
-      "unemployment_rate": 9.19
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 85.43,
-      "employment_rate": 73.4,
-      "unemployment_rate": 14.08
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 90.39,
-      "employment_rate": 85.57,
-      "unemployment_rate": 5.33
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 88.49,
-      "employment_rate": 82.19,
-      "unemployment_rate": 7.11
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 90.64,
-      "employment_rate": 84.65,
-      "unemployment_rate": 6.6
-    },
-    {
-      "autonomous_community": "Baleares",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 91.49,
-      "employment_rate": 83.25,
-      "unemployment_rate": 9
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 80.13,
-      "employment_rate": 69.96,
-      "unemployment_rate": 12.7
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 79.59,
-      "employment_rate": 67.81,
-      "unemployment_rate": 14.81
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 79.39,
-      "employment_rate": 66.6,
-      "unemployment_rate": 16.11
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 77.33,
-      "employment_rate": 60.83,
-      "unemployment_rate": 21.34
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 72.02,
-      "employment_rate": 59.64,
-      "unemployment_rate": 17.19
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 70.3,
-      "employment_rate": 56.13,
-      "unemployment_rate": 20.15
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 70.49,
-      "employment_rate": 55.12,
-      "unemployment_rate": 21.81
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 68.52,
-      "employment_rate": 47.94,
-      "unemployment_rate": 30.03
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 82.07,
-      "employment_rate": 71.69,
-      "unemployment_rate": 12.64
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 83.15,
-      "employment_rate": 70.49,
-      "unemployment_rate": 15.22
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 81.55,
-      "employment_rate": 66.89,
-      "unemployment_rate": 17.98
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 79.64,
-      "employment_rate": 63.28,
-      "unemployment_rate": 20.54
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 87.33,
-      "employment_rate": 79.65,
-      "unemployment_rate": 8.79
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 87.25,
-      "employment_rate": 78.82,
-      "unemployment_rate": 9.66
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 86.89,
-      "employment_rate": 78.05,
-      "unemployment_rate": 10.18
-    },
-    {
-      "autonomous_community": "Canarias",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 85.36,
-      "employment_rate": 73.24,
-      "unemployment_rate": 14.2
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 82.65,
-      "employment_rate": 76.78,
-      "unemployment_rate": 7.11
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 80.68,
-      "employment_rate": 74.6,
-      "unemployment_rate": 7.53
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 80.03,
-      "employment_rate": 73.08,
-      "unemployment_rate": 8.68
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 80.38,
-      "employment_rate": 71.75,
-      "unemployment_rate": 10.73
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 74.59,
-      "employment_rate": 67.56,
-      "unemployment_rate": 9.43
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 71.55,
-      "employment_rate": 64.35,
-      "unemployment_rate": 10.07
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 69.04,
-      "employment_rate": 59.84,
-      "unemployment_rate": 13.32
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 69.07,
-      "employment_rate": 57.03,
-      "unemployment_rate": 17.43
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 82.91,
-      "employment_rate": 76.33,
-      "unemployment_rate": 7.93
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 79.18,
-      "employment_rate": 71.96,
-      "unemployment_rate": 9.12
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 80.48,
-      "employment_rate": 73.45,
-      "unemployment_rate": 8.73
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 81.93,
-      "employment_rate": 74.16,
-      "unemployment_rate": 9.48
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 86.87,
-      "employment_rate": 81.98,
-      "unemployment_rate": 5.63
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 86.29,
-      "employment_rate": 81.38,
-      "unemployment_rate": 5.69
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 87.01,
-      "employment_rate": 81.59,
-      "unemployment_rate": 6.23
-    },
-    {
-      "autonomous_community": "Cantabria",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 87.74,
-      "employment_rate": 81.1,
-      "unemployment_rate": 7.56
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 83.15,
-      "employment_rate": 76.26,
-      "unemployment_rate": 8.29
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 82.6,
-      "employment_rate": 75.41,
-      "unemployment_rate": 8.7
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 82.47,
-      "employment_rate": 75.07,
-      "unemployment_rate": 8.98
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 80.83,
-      "employment_rate": 72.14,
-      "unemployment_rate": 10.74
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 76.4,
-      "employment_rate": 66.76,
-      "unemployment_rate": 12.62
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 75.16,
-      "employment_rate": 66.04,
-      "unemployment_rate": 12.14
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 74.72,
-      "employment_rate": 65.13,
-      "unemployment_rate": 12.84
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 72.37,
-      "employment_rate": 61.67,
-      "unemployment_rate": 14.78
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 84.46,
-      "employment_rate": 77.95,
-      "unemployment_rate": 7.71
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 84.39,
-      "employment_rate": 77.36,
-      "unemployment_rate": 8.32
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 83.63,
-      "employment_rate": 75.79,
-      "unemployment_rate": 9.38
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 82.18,
-      "employment_rate": 72.79,
-      "unemployment_rate": 11.43
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 87.95,
-      "employment_rate": 83.11,
-      "unemployment_rate": 5.51
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 87.91,
-      "employment_rate": 82.29,
-      "unemployment_rate": 6.39
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 88.66,
-      "employment_rate": 83.48,
-      "unemployment_rate": 5.85
-    },
-    {
-      "autonomous_community": "Castilla y León",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 87.83,
-      "employment_rate": 81.45,
-      "unemployment_rate": 7.27
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 81.4,
-      "employment_rate": 71.5,
-      "unemployment_rate": 12.16
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 81.38,
-      "employment_rate": 71.58,
-      "unemployment_rate": 12.05
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 81.58,
-      "employment_rate": 70.77,
-      "unemployment_rate": 13.25
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 81.27,
-      "employment_rate": 69.57,
-      "unemployment_rate": 14.39
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 75.3,
-      "employment_rate": 62.9,
-      "unemployment_rate": 16.46
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 75.26,
-      "employment_rate": 62.78,
-      "unemployment_rate": 16.58
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 74.68,
-      "employment_rate": 60.72,
-      "unemployment_rate": 18.69
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 75.15,
-      "employment_rate": 61.61,
-      "unemployment_rate": 18.02
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 83.48,
-      "employment_rate": 72.03,
-      "unemployment_rate": 13.72
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 82.2,
-      "employment_rate": 72.26,
-      "unemployment_rate": 12.09
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.88,
-      "employment_rate": 75.13,
-      "unemployment_rate": 11.5
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 84.05,
-      "employment_rate": 71,
-      "unemployment_rate": 15.53
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 88.28,
-      "employment_rate": 82.72,
-      "unemployment_rate": 6.3
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 89.29,
-      "employment_rate": 83.27,
-      "unemployment_rate": 6.75
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 89.41,
-      "employment_rate": 82.49,
-      "unemployment_rate": 7.73
-    },
-    {
-      "autonomous_community": "Castilla-La Mancha",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 88.22,
-      "employment_rate": 80.22,
-      "unemployment_rate": 9.07
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 84.46,
-      "employment_rate": 77.99,
-      "unemployment_rate": 7.66
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 84.28,
-      "employment_rate": 77.43,
-      "unemployment_rate": 8.13
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 83.37,
-      "employment_rate": 76.13,
-      "unemployment_rate": 8.69
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 83.97,
-      "employment_rate": 75.26,
-      "unemployment_rate": 10.36
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 74.84,
-      "employment_rate": 65.26,
-      "unemployment_rate": 12.8
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 75.25,
-      "employment_rate": 65.42,
-      "unemployment_rate": 13.06
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 73.87,
-      "employment_rate": 63.38,
-      "unemployment_rate": 14.2
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 74.2,
-      "employment_rate": 62.46,
-      "unemployment_rate": 15.81
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 83.59,
-      "employment_rate": 76.68,
-      "unemployment_rate": 8.27
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 83.48,
-      "employment_rate": 76.43,
-      "unemployment_rate": 8.44
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 82.99,
-      "employment_rate": 75.02,
-      "unemployment_rate": 9.61
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 84.83,
-      "employment_rate": 75.09,
-      "unemployment_rate": 11.49
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 91.55,
-      "employment_rate": 87.45,
-      "unemployment_rate": 4.48
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 91.38,
-      "employment_rate": 86.82,
-      "unemployment_rate": 4.99
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 91.01,
-      "employment_rate": 86.68,
-      "unemployment_rate": 4.76
-    },
-    {
-      "autonomous_community": "Cataluña",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 91.59,
-      "employment_rate": 85.95,
-      "unemployment_rate": 6.16
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 82.12,
-      "employment_rate": 72.64,
-      "unemployment_rate": 11.54
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 82.68,
-      "employment_rate": 73.04,
-      "unemployment_rate": 11.67
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 81.79,
-      "employment_rate": 71.79,
-      "unemployment_rate": 12.23
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 80.43,
-      "employment_rate": 68.64,
-      "unemployment_rate": null
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 74.74,
-      "employment_rate": 62.99,
-      "unemployment_rate": 15.72
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 75.05,
-      "employment_rate": 62.57,
-      "unemployment_rate": 16.63
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 75.23,
-      "employment_rate": 61.93,
-      "unemployment_rate": 17.67
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 73.43,
-      "employment_rate": 58.17,
-      "unemployment_rate": 20.78
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 82.67,
-      "employment_rate": 72.26,
-      "unemployment_rate": 12.59
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 83.64,
-      "employment_rate": 72.9,
-      "unemployment_rate": 12.85
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 81.84,
-      "employment_rate": 71.65,
-      "unemployment_rate": 12.46
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 80.13,
-      "employment_rate": 67.52,
-      "unemployment_rate": 15.74
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 89.4,
-      "employment_rate": 82.82,
-      "unemployment_rate": 7.36
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 90.05,
-      "employment_rate": 83.94,
-      "unemployment_rate": 6.78
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 89.01,
-      "employment_rate": 82.76,
-      "unemployment_rate": 7.02
-    },
-    {
-      "autonomous_community": "Comunitat Valenciana",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 87.64,
-      "employment_rate": 79.81,
-      "unemployment_rate": 8.93
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 80.23,
-      "employment_rate": 68.73,
-      "unemployment_rate": 14.34
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 80.9,
-      "employment_rate": 67.77,
-      "unemployment_rate": 16.23
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 79.21,
-      "employment_rate": 66.59,
-      "unemployment_rate": 15.93
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 78.39,
-      "employment_rate": 63.99,
-      "unemployment_rate": 18.37
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 71.52,
-      "employment_rate": 57.81,
-      "unemployment_rate": 19.16
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 73.14,
-      "employment_rate": 57.23,
-      "unemployment_rate": 21.76
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 70.69,
-      "employment_rate": 54.86,
-      "unemployment_rate": 22.39
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 70.58,
-      "employment_rate": 53.28,
-      "unemployment_rate": 24.51
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 83.82,
-      "employment_rate": 72.71,
-      "unemployment_rate": 13.25
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 83.78,
-      "employment_rate": 70.6,
-      "unemployment_rate": 15.73
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.51,
-      "employment_rate": 72.42,
-      "unemployment_rate": 14.31
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 82.68,
-      "employment_rate": 70.98,
-      "unemployment_rate": 14.15
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 89.69,
-      "employment_rate": 80.85,
-      "unemployment_rate": 9.86
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 89.75,
-      "employment_rate": 80.4,
-      "unemployment_rate": 10.41
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 89.08,
-      "employment_rate": 81.07,
-      "unemployment_rate": 8.99
-    },
-    {
-      "autonomous_community": "Extremadura",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 88.83,
-      "employment_rate": 77.54,
-      "unemployment_rate": 12.71
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 80.87,
-      "employment_rate": 73.92,
-      "unemployment_rate": 8.59
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 80.64,
-      "employment_rate": 73.34,
-      "unemployment_rate": 9.06
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 80.26,
-      "employment_rate": 72.15,
-      "unemployment_rate": 10.11
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 79.57,
-      "employment_rate": 71.02,
-      "unemployment_rate": 10.75
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 69.62,
-      "employment_rate": 61.41,
-      "unemployment_rate": 11.8
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 70.73,
-      "employment_rate": 62.77,
-      "unemployment_rate": 11.25
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 69.59,
-      "employment_rate": 60.48,
-      "unemployment_rate": 13.1
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 68.94,
-      "employment_rate": 59.72,
-      "unemployment_rate": 13.36
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 81.45,
-      "employment_rate": 74.06,
-      "unemployment_rate": 9.08
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 81.27,
-      "employment_rate": 72.87,
-      "unemployment_rate": 10.34
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 81.09,
-      "employment_rate": 72.1,
-      "unemployment_rate": 11.09
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 80.76,
-      "employment_rate": 71.23,
-      "unemployment_rate": 11.8
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 89.72,
-      "employment_rate": 84.06,
-      "unemployment_rate": 6.32
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 88.77,
-      "employment_rate": 82.63,
-      "unemployment_rate": 6.91
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 88.93,
-      "employment_rate": 82.12,
-      "unemployment_rate": 7.65
-    },
-    {
-      "autonomous_community": "Galicia",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 88.38,
-      "employment_rate": 80.93,
-      "unemployment_rate": 8.42
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 86.92,
-      "employment_rate": 79.85,
-      "unemployment_rate": 8.14
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 86.4,
-      "employment_rate": 78.81,
-      "unemployment_rate": 8.78
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 86.04,
-      "employment_rate": 77.34,
-      "unemployment_rate": 10.12
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 85.97,
-      "employment_rate": 76.93,
-      "unemployment_rate": 10.52
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 78.87,
-      "employment_rate": 68.86,
-      "unemployment_rate": 12.69
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 77.54,
-      "employment_rate": 67.2,
-      "unemployment_rate": 13.33
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 77.51,
-      "employment_rate": 67.01,
-      "unemployment_rate": 13.55
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 77.79,
-      "employment_rate": 65.57,
-      "unemployment_rate": 15.71
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 85.57,
-      "employment_rate": 77.9,
-      "unemployment_rate": 8.96
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 85.35,
-      "employment_rate": 75.87,
-      "unemployment_rate": 11.11
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.6,
-      "employment_rate": 73.62,
-      "unemployment_rate": 12.98
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 84.53,
-      "employment_rate": 74.26,
-      "unemployment_rate": 12.15
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 91.62,
-      "employment_rate": 86.3,
-      "unemployment_rate": 5.8
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 91.45,
-      "employment_rate": 86.15,
-      "unemployment_rate": 5.79
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 90.98,
-      "employment_rate": 84.33,
-      "unemployment_rate": 7.31
-    },
-    {
-      "autonomous_community": "Madrid",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 90.89,
-      "employment_rate": 84.09,
-      "unemployment_rate": 7.48
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 80.42,
-      "employment_rate": 71.29,
-      "unemployment_rate": 11.35
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 80.77,
-      "employment_rate": 71.45,
-      "unemployment_rate": 11.54
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 80.2,
-      "employment_rate": 70.23,
-      "unemployment_rate": 12.44
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 80.54,
-      "employment_rate": 69.64,
-      "unemployment_rate": 13.53
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 73.16,
-      "employment_rate": 61.07,
-      "unemployment_rate": 16.52
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 73.79,
-      "employment_rate": 62.45,
-      "unemployment_rate": 15.36
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 73.13,
-      "employment_rate": 61.42,
-      "unemployment_rate": 16.02
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 71.8,
-      "employment_rate": 58.73,
-      "unemployment_rate": 18.21
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 81.82,
-      "employment_rate": 73.77,
-      "unemployment_rate": 9.84
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 83.11,
-      "employment_rate": 73.43,
-      "unemployment_rate": 11.64
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.87,
-      "employment_rate": 73.92,
-      "unemployment_rate": 12.9
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 84.97,
-      "employment_rate": 73.7,
-      "unemployment_rate": 13.27
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 89.6,
-      "employment_rate": 83.87,
-      "unemployment_rate": 6.4
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 88.94,
-      "employment_rate": 82.66,
-      "unemployment_rate": 7.07
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 87.84,
-      "employment_rate": 81.21,
-      "unemployment_rate": 7.55
-    },
-    {
-      "autonomous_community": "Murcia",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 89.4,
-      "employment_rate": 81.63,
-      "unemployment_rate": 8.69
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 84.86,
-      "employment_rate": 79.36,
-      "unemployment_rate": 6.49
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 84,
-      "employment_rate": 76.6,
-      "unemployment_rate": 8.81
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 83.86,
-      "employment_rate": 76.42,
-      "unemployment_rate": 8.88
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 82.84,
-      "employment_rate": 74.62,
-      "unemployment_rate": 9.93
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 73.24,
-      "employment_rate": 64.66,
-      "unemployment_rate": 11.71
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 72.05,
-      "employment_rate": 61.86,
-      "unemployment_rate": 14.14
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 71.55,
-      "employment_rate": 58.63,
-      "unemployment_rate": 18.06
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 70.87,
-      "employment_rate": 57.54,
-      "unemployment_rate": 18.82
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 84.2,
-      "employment_rate": 78.21,
-      "unemployment_rate": 7.12
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 84.89,
-      "employment_rate": 76.66,
-      "unemployment_rate": 9.7
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 84.9,
-      "employment_rate": 76.65,
-      "unemployment_rate": 9.71
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 83.09,
-      "employment_rate": 74.39,
-      "unemployment_rate": 10.48
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 91.4,
-      "employment_rate": 87.76,
-      "unemployment_rate": 3.98
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 90.64,
-      "employment_rate": 85.29,
-      "unemployment_rate": 5.9
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 90.56,
-      "employment_rate": 86.7,
-      "unemployment_rate": 4.25
-    },
-    {
-      "autonomous_community": "Navarra",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 89.72,
-      "employment_rate": 84.7,
-      "unemployment_rate": 5.59
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 83.9,
-      "employment_rate": 77.81,
-      "unemployment_rate": 7.26
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 84.01,
-      "employment_rate": 78.42,
-      "unemployment_rate": 6.66
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 82.9,
-      "employment_rate": 76.34,
-      "unemployment_rate": 7.91
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 82.08,
-      "employment_rate": 74.81,
-      "unemployment_rate": 8.86
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 71.19,
-      "employment_rate": 61.84,
-      "unemployment_rate": 13.13
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 71.25,
-      "employment_rate": 63.13,
-      "unemployment_rate": 11.4
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 69.7,
-      "employment_rate": 59.16,
-      "unemployment_rate": 15.12
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 67.84,
-      "employment_rate": 55.57,
-      "unemployment_rate": 18.09
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 80.2,
-      "employment_rate": 71.92,
-      "unemployment_rate": 10.33
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 81.48,
-      "employment_rate": 74.18,
-      "unemployment_rate": 8.96
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 80.27,
-      "employment_rate": 71.81,
-      "unemployment_rate": 10.54
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 80.18,
-      "employment_rate": 72.58,
-      "unemployment_rate": 9.48
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 90.13,
-      "employment_rate": 86.13,
-      "unemployment_rate": 4.43
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 90.09,
-      "employment_rate": 86.18,
-      "unemployment_rate": 4.35
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 89.53,
-      "employment_rate": 85.42,
-      "unemployment_rate": 4.6
-    },
-    {
-      "autonomous_community": "País Vasco",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 89,
-      "employment_rate": 84.03,
-      "unemployment_rate": 5.58
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 84.81,
-      "employment_rate": 77.81,
-      "unemployment_rate": 8.25
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 84.9,
-      "employment_rate": 77.87,
-      "unemployment_rate": 8.28
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 85.22,
-      "employment_rate": 77.89,
-      "unemployment_rate": 8.6
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 84.96,
-      "employment_rate": 76.16,
-      "unemployment_rate": 10.36
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 77.56,
-      "employment_rate": 66.52,
-      "unemployment_rate": 14.24
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 76.2,
-      "employment_rate": 66.32,
-      "unemployment_rate": 12.97
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 75.98,
-      "employment_rate": 65.93,
-      "unemployment_rate": 13.22
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 77.23,
-      "employment_rate": 66.2,
-      "unemployment_rate": 14.28
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 84.98,
-      "employment_rate": 79.6,
-      "unemployment_rate": 6.33
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 87.78,
-      "employment_rate": 81.69,
-      "unemployment_rate": 6.94
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 87.79,
-      "employment_rate": 78.72,
-      "unemployment_rate": 10.33
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 86.7,
-      "employment_rate": 76.48,
-      "unemployment_rate": 11.79
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 91.1,
-      "employment_rate": 86.82,
-      "unemployment_rate": 4.7
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 91.54,
-      "employment_rate": 86.71,
-      "unemployment_rate": 5.28
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 91.23,
-      "employment_rate": 87.12,
-      "unemployment_rate": 4.51
-    },
-    {
-      "autonomous_community": "La Rioja",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 90.92,
-      "employment_rate": 84.98,
-      "unemployment_rate": 6.53
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2024,
-      "education_level": "TOTAL",
-      "activity_rate": 79.39,
-      "employment_rate": 59.8,
-      "unemployment_rate": 24.67
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2023,
-      "education_level": "TOTAL",
-      "activity_rate": 77.02,
-      "employment_rate": 57.17,
-      "unemployment_rate": 25.77
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2022,
-      "education_level": "TOTAL",
-      "activity_rate": 77.56,
-      "employment_rate": 57.89,
-      "unemployment_rate": 25.36
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2021,
-      "education_level": "TOTAL",
-      "activity_rate": 76.96,
-      "employment_rate": 57.35,
-      "unemployment_rate": 25.49
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2024,
-      "education_level": "INF",
-      "activity_rate": 70.79,
-      "employment_rate": 41.33,
-      "unemployment_rate": 41.62
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2023,
-      "education_level": "INF",
-      "activity_rate": 70.12,
-      "employment_rate": 42.31,
-      "unemployment_rate": 39.66
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2022,
-      "education_level": "INF",
-      "activity_rate": 70.61,
-      "employment_rate": 45.44,
-      "unemployment_rate": 35.65
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2021,
-      "education_level": "INF",
-      "activity_rate": 69.19,
-      "employment_rate": 43.39,
-      "unemployment_rate": 37.29
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2024,
-      "education_level": "SEC",
-      "activity_rate": 81.06,
-      "employment_rate": 66.8,
-      "unemployment_rate": 17.59
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2023,
-      "education_level": "SEC",
-      "activity_rate": 78.23,
-      "employment_rate": 62.95,
-      "unemployment_rate": 19.54
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2022,
-      "education_level": "SEC",
-      "activity_rate": 79.81,
-      "employment_rate": 62.45,
-      "unemployment_rate": 21.75
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2021,
-      "education_level": "SEC",
-      "activity_rate": 78.1,
-      "employment_rate": 59.85,
-      "unemployment_rate": 23.37
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2024,
-      "education_level": "SUP",
-      "activity_rate": 90.11,
-      "employment_rate": 80.82,
-      "unemployment_rate": 10.31
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2023,
-      "education_level": "SUP",
-      "activity_rate": 89.17,
-      "employment_rate": 80.76,
-      "unemployment_rate": 9.44
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2022,
-      "education_level": "SUP",
-      "activity_rate": 88.65,
-      "employment_rate": 77.37,
-      "unemployment_rate": 12.73
-    },
-    {
-      "autonomous_community": "Ceuta y Melilla",
-      "year": 2021,
-      "education_level": "SUP",
-      "activity_rate": 88.33,
-      "employment_rate": 77.42,
-      "unemployment_rate": 12.35
-    }
-  ]
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 82.6,
+    "employment_rate": 74.17,
+    "unemployment_rate": 10.21
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 82.4,
+    "employment_rate": 73.34,
+    "unemployment_rate": 11
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 81.73,
+    "employment_rate": 72,
+    "unemployment_rate": 11.91
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 81.39,
+    "employment_rate": 70.29,
+    "unemployment_rate": 13.63
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 73.66,
+    "employment_rate": 62.16,
+    "unemployment_rate": 15.61
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 73.55,
+    "employment_rate": 61.4,
+    "unemployment_rate": 16.52
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 72.79,
+    "employment_rate": 59.79,
+    "unemployment_rate": 17.86
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 72.36,
+    "employment_rate": 57.88,
+    "unemployment_rate": 20.01
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 82.89,
+    "employment_rate": 74.09,
+    "unemployment_rate": 10.62
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 82.89,
+    "employment_rate": 73.32,
+    "unemployment_rate": 11.55
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 82.48,
+    "employment_rate": 72.05,
+    "unemployment_rate": 12.64
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 82.26,
+    "employment_rate": 70.61,
+    "unemployment_rate": 14.16
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 89.92,
+    "employment_rate": 84.26,
+    "unemployment_rate": 6.3
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 89.79,
+    "employment_rate": 83.67,
+    "unemployment_rate": 6.82
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 89.3,
+    "employment_rate": 82.87,
+    "unemployment_rate": 7.2
+  },
+  {
+    "autonomous_community": "TOTAL",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 89.07,
+    "employment_rate": 81.36,
+    "unemployment_rate": 8.66
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 79.12,
+    "employment_rate": 67.26,
+    "unemployment_rate": 14.99
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 78.91,
+    "employment_rate": 65.8,
+    "unemployment_rate": 16.62
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 77.85,
+    "employment_rate": 63.81,
+    "unemployment_rate": 18.03
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 77.95,
+    "employment_rate": 62.03,
+    "unemployment_rate": 20.42
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 70.64,
+    "employment_rate": 55.49,
+    "unemployment_rate": 21.45
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 70.38,
+    "employment_rate": 53.73,
+    "unemployment_rate": 23.66
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 69.7,
+    "employment_rate": 51.99,
+    "unemployment_rate": 25.41
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 70.55,
+    "employment_rate": 51.3,
+    "unemployment_rate": 27.28
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 80.19,
+    "employment_rate": 68.39,
+    "unemployment_rate": 14.71
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 80.31,
+    "employment_rate": 67.69,
+    "unemployment_rate": 15.71
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 79.75,
+    "employment_rate": 65.7,
+    "unemployment_rate": 17.61
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 79.32,
+    "employment_rate": 63.58,
+    "unemployment_rate": 19.84
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 88.31,
+    "employment_rate": 80.24,
+    "unemployment_rate": 9.14
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 88.24,
+    "employment_rate": 79.06,
+    "unemployment_rate": 10.4
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 86.92,
+    "employment_rate": 77.5,
+    "unemployment_rate": 10.85
+  },
+  {
+    "autonomous_community": "Andalucía",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 86.91,
+    "employment_rate": 75.31,
+    "unemployment_rate": 13.35
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 84.61,
+    "employment_rate": 78.71,
+    "unemployment_rate": 6.98
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 84.82,
+    "employment_rate": 78.26,
+    "unemployment_rate": 7.73
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 84.46,
+    "employment_rate": 77.16,
+    "unemployment_rate": 8.64
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 83.58,
+    "employment_rate": 75.77,
+    "unemployment_rate": 9.35
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 75.98,
+    "employment_rate": 68.2,
+    "unemployment_rate": 10.24
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 77.43,
+    "employment_rate": 68.67,
+    "unemployment_rate": 11.31
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 76.54,
+    "employment_rate": 66.13,
+    "unemployment_rate": 13.6
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 74.35,
+    "employment_rate": 65.29,
+    "unemployment_rate": 12.18
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 86.03,
+    "employment_rate": 79.38,
+    "unemployment_rate": 7.73
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 85.02,
+    "employment_rate": 78.77,
+    "unemployment_rate": 7.35
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.64,
+    "employment_rate": 77.1,
+    "unemployment_rate": 8.91
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 85.14,
+    "employment_rate": 75.94,
+    "unemployment_rate": 10.81
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 90.99,
+    "employment_rate": 87.1,
+    "unemployment_rate": 4.27
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 90.49,
+    "employment_rate": 85.49,
+    "unemployment_rate": 5.52
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 90.61,
+    "employment_rate": 85.9,
+    "unemployment_rate": 5.19
+  },
+  {
+    "autonomous_community": "Aragón",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 89.54,
+    "employment_rate": 83.65,
+    "unemployment_rate": 6.57
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 79.27,
+    "employment_rate": 72.24,
+    "unemployment_rate": 8.87
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 76.91,
+    "employment_rate": 68.14,
+    "unemployment_rate": 11.4
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 75.44,
+    "employment_rate": 66.83,
+    "unemployment_rate": 11.41
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 76.66,
+    "employment_rate": 67.65,
+    "unemployment_rate": 11.74
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 66.31,
+    "employment_rate": 56.74,
+    "unemployment_rate": 14.43
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 64.8,
+    "employment_rate": 54.17,
+    "unemployment_rate": 16.39
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 62.03,
+    "employment_rate": 52.02,
+    "unemployment_rate": 16.15
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 62.86,
+    "employment_rate": 52.79,
+    "unemployment_rate": 16.02
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 80,
+    "employment_rate": 72.21,
+    "unemployment_rate": 9.74
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 74.58,
+    "employment_rate": 64.51,
+    "unemployment_rate": 13.51
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 75.79,
+    "employment_rate": 66.34,
+    "unemployment_rate": 12.46
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 76.95,
+    "employment_rate": 66.61,
+    "unemployment_rate": 13.44
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 87.15,
+    "employment_rate": 82.22,
+    "unemployment_rate": 5.67
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 86.78,
+    "employment_rate": 80.09,
+    "unemployment_rate": 7.71
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 85.19,
+    "employment_rate": 78.1,
+    "unemployment_rate": 8.32
+  },
+  {
+    "autonomous_community": "Asturias",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 86.06,
+    "employment_rate": 78.54,
+    "unemployment_rate": 8.74
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 83.12,
+    "employment_rate": 76.45,
+    "unemployment_rate": 8.03
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 83.58,
+    "employment_rate": 75.54,
+    "unemployment_rate": 9.62
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 83.95,
+    "employment_rate": 75.81,
+    "unemployment_rate": 9.69
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 83.74,
+    "employment_rate": 72.73,
+    "unemployment_rate": 13.15
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 74.99,
+    "employment_rate": 67.02,
+    "unemployment_rate": 10.63
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 77.6,
+    "employment_rate": 67.81,
+    "unemployment_rate": 12.62
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 77.09,
+    "employment_rate": 66.87,
+    "unemployment_rate": 13.26
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 74.58,
+    "employment_rate": 61.55,
+    "unemployment_rate": 17.47
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 85.6,
+    "employment_rate": 78.41,
+    "unemployment_rate": 8.41
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 85.84,
+    "employment_rate": 78.12,
+    "unemployment_rate": 8.99
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 85.41,
+    "employment_rate": 77.56,
+    "unemployment_rate": 9.19
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 85.43,
+    "employment_rate": 73.4,
+    "unemployment_rate": 14.08
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 90.39,
+    "employment_rate": 85.57,
+    "unemployment_rate": 5.33
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 88.49,
+    "employment_rate": 82.19,
+    "unemployment_rate": 7.11
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 90.64,
+    "employment_rate": 84.65,
+    "unemployment_rate": 6.6
+  },
+  {
+    "autonomous_community": "Baleares",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 91.49,
+    "employment_rate": 83.25,
+    "unemployment_rate": 9
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 80.13,
+    "employment_rate": 69.96,
+    "unemployment_rate": 12.7
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 79.59,
+    "employment_rate": 67.81,
+    "unemployment_rate": 14.81
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 79.39,
+    "employment_rate": 66.6,
+    "unemployment_rate": 16.11
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 77.33,
+    "employment_rate": 60.83,
+    "unemployment_rate": 21.34
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 72.02,
+    "employment_rate": 59.64,
+    "unemployment_rate": 17.19
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 70.3,
+    "employment_rate": 56.13,
+    "unemployment_rate": 20.15
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 70.49,
+    "employment_rate": 55.12,
+    "unemployment_rate": 21.81
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 68.52,
+    "employment_rate": 47.94,
+    "unemployment_rate": 30.03
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 82.07,
+    "employment_rate": 71.69,
+    "unemployment_rate": 12.64
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 83.15,
+    "employment_rate": 70.49,
+    "unemployment_rate": 15.22
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 81.55,
+    "employment_rate": 66.89,
+    "unemployment_rate": 17.98
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 79.64,
+    "employment_rate": 63.28,
+    "unemployment_rate": 20.54
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 87.33,
+    "employment_rate": 79.65,
+    "unemployment_rate": 8.79
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 87.25,
+    "employment_rate": 78.82,
+    "unemployment_rate": 9.66
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 86.89,
+    "employment_rate": 78.05,
+    "unemployment_rate": 10.18
+  },
+  {
+    "autonomous_community": "Canarias",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 85.36,
+    "employment_rate": 73.24,
+    "unemployment_rate": 14.2
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 82.65,
+    "employment_rate": 76.78,
+    "unemployment_rate": 7.11
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 80.68,
+    "employment_rate": 74.6,
+    "unemployment_rate": 7.53
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 80.03,
+    "employment_rate": 73.08,
+    "unemployment_rate": 8.68
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 80.38,
+    "employment_rate": 71.75,
+    "unemployment_rate": 10.73
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 74.59,
+    "employment_rate": 67.56,
+    "unemployment_rate": 9.43
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 71.55,
+    "employment_rate": 64.35,
+    "unemployment_rate": 10.07
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 69.04,
+    "employment_rate": 59.84,
+    "unemployment_rate": 13.32
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 69.07,
+    "employment_rate": 57.03,
+    "unemployment_rate": 17.43
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 82.91,
+    "employment_rate": 76.33,
+    "unemployment_rate": 7.93
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 79.18,
+    "employment_rate": 71.96,
+    "unemployment_rate": 9.12
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 80.48,
+    "employment_rate": 73.45,
+    "unemployment_rate": 8.73
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 81.93,
+    "employment_rate": 74.16,
+    "unemployment_rate": 9.48
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 86.87,
+    "employment_rate": 81.98,
+    "unemployment_rate": 5.63
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 86.29,
+    "employment_rate": 81.38,
+    "unemployment_rate": 5.69
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 87.01,
+    "employment_rate": 81.59,
+    "unemployment_rate": 6.23
+  },
+  {
+    "autonomous_community": "Cantabria",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 87.74,
+    "employment_rate": 81.1,
+    "unemployment_rate": 7.56
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 83.15,
+    "employment_rate": 76.26,
+    "unemployment_rate": 8.29
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 82.6,
+    "employment_rate": 75.41,
+    "unemployment_rate": 8.7
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 82.47,
+    "employment_rate": 75.07,
+    "unemployment_rate": 8.98
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 80.83,
+    "employment_rate": 72.14,
+    "unemployment_rate": 10.74
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 76.4,
+    "employment_rate": 66.76,
+    "unemployment_rate": 12.62
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 75.16,
+    "employment_rate": 66.04,
+    "unemployment_rate": 12.14
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 74.72,
+    "employment_rate": 65.13,
+    "unemployment_rate": 12.84
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 72.37,
+    "employment_rate": 61.67,
+    "unemployment_rate": 14.78
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 84.46,
+    "employment_rate": 77.95,
+    "unemployment_rate": 7.71
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 84.39,
+    "employment_rate": 77.36,
+    "unemployment_rate": 8.32
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 83.63,
+    "employment_rate": 75.79,
+    "unemployment_rate": 9.38
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 82.18,
+    "employment_rate": 72.79,
+    "unemployment_rate": 11.43
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 87.95,
+    "employment_rate": 83.11,
+    "unemployment_rate": 5.51
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 87.91,
+    "employment_rate": 82.29,
+    "unemployment_rate": 6.39
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 88.66,
+    "employment_rate": 83.48,
+    "unemployment_rate": 5.85
+  },
+  {
+    "autonomous_community": "Castilla y León",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 87.83,
+    "employment_rate": 81.45,
+    "unemployment_rate": 7.27
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 81.4,
+    "employment_rate": 71.5,
+    "unemployment_rate": 12.16
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 81.38,
+    "employment_rate": 71.58,
+    "unemployment_rate": 12.05
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 81.58,
+    "employment_rate": 70.77,
+    "unemployment_rate": 13.25
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 81.27,
+    "employment_rate": 69.57,
+    "unemployment_rate": 14.39
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 75.3,
+    "employment_rate": 62.9,
+    "unemployment_rate": 16.46
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 75.26,
+    "employment_rate": 62.78,
+    "unemployment_rate": 16.58
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 74.68,
+    "employment_rate": 60.72,
+    "unemployment_rate": 18.69
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 75.15,
+    "employment_rate": 61.61,
+    "unemployment_rate": 18.02
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 83.48,
+    "employment_rate": 72.03,
+    "unemployment_rate": 13.72
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 82.2,
+    "employment_rate": 72.26,
+    "unemployment_rate": 12.09
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.88,
+    "employment_rate": 75.13,
+    "unemployment_rate": 11.5
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 84.05,
+    "employment_rate": 71,
+    "unemployment_rate": 15.53
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 88.28,
+    "employment_rate": 82.72,
+    "unemployment_rate": 6.3
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 89.29,
+    "employment_rate": 83.27,
+    "unemployment_rate": 6.75
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 89.41,
+    "employment_rate": 82.49,
+    "unemployment_rate": 7.73
+  },
+  {
+    "autonomous_community": "Castilla-La Mancha",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 88.22,
+    "employment_rate": 80.22,
+    "unemployment_rate": 9.07
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 84.46,
+    "employment_rate": 77.99,
+    "unemployment_rate": 7.66
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 84.28,
+    "employment_rate": 77.43,
+    "unemployment_rate": 8.13
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 83.37,
+    "employment_rate": 76.13,
+    "unemployment_rate": 8.69
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 83.97,
+    "employment_rate": 75.26,
+    "unemployment_rate": 10.36
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 74.84,
+    "employment_rate": 65.26,
+    "unemployment_rate": 12.8
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 75.25,
+    "employment_rate": 65.42,
+    "unemployment_rate": 13.06
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 73.87,
+    "employment_rate": 63.38,
+    "unemployment_rate": 14.2
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 74.2,
+    "employment_rate": 62.46,
+    "unemployment_rate": 15.81
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 83.59,
+    "employment_rate": 76.68,
+    "unemployment_rate": 8.27
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 83.48,
+    "employment_rate": 76.43,
+    "unemployment_rate": 8.44
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 82.99,
+    "employment_rate": 75.02,
+    "unemployment_rate": 9.61
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 84.83,
+    "employment_rate": 75.09,
+    "unemployment_rate": 11.49
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 91.55,
+    "employment_rate": 87.45,
+    "unemployment_rate": 4.48
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 91.38,
+    "employment_rate": 86.82,
+    "unemployment_rate": 4.99
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 91.01,
+    "employment_rate": 86.68,
+    "unemployment_rate": 4.76
+  },
+  {
+    "autonomous_community": "Cataluña",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 91.59,
+    "employment_rate": 85.95,
+    "unemployment_rate": 6.16
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 82.12,
+    "employment_rate": 72.64,
+    "unemployment_rate": 11.54
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 82.68,
+    "employment_rate": 73.04,
+    "unemployment_rate": 11.67
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 81.79,
+    "employment_rate": 71.79,
+    "unemployment_rate": 12.23
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 80.43,
+    "employment_rate": 68.64,
+    "unemployment_rate": null
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 74.74,
+    "employment_rate": 62.99,
+    "unemployment_rate": 15.72
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 75.05,
+    "employment_rate": 62.57,
+    "unemployment_rate": 16.63
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 75.23,
+    "employment_rate": 61.93,
+    "unemployment_rate": 17.67
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 73.43,
+    "employment_rate": 58.17,
+    "unemployment_rate": 20.78
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 82.67,
+    "employment_rate": 72.26,
+    "unemployment_rate": 12.59
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 83.64,
+    "employment_rate": 72.9,
+    "unemployment_rate": 12.85
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 81.84,
+    "employment_rate": 71.65,
+    "unemployment_rate": 12.46
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 80.13,
+    "employment_rate": 67.52,
+    "unemployment_rate": 15.74
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 89.4,
+    "employment_rate": 82.82,
+    "unemployment_rate": 7.36
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 90.05,
+    "employment_rate": 83.94,
+    "unemployment_rate": 6.78
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 89.01,
+    "employment_rate": 82.76,
+    "unemployment_rate": 7.02
+  },
+  {
+    "autonomous_community": "Comunitat Valenciana",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 87.64,
+    "employment_rate": 79.81,
+    "unemployment_rate": 8.93
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 80.23,
+    "employment_rate": 68.73,
+    "unemployment_rate": 14.34
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 80.9,
+    "employment_rate": 67.77,
+    "unemployment_rate": 16.23
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 79.21,
+    "employment_rate": 66.59,
+    "unemployment_rate": 15.93
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 78.39,
+    "employment_rate": 63.99,
+    "unemployment_rate": 18.37
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 71.52,
+    "employment_rate": 57.81,
+    "unemployment_rate": 19.16
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 73.14,
+    "employment_rate": 57.23,
+    "unemployment_rate": 21.76
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 70.69,
+    "employment_rate": 54.86,
+    "unemployment_rate": 22.39
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 70.58,
+    "employment_rate": 53.28,
+    "unemployment_rate": 24.51
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 83.82,
+    "employment_rate": 72.71,
+    "unemployment_rate": 13.25
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 83.78,
+    "employment_rate": 70.6,
+    "unemployment_rate": 15.73
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.51,
+    "employment_rate": 72.42,
+    "unemployment_rate": 14.31
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 82.68,
+    "employment_rate": 70.98,
+    "unemployment_rate": 14.15
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 89.69,
+    "employment_rate": 80.85,
+    "unemployment_rate": 9.86
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 89.75,
+    "employment_rate": 80.4,
+    "unemployment_rate": 10.41
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 89.08,
+    "employment_rate": 81.07,
+    "unemployment_rate": 8.99
+  },
+  {
+    "autonomous_community": "Extremadura",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 88.83,
+    "employment_rate": 77.54,
+    "unemployment_rate": 12.71
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 80.87,
+    "employment_rate": 73.92,
+    "unemployment_rate": 8.59
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 80.64,
+    "employment_rate": 73.34,
+    "unemployment_rate": 9.06
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 80.26,
+    "employment_rate": 72.15,
+    "unemployment_rate": 10.11
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 79.57,
+    "employment_rate": 71.02,
+    "unemployment_rate": 10.75
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 69.62,
+    "employment_rate": 61.41,
+    "unemployment_rate": 11.8
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 70.73,
+    "employment_rate": 62.77,
+    "unemployment_rate": 11.25
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 69.59,
+    "employment_rate": 60.48,
+    "unemployment_rate": 13.1
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 68.94,
+    "employment_rate": 59.72,
+    "unemployment_rate": 13.36
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 81.45,
+    "employment_rate": 74.06,
+    "unemployment_rate": 9.08
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 81.27,
+    "employment_rate": 72.87,
+    "unemployment_rate": 10.34
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 81.09,
+    "employment_rate": 72.1,
+    "unemployment_rate": 11.09
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 80.76,
+    "employment_rate": 71.23,
+    "unemployment_rate": 11.8
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 89.72,
+    "employment_rate": 84.06,
+    "unemployment_rate": 6.32
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 88.77,
+    "employment_rate": 82.63,
+    "unemployment_rate": 6.91
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 88.93,
+    "employment_rate": 82.12,
+    "unemployment_rate": 7.65
+  },
+  {
+    "autonomous_community": "Galicia",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 88.38,
+    "employment_rate": 80.93,
+    "unemployment_rate": 8.42
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 86.92,
+    "employment_rate": 79.85,
+    "unemployment_rate": 8.14
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 86.4,
+    "employment_rate": 78.81,
+    "unemployment_rate": 8.78
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 86.04,
+    "employment_rate": 77.34,
+    "unemployment_rate": 10.12
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 85.97,
+    "employment_rate": 76.93,
+    "unemployment_rate": 10.52
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 78.87,
+    "employment_rate": 68.86,
+    "unemployment_rate": 12.69
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 77.54,
+    "employment_rate": 67.2,
+    "unemployment_rate": 13.33
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 77.51,
+    "employment_rate": 67.01,
+    "unemployment_rate": 13.55
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 77.79,
+    "employment_rate": 65.57,
+    "unemployment_rate": 15.71
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 85.57,
+    "employment_rate": 77.9,
+    "unemployment_rate": 8.96
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 85.35,
+    "employment_rate": 75.87,
+    "unemployment_rate": 11.11
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.6,
+    "employment_rate": 73.62,
+    "unemployment_rate": 12.98
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 84.53,
+    "employment_rate": 74.26,
+    "unemployment_rate": 12.15
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 91.62,
+    "employment_rate": 86.3,
+    "unemployment_rate": 5.8
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 91.45,
+    "employment_rate": 86.15,
+    "unemployment_rate": 5.79
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 90.98,
+    "employment_rate": 84.33,
+    "unemployment_rate": 7.31
+  },
+  {
+    "autonomous_community": "Madrid",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 90.89,
+    "employment_rate": 84.09,
+    "unemployment_rate": 7.48
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 80.42,
+    "employment_rate": 71.29,
+    "unemployment_rate": 11.35
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 80.77,
+    "employment_rate": 71.45,
+    "unemployment_rate": 11.54
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 80.2,
+    "employment_rate": 70.23,
+    "unemployment_rate": 12.44
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 80.54,
+    "employment_rate": 69.64,
+    "unemployment_rate": 13.53
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 73.16,
+    "employment_rate": 61.07,
+    "unemployment_rate": 16.52
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 73.79,
+    "employment_rate": 62.45,
+    "unemployment_rate": 15.36
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 73.13,
+    "employment_rate": 61.42,
+    "unemployment_rate": 16.02
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 71.8,
+    "employment_rate": 58.73,
+    "unemployment_rate": 18.21
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 81.82,
+    "employment_rate": 73.77,
+    "unemployment_rate": 9.84
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 83.11,
+    "employment_rate": 73.43,
+    "unemployment_rate": 11.64
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.87,
+    "employment_rate": 73.92,
+    "unemployment_rate": 12.9
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 84.97,
+    "employment_rate": 73.7,
+    "unemployment_rate": 13.27
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 89.6,
+    "employment_rate": 83.87,
+    "unemployment_rate": 6.4
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 88.94,
+    "employment_rate": 82.66,
+    "unemployment_rate": 7.07
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 87.84,
+    "employment_rate": 81.21,
+    "unemployment_rate": 7.55
+  },
+  {
+    "autonomous_community": "Murcia",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 89.4,
+    "employment_rate": 81.63,
+    "unemployment_rate": 8.69
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 84.86,
+    "employment_rate": 79.36,
+    "unemployment_rate": 6.49
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 84,
+    "employment_rate": 76.6,
+    "unemployment_rate": 8.81
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 83.86,
+    "employment_rate": 76.42,
+    "unemployment_rate": 8.88
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 82.84,
+    "employment_rate": 74.62,
+    "unemployment_rate": 9.93
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 73.24,
+    "employment_rate": 64.66,
+    "unemployment_rate": 11.71
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 72.05,
+    "employment_rate": 61.86,
+    "unemployment_rate": 14.14
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 71.55,
+    "employment_rate": 58.63,
+    "unemployment_rate": 18.06
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 70.87,
+    "employment_rate": 57.54,
+    "unemployment_rate": 18.82
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 84.2,
+    "employment_rate": 78.21,
+    "unemployment_rate": 7.12
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 84.89,
+    "employment_rate": 76.66,
+    "unemployment_rate": 9.7
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 84.9,
+    "employment_rate": 76.65,
+    "unemployment_rate": 9.71
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 83.09,
+    "employment_rate": 74.39,
+    "unemployment_rate": 10.48
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 91.4,
+    "employment_rate": 87.76,
+    "unemployment_rate": 3.98
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 90.64,
+    "employment_rate": 85.29,
+    "unemployment_rate": 5.9
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 90.56,
+    "employment_rate": 86.7,
+    "unemployment_rate": 4.25
+  },
+  {
+    "autonomous_community": "Navarra",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 89.72,
+    "employment_rate": 84.7,
+    "unemployment_rate": 5.59
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 83.9,
+    "employment_rate": 77.81,
+    "unemployment_rate": 7.26
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 84.01,
+    "employment_rate": 78.42,
+    "unemployment_rate": 6.66
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 82.9,
+    "employment_rate": 76.34,
+    "unemployment_rate": 7.91
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 82.08,
+    "employment_rate": 74.81,
+    "unemployment_rate": 8.86
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 71.19,
+    "employment_rate": 61.84,
+    "unemployment_rate": 13.13
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 71.25,
+    "employment_rate": 63.13,
+    "unemployment_rate": 11.4
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 69.7,
+    "employment_rate": 59.16,
+    "unemployment_rate": 15.12
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 67.84,
+    "employment_rate": 55.57,
+    "unemployment_rate": 18.09
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 80.2,
+    "employment_rate": 71.92,
+    "unemployment_rate": 10.33
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 81.48,
+    "employment_rate": 74.18,
+    "unemployment_rate": 8.96
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 80.27,
+    "employment_rate": 71.81,
+    "unemployment_rate": 10.54
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 80.18,
+    "employment_rate": 72.58,
+    "unemployment_rate": 9.48
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 90.13,
+    "employment_rate": 86.13,
+    "unemployment_rate": 4.43
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 90.09,
+    "employment_rate": 86.18,
+    "unemployment_rate": 4.35
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 89.53,
+    "employment_rate": 85.42,
+    "unemployment_rate": 4.6
+  },
+  {
+    "autonomous_community": "País Vasco",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 89,
+    "employment_rate": 84.03,
+    "unemployment_rate": 5.58
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 84.81,
+    "employment_rate": 77.81,
+    "unemployment_rate": 8.25
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 84.9,
+    "employment_rate": 77.87,
+    "unemployment_rate": 8.28
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 85.22,
+    "employment_rate": 77.89,
+    "unemployment_rate": 8.6
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 84.96,
+    "employment_rate": 76.16,
+    "unemployment_rate": 10.36
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 77.56,
+    "employment_rate": 66.52,
+    "unemployment_rate": 14.24
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 76.2,
+    "employment_rate": 66.32,
+    "unemployment_rate": 12.97
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 75.98,
+    "employment_rate": 65.93,
+    "unemployment_rate": 13.22
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 77.23,
+    "employment_rate": 66.2,
+    "unemployment_rate": 14.28
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 84.98,
+    "employment_rate": 79.6,
+    "unemployment_rate": 6.33
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 87.78,
+    "employment_rate": 81.69,
+    "unemployment_rate": 6.94
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 87.79,
+    "employment_rate": 78.72,
+    "unemployment_rate": 10.33
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 86.7,
+    "employment_rate": 76.48,
+    "unemployment_rate": 11.79
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 91.1,
+    "employment_rate": 86.82,
+    "unemployment_rate": 4.7
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 91.54,
+    "employment_rate": 86.71,
+    "unemployment_rate": 5.28
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 91.23,
+    "employment_rate": 87.12,
+    "unemployment_rate": 4.51
+  },
+  {
+    "autonomous_community": "La Rioja",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 90.92,
+    "employment_rate": 84.98,
+    "unemployment_rate": 6.53
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2024,
+    "education_level": "TOTAL",
+    "activity_rate": 79.39,
+    "employment_rate": 59.8,
+    "unemployment_rate": 24.67
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2023,
+    "education_level": "TOTAL",
+    "activity_rate": 77.02,
+    "employment_rate": 57.17,
+    "unemployment_rate": 25.77
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2022,
+    "education_level": "TOTAL",
+    "activity_rate": 77.56,
+    "employment_rate": 57.89,
+    "unemployment_rate": 25.36
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2021,
+    "education_level": "TOTAL",
+    "activity_rate": 76.96,
+    "employment_rate": 57.35,
+    "unemployment_rate": 25.49
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2024,
+    "education_level": "INF",
+    "activity_rate": 70.79,
+    "employment_rate": 41.33,
+    "unemployment_rate": 41.62
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2023,
+    "education_level": "INF",
+    "activity_rate": 70.12,
+    "employment_rate": 42.31,
+    "unemployment_rate": 39.66
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2022,
+    "education_level": "INF",
+    "activity_rate": 70.61,
+    "employment_rate": 45.44,
+    "unemployment_rate": 35.65
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2021,
+    "education_level": "INF",
+    "activity_rate": 69.19,
+    "employment_rate": 43.39,
+    "unemployment_rate": 37.29
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2024,
+    "education_level": "SEC",
+    "activity_rate": 81.06,
+    "employment_rate": 66.8,
+    "unemployment_rate": 17.59
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2023,
+    "education_level": "SEC",
+    "activity_rate": 78.23,
+    "employment_rate": 62.95,
+    "unemployment_rate": 19.54
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2022,
+    "education_level": "SEC",
+    "activity_rate": 79.81,
+    "employment_rate": 62.45,
+    "unemployment_rate": 21.75
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2021,
+    "education_level": "SEC",
+    "activity_rate": 78.1,
+    "employment_rate": 59.85,
+    "unemployment_rate": 23.37
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2024,
+    "education_level": "SUP",
+    "activity_rate": 90.11,
+    "employment_rate": 80.82,
+    "unemployment_rate": 10.31
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2023,
+    "education_level": "SUP",
+    "activity_rate": 89.17,
+    "employment_rate": 80.76,
+    "unemployment_rate": 9.44
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2022,
+    "education_level": "SUP",
+    "activity_rate": 88.65,
+    "employment_rate": 77.37,
+    "unemployment_rate": 12.73
+  },
+  {
+    "autonomous_community": "Ceuta y Melilla",
+    "year": 2021,
+    "education_level": "SUP",
+    "activity_rate": 88.33,
+    "employment_rate": 77.42,
+    "unemployment_rate": 12.35
+  }
+]

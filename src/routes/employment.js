@@ -471,19 +471,16 @@ router.delete("/employment-data/:autonomous_community/:year/:education_level", (
 
 router.get("/employment-data/loadInitialData", (req, res) => {
     fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            // Si hay un error al leer el archivo, asumimos que el archivo no existe o está vacío
-            console.error("Error leyendo el archivo JSON, inicializando con datos iniciales.", err);
-        } else {
+        let JDPData = [];
+
+        if (!err) {
             try {
-                const JDPData = JSON.parse(data);
+                JDPData = JSON.parse(data);
                 if (JDPData.length > 0) {
-                    // Si el archivo ya tiene datos, devolver un mensaje y los datos existentes
                     return res.status(200).json({ message: "Los datos ya estaban inicializados", data: JDPData });
                 }
             } catch (parseError) {
-                // Si hay un error al parsear el JSON, asumimos que el archivo está corrupto
-                console.error("Error parseando JSON, inicializando con datos iniciales.", parseError);
+                console.error("Error parseando JSON, inicializando array vacío.");
             }
         }
 
@@ -493,7 +490,6 @@ router.get("/employment-data/loadInitialData", (req, res) => {
                 console.error("Error guardando datos iniciales", err);
                 return res.status(500).json({ error: "Error interno del servidor" });
             }
-            // Devolver un mensaje de éxito y los datos iniciales
             res.status(201).json({ message: "Datos inicializados correctamente", data: initialData });
         });
     });
