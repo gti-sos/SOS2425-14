@@ -27,6 +27,9 @@ app.use(BASE_API, educationRoutes);
 const employmentRoutes = require("./src/routes/employment");
 app.use(BASE_API, employmentRoutes);
 
+const cybercrimeRoutes = require("./src/routes/cybercrime");
+app.use(BASE_API, cybercrimeRoutes);
+
 // Servir archivos estáticos desde el directorio actual
 app.use(express.static(__dirname));
 
