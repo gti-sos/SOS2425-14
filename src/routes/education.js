@@ -29,7 +29,7 @@ router.get("/education-data", (req, res) => {
         if (from && to) {
             FRMData = FRMData.filter(entry => entry.year >= from && entry.year <= to);
         }
-
+        console.log("[GET] Datos devueltos");
         res.status(200).json(FRMData);
     });
 });
@@ -57,6 +57,33 @@ router.get("/education-data/loadInitialData", (req, res) => {
             }
             res.status(201).json({ message: "Datos inicializados correctamente", data: initialData });
         });
+    });
+});
+
+// GET: Obtener datos de una comunidad autónoma en un rango de años
+router.get("/education-data/:autonomous_community", (req, res) => {
+    console.log("[GET] Solicitud recibida para obtener datos de una comunidad autónoma en un rango de años");
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
+        if (err) {
+            console.error("Error leyendo el archivo JSON", err);
+            return res.status(400).json({ error: "Error interno del servidor" });
+        }
+
+        let FRMData = JSON.parse(data);
+        const { from, to } = req.query;
+        const autonomousCommunity = req.params.autonomous_community;
+
+        if (!from || !to) {
+            return res.status(400).json({ error: "Debe proporcionar un rango de años con 'from' y 'to'" });
+        }
+
+        FRMData = FRMData.filter(entry =>
+            entry.autonomous_community.toLowerCase() === autonomousCommunity.toLowerCase() &&
+            entry.year >= from && entry.year <= to
+        );
+
+        console.log("[GET] Datos devueltos para", autonomousCommunity);
+        res.status(200).json(FRMData);
     });
 });
 
