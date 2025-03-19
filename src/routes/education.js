@@ -6,7 +6,7 @@ const router = express.Router();
 const dataFilePath = path.join(__dirname, "../json/data-frm.json");
 const initialData = require("../json/initial-frm-data.json");
 
-//GET: Obtener datos con filtros de comunidad autónoma y año
+// GET: Obtener datos con filtros de comunidad autónoma y año
 router.get("/education-data", (req, res) => {
     console.log("[GET] Solicitud recibida para obtener datos");
     fs.readFile(dataFilePath, "utf8", (err, data) => {
@@ -34,7 +34,7 @@ router.get("/education-data", (req, res) => {
     });
 });
 
-//GET: Cargar datos iniciales
+// GET: Cargar datos iniciales
 router.get("/education-data/loadInitialData", (req, res) => {
     fs.readFile(dataFilePath, "utf8", (err, data) => {
         let FRMData = [];
@@ -87,7 +87,7 @@ router.get("/education-data/:autonomous_community", (req, res) => {
     });
 });
 
-//POST: Agregar un nuevo registro
+// POST: Agregar un nuevo registro
 router.post("/education-data", (req, res) => {
     console.log("[POST] Solicitud recibida para agregar un nuevo registro");
     const newEntry = req.body;
@@ -120,7 +120,7 @@ router.post("/education-data", (req, res) => {
     });
 });
 
-//GET: Obtener un dato específico (por comunidad autónoma y año)
+// GET: Obtener un dato específico (por comunidad autónoma y año)
 router.get("/education-data/:autonomous_community/:year", (req, res) => {
     console.log("[GET] Solicitud recibida para obtener datos");
     const { autonomous_community, year } = req.params;
@@ -145,7 +145,7 @@ router.get("/education-data/:autonomous_community/:year", (req, res) => {
     });
 });
 
-//PUT: Actualizar un dato específico
+// PUT: Actualizar un dato específico
 router.put("/education-data/:autonomous_community/:year", (req, res) => {
     console.log("[PUT] Solicitud recibida para obtener datos");
     const { autonomous_community, year } = req.params;
@@ -183,7 +183,21 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
     });
 });
 
-//DELETE: Eliminar un dato específico
+// DELETE: Eliminar todos los datos
+router.delete("/education-data", (req, res) => {
+    console.log("[DELETE] Solicitud recibida para eliminar todos los datos");
+
+    fs.writeFile(dataFilePath, JSON.stringify([], null, 2), (err) => {
+        if (err) {
+            console.error("Error al eliminar todos los datos", err);
+            return res.status(500).json({ error: "Error interno del servidor" });
+        }
+        console.log("[DELETE] Todos los datos han sido eliminados correctamente");
+        res.status(200).json({ message: "Todos los datos han sido eliminados correctamente" });
+    });
+});
+
+// DELETE: Eliminar un dato específico
 router.delete("/education-data/:autonomous_community/:year", (req, res) => {
     console.log("[DELETE] Solicitud recibida para obtener datos");
     const { autonomous_community, year } = req.params;
