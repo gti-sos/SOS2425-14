@@ -7,14 +7,14 @@
     "year": 2020
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "basic_fp": 7.5,
     "middle_grade": 36.7,
     "higher_grade": 37.4,
     "year": 2020
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "basic_fp": 10.6,
     "middle_grade": 36.2,
     "higher_grade": 40.1,
@@ -49,7 +49,7 @@
     "year": 2020
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "basic_fp": 11,
     "middle_grade": 38.2,
     "higher_grade": 42.1,
@@ -112,7 +112,7 @@
     "year": 2020
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "basic_fp": 11.6,
     "middle_grade": 37.5,
     "higher_grade": 55.3,
@@ -147,14 +147,14 @@
     "year": 2021
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "basic_fp": 7.3,
     "middle_grade": 37.4,
     "higher_grade": 41.2,
     "year": 2021
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "basic_fp": 10.2,
     "middle_grade": 36,
     "higher_grade": 42.6,
@@ -189,7 +189,7 @@
     "year": 2021
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "basic_fp": 10.4,
     "middle_grade": 38.2,
     "higher_grade": 44.7,
@@ -252,7 +252,7 @@
     "year": 2021
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "basic_fp": 11.2,
     "middle_grade": 35.8,
     "higher_grade": 55,
@@ -287,14 +287,14 @@
     "year": 2022
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "basic_fp": 6.9,
     "middle_grade": 37.5,
     "higher_grade": 40.6,
     "year": 2022
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "basic_fp": 10,
     "middle_grade": 36.7,
     "higher_grade": 40.8,
@@ -329,7 +329,7 @@
     "year": 2022
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "basic_fp": 10.1,
     "middle_grade": 37.8,
     "higher_grade": 42.2,
@@ -392,7 +392,7 @@
     "year": 2022
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "basic_fp": 11,
     "middle_grade": 36.4,
     "higher_grade": 53.3,
@@ -427,14 +427,14 @@
     "year": 2023
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "basic_fp": 7.2,
     "middle_grade": 36.8,
     "higher_grade": 41,
     "year": 2023
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "basic_fp": 9.8,
     "middle_grade": 36.3,
     "higher_grade": 41.1,
@@ -469,7 +469,7 @@
     "year": 2023
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "basic_fp": 9.9,
     "middle_grade": 37.6,
     "higher_grade": 41.8,
@@ -532,7 +532,7 @@
     "year": 2023
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "basic_fp": 11.1,
     "middle_grade": 35.4,
     "higher_grade": 50.7,
