@@ -161,10 +161,12 @@ router.get("/education-data/:autonomous_community/:year", (req, res) => {
 
 // PUT: Actualizar un dato específico
 router.put("/education-data/:autonomous_community/:year", (req, res) => {
-    console.log("[PUT] Solicitud recibida para obtener datos");
+    console.log("[PUT] Solicitud recibida para actualizar un dato");
     const { autonomous_community, year } = req.params;
     const updatedEntry = req.body;
+    const yearNum = parseInt(year);
 
+    // Validar que los campos requeridos estén en el body
     if (!updatedEntry.autonomous_community || !updatedEntry.year || updatedEntry.basic_fp === undefined || updatedEntry.middle_grade === undefined || updatedEntry.higher_grade === undefined) {
         return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
     }
@@ -172,26 +174,39 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
     fs.readFile(dataFilePath, "utf8", (err, data) => {
         if (err) {
             console.error("Error leyendo el archivo JSON", err);
-            return res.status(400).json({ error: "Error interno del servidor" });
+            return res.status(500).json({ error: "Error interno del servidor" });
         }
 
         let FRMData = JSON.parse(data);
+
+        // Buscar el índice del dato en el JSON
         const index = FRMData.findIndex(entry => 
-            entry.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
-            entry.year == year
+            entry.autonomous_community.toLowerCase().trim() === autonomous_community.toLowerCase().trim() &&
+            entry.year === yearNum
         );
 
+        // Si no se encuentra el dato, devolver 404
         if (index === -1) {
+            console.log("[PUT] Error: No se encontró el dato", { autonomous_community, year });
             return res.status(404).json({ error: "Dato no encontrado" });
         }
 
+        // Verificar si los identificadores del body coinciden con los de la URL
+        if (updatedEntry.autonomous_community.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
+            updatedEntry.year !== yearNum) {
+            console.log("[PUT] Conflicto: Los identificadores no coinciden", updatedEntry);
+            return res.status(409).json({ error: "Los identificadores en la URL y el cuerpo de la solicitud no coinciden" });
+        }
+
+        // Actualizar el dato
         FRMData[index] = updatedEntry;
 
         fs.writeFile(dataFilePath, JSON.stringify(FRMData, null, 2), (err) => {
             if (err) {
                 console.error("Error al actualizar el dato", err);
-                return res.status(400).json({ error: "Error interno del servidor" });
+                return res.status(500).json({ error: "Error interno del servidor" });
             }
+            console.log("[PUT] Dato actualizado correctamente", updatedEntry);
             res.status(200).json({ message: "Dato actualizado correctamente" });
         });
     });
