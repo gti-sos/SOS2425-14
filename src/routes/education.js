@@ -92,7 +92,9 @@ router.post("/education-data", (req, res) => {
     console.log("[POST] Solicitud recibida para agregar un nuevo registro");
     const newEntry = req.body;
 
-    if (!newEntry.autonomous_community || !newEntry.year || newEntry.basic_fp === undefined || newEntry.middle_grade === undefined || newEntry.higher_grade === undefined) {
+    if (!newEntry.autonomous_community || !newEntry.year || 
+        newEntry.basic_fp === undefined || newEntry.middle_grade === undefined || newEntry.higher_grade === undefined) {
+        console.log("[POST] Error: Datos incompletos en la solicitud");
         return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
     }
 
@@ -103,22 +105,34 @@ router.post("/education-data", (req, res) => {
             try {
                 FRMData = JSON.parse(data);
             } catch (parseError) {
-                console.error("Error parseando JSON", parseError);
+                console.error("[POST] Error parseando JSON", parseError);
                 return res.status(400).json({ error: "Error en el formato del archivo de datos" });
             }
         }
 
+        const exists = FRMData.some(entry => 
+            entry.autonomous_community.toLowerCase() === newEntry.autonomous_community.toLowerCase() &&
+            entry.year == newEntry.year
+        );
+
+        if (exists) {
+            console.log(`[POST] Conflicto: El recurso ya existe (${newEntry.autonomous_community}, ${newEntry.year})`);
+            return res.status(409).json({ error: "El recurso ya existe en la base de datos" });
+        }
+
         FRMData.push(newEntry);
+        console.log("[POST] Nuevo registro agregado correctamente", newEntry);
 
         fs.writeFile(dataFilePath, JSON.stringify(FRMData, null, 2), (err) => {
             if (err) {
-                console.error("Error guardando el nuevo dato", err);
-                return res.status(400).json({ error: "Error interno del servidor" });
+                console.error("[POST] Error guardando el nuevo dato", err);
+                return res.status(500).json({ error: "Error interno del servidor" });
             }
             res.status(201).json({ message: "Nuevo registro agregado correctamente", data: newEntry });
         });
     });
 });
+
 
 // GET: Obtener un dato específico (por comunidad autónoma y año)
 router.get("/education-data/:autonomous_community/:year", (req, res) => {
