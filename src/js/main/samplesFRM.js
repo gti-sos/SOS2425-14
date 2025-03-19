@@ -1,52 +1,77 @@
-//use strict;
-
 import { comunityFormRenderer } from "../renders/comunityFormRenderer.js";
 
-function samplesFRM(){
+function samplesFRM() {
     loadComunities();
     const form = document.getElementById('communityForm');
     form.addEventListener('submit', handleSubmit);
 }
 
-function loadComunities(){
+// Cargar comunidades autónomas desde la API en vez de un archivo JSON
+function loadComunities() {
     const container = document.getElementById('communityForm');
     const before = document.getElementById('before-comunities');
-    fetch('/src/json/data-frm.json')
-        .then(response => response.json())
+
+    fetch('/api/v1/education-data')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             try {
                 const communities = [...new Set(data.map(item => item.autonomous_community))];
                 container.insertBefore(comunityFormRenderer.asSelect(communities), before);
             } catch (error) {
-                console.error("Error al cargar las comunidades", error);
+                console.error("Error al procesar las comunidades", error);
             }
         })
+        .catch(error => {
+            console.error("Error al cargar las comunidades desde la API", error);
+        });
 }
 
+// Manejar el envío del formulario
 async function handleSubmit(event) {
-    const resultsContainer = document.getElementById('results');
-    
     event.preventDefault();
+    const resultsContainer = document.getElementById('results');
     const selectedCommunity = document.getElementById('community').value;
 
+    if (!selectedCommunity) {
+        resultsContainer.innerHTML = `<p>Por favor, selecciona una comunidad autónoma</p>`;
+        return;
+    }
+
     try {
-        const response = await fetch('/api/FRM', {
-            method: 'POST',
+        const response = await fetch('/api/v1/education-data?autonomous_community=' + encodeURIComponent(selectedCommunity), {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ community: selectedCommunity }),
         });
 
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
         const data = await response.json();
-        const resultsContainer = document.getElementById('results');
-        
+
+        if (data.length === 0) {
+            resultsContainer.innerHTML = `<p>No se encontraron datos para ${selectedCommunity}</p>`;
+            return;
+        }
+
+        // Calcular promedios
+        const basicAvg = (data.reduce((sum, entry) => sum + entry.basic_fp, 0) / data.length).toFixed(2);
+        const middleAvg = (data.reduce((sum, entry) => sum + entry.middle_grade, 0) / data.length).toFixed(2);
+        const higherAvg = (data.reduce((sum, entry) => sum + entry.higher_grade, 0) / data.length).toFixed(2);
+
         resultsContainer.innerHTML = `
-            <h3>Results for: ${data.autonomous_community}</h3>
+            <h3>Resultados para: ${selectedCommunity}</h3>
             <ul>
-                <li><strong>Average rate for basic training:</strong> ${data.basic_training}%</li>
-                <li><strong>Average rate for intermediate level</strong>: ${data.middle_grade}%</li>
-                <li><strong>Average rate for higher level</strong>: ${data.higher_grade}%</li>
+                <li><strong>Promedio de Formación Básica:</strong> ${basicAvg}%</li>
+                <li><strong>Promedio de Grado Medio:</strong> ${middleAvg}%</li>
+                <li><strong>Promedio de Grado Superior:</strong> ${higherAvg}%</li>
             </ul>
         `;
     } catch (error) {
