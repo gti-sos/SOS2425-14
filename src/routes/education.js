@@ -166,9 +166,28 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
     const updatedEntry = req.body;
     const yearNum = parseInt(year);
 
-    // Validar que los campos requeridos estén en el body
-    if (!updatedEntry.autonomous_community || !updatedEntry.year || updatedEntry.basic_fp === undefined || updatedEntry.middle_grade === undefined || updatedEntry.higher_grade === undefined) {
+    // Verificar que los campos requeridos estén en el body
+    if (!updatedEntry.autonomous_community || 
+        !updatedEntry.year || 
+        updatedEntry.basic_fp === undefined || 
+        updatedEntry.middle_grade === undefined || 
+        updatedEntry.higher_grade === undefined) {
+        
+        console.log("[PUT] Error: Faltan campos requeridos en el cuerpo de la solicitud");
         return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
+    }
+
+    // Verificar que los identificadores en la URL y en el body coincidan
+    if (updatedEntry.autonomous_community.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
+        updatedEntry.year !== yearNum) {
+        console.log("[PUT] Error: Los identificadores en la URL y el cuerpo de la solicitud no coinciden");
+        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo de la solicitud deben coincidir" });
+    }
+
+    // Verificar que los valores numéricos sean realmente números
+    if (isNaN(updatedEntry.basic_fp) || isNaN(updatedEntry.middle_grade) || isNaN(updatedEntry.higher_grade)) {
+        console.log("[PUT] Error: Los valores de formación deben ser números");
+        return res.status(400).json({ error: "Los valores de basic_fp, middle_grade y higher_grade deben ser numéricos" });
     }
 
     fs.readFile(dataFilePath, "utf8", (err, data) => {
@@ -191,13 +210,6 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
             return res.status(404).json({ error: "Dato no encontrado" });
         }
 
-        // Verificar si los identificadores del body coinciden con los de la URL
-        if (updatedEntry.autonomous_community.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
-            updatedEntry.year !== yearNum) {
-            console.log("[PUT] Conflicto: Los identificadores no coinciden", updatedEntry);
-            return res.status(409).json({ error: "Los identificadores en la URL y el cuerpo de la solicitud no coinciden" });
-        }
-
         // Actualizar el dato
         FRMData[index] = updatedEntry;
 
@@ -211,6 +223,7 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
         });
     });
 });
+
 
 // DELETE: Eliminar todos los datos
 router.delete("/education-data", (req, res) => {
