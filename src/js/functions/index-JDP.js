@@ -1,9 +1,6 @@
 const fs = require("fs");    //modulo de node.js para manejar archivos
-const { get } = require("http");
 const Papa = require("papaparse");  //librería para convertir csv a JSON
 const path = require("path");
-
-module.exports = getJDPData; // Exporta la función
 
 // Ruta del archivo CSV
 const fileCSV = path.join(__dirname, "../../data/data-jdp.csv");
@@ -62,6 +59,5 @@ function getJDPData(ccaa) {
     };
 }
 
-getJDPData();
 
 module.exports = getJDPData;
