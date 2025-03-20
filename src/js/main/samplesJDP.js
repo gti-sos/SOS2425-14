@@ -1,6 +1,7 @@
 //use strict;
 
 import { comunityFormRenderer } from "../renders/comunityFormRenderer.js";
+import getJDPData from "../functions/index-JDP.js";
 
 function samplesJDP(){
     loadComunities();
@@ -11,7 +12,8 @@ function samplesJDP(){
 function loadComunities(){
     const container = document.getElementById('communityForm');
     const before = document.getElementById('before-comunities');
-    fetch('/src/json/data-jdp.json')
+    // Obtener comunidades a través de la API
+    fetch('/api/v1/employment-data')
         .then(response => response.json())
         .then(data => {
             try {
@@ -21,34 +23,36 @@ function loadComunities(){
                 console.error("Error al cargar las comunidades", error);
             }
         })
+        .catch(error => {
+            console.error("Error al obtener datos de la API:", error);
+        });
 }
 
+
 async function handleSubmit(event) {
-    const resultsContainer = document.getElementById('results');
-    
     event.preventDefault();
+    
+    const resultsContainer = document.getElementById('results');
     const selectedCommunity = document.getElementById('community').value;
 
     try {
-        const response = await fetch('/api/JDP', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ community: selectedCommunity }),
-        });
+        // Llamar a la función getJDPData() para obtener los datos desde la API
+        const data = await getJDPData(selectedCommunity);
 
-        const data = await response.json();
-        const resultsContainer = document.getElementById('results');
-        
+        if (data.error) {
+            resultsContainer.innerHTML = `<p>${data.error}</p>`;
+            return;
+        }
+
         resultsContainer.innerHTML = `
             <h3>Results for: ${data.autonomous_community}</h3>
             <ul>
                 <li><strong>Activity rate:</strong> ${data.activity_rate_avg}%</li>
                 <li><strong>Employment rate</strong>: ${data.employment_rate_avg}%</li>
-                <li><strong>Unemployment rate</strong>: ${data.unemployment_rate_avg}%</li>
+                <li><strong>Unemployment rate:</strong> ${data.unemployment_rate_avg}%</li>
             </ul>
         `;
+
     } catch (error) {
         console.error('Error:', error);
         resultsContainer.innerHTML = `<p>Error al obtener los datos</p>`;

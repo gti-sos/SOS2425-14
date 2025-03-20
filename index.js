@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname)));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const getJDPData = require("./src/js/functions/index-JDP.js");
 const getFRMData = require("./src/js/functions/index-FRM.js");
 const getPDGData = require("./src/js/functions/index-PDG.js");
 
@@ -62,32 +61,7 @@ app.get("/samples/JDP", (request, response )=>{
     response.sendFile(path.join(__dirname, 'samplesJDP.html'));
 });
 
-app.get("/api/JDP", (req, res) => {
-    const { community } = req.query;
 
-    if (!community) {
-        return res.status(400).json({ error: "Se requiere el parámetro 'community'" });
-    }
-
-    fetch(`https://sos2425-14.onrender.com/api/v1/employment-data?autonomous_community=${encodeURIComponent(community)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.length === 0) {
-                return res.status(404).json({ error: "No se encontraron datos para la comunidad especificada" });
-            }
-
-            res.json(data);
-        })
-        .catch(error => {
-            console.error("Error obteniendo datos de la API", error);
-            res.status(500).json({ error: "Error interno del servidor" });
-        });
-});
 
 /****************************************************
  * Rutas de Fran

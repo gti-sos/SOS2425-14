@@ -1,63 +1,32 @@
-const fs = require("fs");    //modulo de node.js para manejar archivos
-const Papa = require("papaparse");  //librería para convertir csv a JSON
-const path = require("path");
+const fetch = require("node-fetch");  // Importar fetch para hacer llamadas a la API
+const API_URL = process.env.HOST || "http://localhost:16078";
 
-// Ruta del archivo CSV
-const fileCSV = path.join(__dirname, "../../data/data-jdp.csv");
+async function getJDPData(ccaa) {
+    try {
+        const response = await fetch(`${API_URL}/api/v1/employment-data?autonomous_community=${encodeURIComponent(ccaa)}&education_level=TOTAL`);
+        const data = await response.json();
 
-// Función para leer el CSV y convertirlo a un array de objetos
-function readCSV(fileroute) {
+        if (data.length === 0) {
+            throw new Error("No se encontraron datos para la comunidad especificada");
+        }
 
-    const content = fs.readFileSync(fileroute, "utf8");
+        const getAvg = (field) => {
+            const values = data.map(item => item[field]);
+            const sum = values.reduce((acc, valor) => acc + valor, 0);
+            return values.length > 0 ? (sum / values.length).toFixed(2) : "0.00";
+        };
 
-    // Parsear el CSV a JSON
-    const result = Papa.parse(content, {
-        header: true,  // Usa la primera fila como nombres de clave
-        skipEmptyLines: true // Omitir líneas vacías
-    });
+        return {
+            autonomous_community: ccaa,
+            activity_rate_avg: getAvg("activity_rate"),
+            employment_rate_avg: getAvg("employment_rate"),
+            unemployment_rate_avg: getAvg("unemployment_rate")
+        };
 
-    // Convertir cada fila en el formato deseado
-    return result.data.map(fila => ({
-        autonomous_community: fila["autonomous_community"] || "",
-        year: !isNaN(parseInt(fila["year"], 10)) ? parseInt(fila["year"], 10) : null,
-        education_level: fila["education_level"] || "",
-        activity_rate: !isNaN(parseFloat(fila["activity_rate"])) ? parseFloat(fila["activity_rate"]) : null,
-        employment_rate: !isNaN(parseFloat(fila["employment_rate"])) ? parseFloat(fila["employment_rate"]) : null,
-        unemployment_rate: !isNaN(parseFloat(fila["unemployment_rate"])) ? parseFloat(fila["unemployment_rate"]) : null
-    }));
+    } catch (error) {
+        console.error("Error obteniendo datos:", error);
+        return { error: "No se pudieron obtener los datos" };
+    }
 }
-
-// Ruta del archivo de salida
-const outputDir = path.join(__dirname, '../../json');
-const outputFile = path.join(outputDir, 'data-jdp.json');
-
-// Convertir a JSON y guardar en un archivo
-fs.writeFileSync(outputFile, JSON.stringify(readCSV(fileCSV), null, 2));
-
-
-// Leer y mostrar los datos en el formato deseado
-function getJDPData(ccaa) {
-    const data = readCSV(fileCSV);
-    const filteredData = data.filter(item => item.autonomous_community == ccaa && item.education_level === "TOTAL"); 
-
-    const getAvg = (field) => {
-        const values = filteredData.map(item => item[field]);  // En values se almacenan los datos numéricos del campo seleccionado
-        const sum = values.reduce((acc, valor) => acc + valor, 0); // Calcula la suma
-        return values.length > 0 ? sum / values.length : 0;  // Devuelve la media, asegurando no dividir por cero
-    };
-
-    const activityAvg = getAvg("activity_rate");
-    const employmentAvg = getAvg("employment_rate");
-    const unemploymentAvg = getAvg("unemployment_rate");
-
-    // Devolvemos un objeto con los resultados
-    return {
-        autonomous_community: ccaa,
-        activity_rate_avg: activityAvg.toFixed(2),
-        employment_rate_avg: employmentAvg.toFixed(2),
-        unemployment_rate_avg: unemploymentAvg.toFixed(2)
-    };
-}
-
 
 module.exports = getJDPData;
