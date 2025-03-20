@@ -1,7 +1,6 @@
-//use strict;
 
 import { comunityFormRenderer } from "../renders/comunityFormRenderer.js";
-import getJDPData from "../functions/index-JDP.js";
+import { getJDPData } from "../functions/index-JDP.js";
 
 function samplesJDP(){
     loadComunities();
@@ -9,34 +8,17 @@ function samplesJDP(){
     form.addEventListener('submit', handleSubmit);
 }
 
-function loadComunities(){
-    const container = document.getElementById('communityForm');
-    const before = document.getElementById('before-comunities');
-    // Obtener comunidades a través de la API
-    fetch('/api/v1/employment-data')
-        .then(response => response.json())
-        .then(data => {
-            try {
-                const communities = [...new Set(data.map(item => item.autonomous_community))];
-                container.insertBefore(comunityFormRenderer.asSelect(communities), before);
-            } catch (error) {
-                console.error("Error al cargar las comunidades", error);
-            }
-        })
-        .catch(error => {
-            console.error("Error al obtener datos de la API:", error);
-        });
-}
-
-
 async function loadComunities() {
     const container = document.getElementById('communityForm');
     const before = document.getElementById('before-comunities');
 
     try {
+        console.log("Cargando comunidades...");
         // Obtener comunidades desde la API
         const response = await fetch('/api/v1/employment-data');
         const data = await response.json();
+
+        console.log("Respuesta de la API:", data);
 
         if (!Array.isArray(data) || data.length === 0) {
             throw new Error("No se encontraron comunidades autónomas.");
@@ -45,12 +27,16 @@ async function loadComunities() {
         // Extraer las comunidades autónomas únicas
         const communities = [...new Set(data.map(item => item.autonomous_community))].filter(c => c);
 
+        console.log("Comunidades procesadas:", communities);
+
         if (communities.length === 0) {
             throw new Error("No hay datos de comunidades disponibles.");
         }
 
         // Insertar el desplegable antes del botón
         container.insertBefore(comunityFormRenderer.asSelect(communities), before);
+
+        console.log("Desplegable insertado correctamente.");
     } catch (error) {
         console.error("Error al cargar las comunidades:", error);
     }

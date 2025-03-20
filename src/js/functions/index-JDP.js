@@ -1,5 +1,5 @@
-const fetch = require("node-fetch");  // Importar fetch para hacer llamadas a la API
-const API_URL = process.env.HOST || "http://localhost:16078";
+
+const API_URL = window.location.origin;
 
 async function getJDPData(ccaa) {
     try {
@@ -29,4 +29,4 @@ async function getJDPData(ccaa) {
     }
 }
 
-module.exports = getJDPData;
+export { getJDPData };
