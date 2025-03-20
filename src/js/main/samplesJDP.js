@@ -29,6 +29,33 @@ function loadComunities(){
 }
 
 
+async function loadComunities() {
+    const container = document.getElementById('communityForm');
+    const before = document.getElementById('before-comunities');
+
+    try {
+        // Obtener comunidades desde la API
+        const response = await fetch('/api/v1/employment-data');
+        const data = await response.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error("No se encontraron comunidades autónomas.");
+        }
+
+        // Extraer las comunidades autónomas únicas
+        const communities = [...new Set(data.map(item => item.autonomous_community))].filter(c => c);
+
+        if (communities.length === 0) {
+            throw new Error("No hay datos de comunidades disponibles.");
+        }
+
+        // Insertar el desplegable antes del botón
+        container.insertBefore(comunityFormRenderer.asSelect(communities), before);
+    } catch (error) {
+        console.error("Error al cargar las comunidades:", error);
+    }
+}
+
 async function handleSubmit(event) {
     event.preventDefault();
     
