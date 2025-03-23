@@ -238,7 +238,7 @@ router.delete("/cybercrime-data", (req, res) => {
 });
 
 // DELETE: Eliminar un dato específico
-router.delete("/api/v1/cybercrime-data/:autonomous_community/:year", (req, res) => {
+router.delete("cybercrime-data/:autonomous_community/:year", (req, res) => {
     console.log("[DELETE] Solicitud recibida para eliminar un dato específico");
     const { autonomous_community, year } = req.params;
 
