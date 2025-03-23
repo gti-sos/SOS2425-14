@@ -1,85 +1,63 @@
+//use strict;
+
 import { comunityFormRenderer } from "../renders/comunityFormRenderer.js";
 
 function samplesPDG() {
-    loadCommunities();
+    loadCommunities();  // Función para cargar las comunidades
     const form = document.getElementById('communityForm');
     form.addEventListener('submit', handleSubmit);
 }
 
-// Cargar comunidades autónomas desde la API
+// Función para cargar las comunidades
 function loadCommunities() {
     const container = document.getElementById('communityForm');
     const before = document.getElementById('before-communities');
-
-    fetch('/api/v1/cybercrime-data')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
+    fetch('/src/json/data-pdg.json')  
+        .then(response => response.json())
         .then(data => {
             try {
                 const communities = [...new Set(data.map(item => item.autonomous_community))];
                 container.insertBefore(comunityFormRenderer.asSelect(communities), before);
             } catch (error) {
-                console.error("Error al procesar las comunidades", error);
+                console.error("Error al cargar las comunidades", error);
             }
-        })
-        .catch(error => {
-            console.error("Error al cargar las comunidades desde la API", error);
         });
 }
 
-// Manejar el envío del formulario
+// Función para manejar el evento de enviar el formulario
 async function handleSubmit(event) {
-    event.preventDefault();
     const resultsContainer = document.getElementById('results');
-    const selectedCommunity = document.getElementById('community').value;
-
-    if (!selectedCommunity) {
-        resultsContainer.innerHTML = `<p>Por favor, selecciona una comunidad autónoma</p>`;
-        return;
-    }
+    
+    event.preventDefault();
+    const selectedCommunity = document.getElementById('community').value;  // Obtenemos la comunidad seleccionada
 
     try {
-        const response = await fetch(`/api/v1/cybercrime-data?autonomous_community=${encodeURIComponent(selectedCommunity)}`, {
-            method: 'GET',
+        // Realizamos la solicitud POST
+        const response = await fetch('/api/PDG', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-  
+            body: JSON.stringify({ community: selectedCommunity }),  // Enviamos la comunidad seleccionada
         });
 
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
+        // Obtenemos la respuesta del servidor como JSON
         const data = await response.json();
-
-        if (data.length === 0) {
-            resultsContainer.innerHTML = `<p>No se encontraron datos para ${selectedCommunity}</p>`;
-            return;
-        }
-
-        // Calcular promedios
-        const criminalAvg = (data.reduce((sum, entry) => sum + entry.criminal_ofense, 0) / data.length).toFixed(2);
-        const cybersecurityAvg = (data.reduce((sum, entry) => sum + entry.cybersecurity, 0) / data.length).toFixed(2);
-        const arrestedAvg = (data.reduce((sum, entry) => sum + entry.arrested_investigated, 0) / data.length).toFixed(2);
-
+        
+        // Mostramos los resultados en la página web
         resultsContainer.innerHTML = `
-            <h3>Resultados para: ${selectedCommunity}</h3>
+            <h3>Results for: ${data.autonomous_community}</h3>
             <ul>
-                <li><strong>Promedio de Delitos:</strong> ${criminalAvg}</li>
-                <li><strong>Promedio de Ciberseguridad:</strong> ${cybersecurityAvg}</li>
-                <li><strong>Promedio de Detenidos/Investigados:</strong> ${arrestedAvg}</li>
+                <li><strong>Average Criminal Offenses:</strong> ${data.criminal_ofense}</li>
+                <li><strong>Average Cybersecurity:</strong> ${data.cybersecurity}</li>
+                <li><strong>Average Arrested/Investigated:</strong> ${data.arrested_investigated}</li>
             </ul>
         `;
     } catch (error) {
         console.error('Error:', error);
-        resultsContainer.innerHTML = `<p>Error al obtener los datos</p>`;
+        resultsContainer.innerHTML = `<p>Error al obtener los datos</p>`;  // Mensaje de error si algo falla
     }
 }
 
-
+// Esperamos a que se cargue el DOM para inicializar la función
 document.addEventListener('DOMContentLoaded', samplesPDG);
