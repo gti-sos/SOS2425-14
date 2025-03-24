@@ -248,35 +248,63 @@ router.delete("/cybercrime-data", (req, res) => {
     });
 });
 
-// DELETE: Eliminar un dato específico
-router.delete("cybercrime-data/:autonomous_community/:year", (req, res) => {
-    console.log("[DELETE] Solicitud recibida para eliminar un dato específico");
+
+/****************************************************
+ * DELETE - Elimina un dato específico
+ ****************************************************/
+
+router.delete("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year } = req.params;
 
+    // Backlog: Si se recibe un dato (JSON) que no tiene los campos esperados se debe devolver el código 400
+    if (!autonomous_community || !year ) {
+        return res.status(400).json({ 
+            error: "Se requieren todos los parámetros (autonomous_community, year, education_level)" 
+        });
+    }
+    
+    const yearNum = parseInt(year);
+    if (isNaN(yearNum)) {
+        return res.status(400).json({ error: "El año debe ser un valor numérico" });
+    }
+    
     fs.readFile(dataFilePath, "utf8", (err, data) => {
         if (err) {
             console.error("Error leyendo el archivo JSON", err);
-            return res.status(400).json({ error: "Error interno del servidor" });
+            return res.status(500).json({ error: "Error interno del servidor" });
         }
-
-        let PDGData = JSON.parse(data);
-        const newData = PDGData.filter(entry => 
-            !(entry.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() && entry.year == year)
-        );
-
-        if (newData.length === PDGData.length) {
-            return res.status(404).json({ error: "Dato no encontrado" });
-        }
-
-        fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2), (err) => {
-            if (err) {
-                console.error("Error al eliminar el dato", err);
-                return res.status(400).json({ error: "Error interno del servidor" });
+        
+        try {
+            console.log(`DELETE request for employment data: ${autonomous_community}/${year}`);
+            let jsonData = JSON.parse(data);
+            
+            const initialLength = jsonData.length;
+            jsonData = jsonData.filter(item => 
+                !(item.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
+                item.year === yearNum 
+            ));
+            
+            // Backlog: Error 404, Si se intenta eliminar un recurso inexistente.
+            if (jsonData.length === initialLength) {
+                return res.status(404).json({ error: "No se encontró el dato para eliminar" });
             }
-            res.status(200).json({ message: "Dato eliminado correctamente" });
-        });
+            
+            fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
+                if (err) {
+                    console.error("Error guardando los datos", err);
+                    return res.status(500).json({ error: "Error interno del servidor" });
+                }
+                
+                res.status(200).json({ message: "Dato eliminado correctamente" });
+            });
+        } catch (parseError) {
+            console.error("Error parseando JSON", parseError);
+            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+        }
     });
 });
+
+
 
 //Manejo de métodos no permitidos
 router.all("/cybercrime-data", (req, res) => {
