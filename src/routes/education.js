@@ -93,7 +93,7 @@ router.post("/education-data", (req, res, next) => {
         console.log("[POST] Error: Parámetros de consulta no permitidos en esta ruta");
         return res.status(405).json({ error: "Método no permitido en esta URL con parámetros. Use PUT o GET." });
     }
-    next(); // si no hay query params, pasa al siguiente middleware
+    next();
 });
 
 // POST: Agregar un nuevo registro
