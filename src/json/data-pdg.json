@@ -7,14 +7,14 @@
     "year": 2020
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "criminal_ofense": 287594,
     "cybersecurity": 39157,
     "arrested_investigated": 2104,
     "year": 2020
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "criminal_ofense": 36024,
     "cybersecurity": 7826,
     "arrested_investigated": 297,
@@ -49,7 +49,7 @@
     "year": 2020
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "criminal_ofense": 65025,
     "cybersecurity": 15457,
     "arrested_investigated": 531,
@@ -112,7 +112,7 @@
     "year": 2020
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "criminal_ofense": 77176,
     "cybersecurity": 17866,
     "arrested_investigated": 2292,
@@ -147,14 +147,14 @@
     "year": 2021
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "criminal_ofense": 314894,
     "cybersecurity": 42493,
     "arrested_investigated": 2212,
     "year": 2021
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "criminal_ofense": 41796,
     "cybersecurity": 8461,
     "arrested_investigated": 345,
@@ -189,7 +189,7 @@
     "year": 2021
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "criminal_ofense": 74008,
     "cybersecurity": 16680,
     "arrested_investigated": 605,
@@ -252,7 +252,7 @@
     "year": 2021
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "criminal_ofense": 84781,
     "cybersecurity": 16798,
     "arrested_investigated": 3220,
@@ -287,14 +287,14 @@
     "year": 2022
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "criminal_ofense": 379133,
     "cybersecurity": 56908,
     "arrested_investigated": 2607,
     "year": 2022
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "criminal_ofense": 47889,
     "cybersecurity": 9620,
     "arrested_investigated": 368,
@@ -329,7 +329,7 @@
     "year": 2022
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "criminal_ofense": 86844,
     "cybersecurity": 21302,
     "arrested_investigated": 722,
@@ -392,7 +392,7 @@
     "year": 2022
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "criminal_ofense": 101756,
     "cybersecurity": 20907,
     "arrested_investigated": 3049,
@@ -427,14 +427,14 @@
     "year": 2023
   },
   {
-    "autonomous_community": "Andalucía",
+    "autonomous_community": "Andalucia",
     "criminal_ofense": 413181,
     "cybersecurity": 81315,
     "arrested_investigated": 3333,
     "year": 2023
   },
   {
-    "autonomous_community": "Aragón",
+    "autonomous_community": "Aragon",
     "criminal_ofense": 50865,
     "cybersecurity": 12184,
     "arrested_investigated": 558,
@@ -469,7 +469,7 @@
     "year": 2023
   },
   {
-    "autonomous_community": "Castilla y León",
+    "autonomous_community": "Castilla y Leon",
     "criminal_ofense": 89824,
     "cybersecurity": 25540,
     "arrested_investigated": 917,
@@ -534,7 +534,7 @@
     "year": 2023
   },
   {
-    "autonomous_community": "País Vasco",
+    "autonomous_community": "Pais Vasco",
     "criminal_ofense": 107823,
     "cybersecurity": 27899,
     "arrested_investigated": 3072,
@@ -560,11 +560,5 @@
     "cybersecurity": 481,
     "arrested_investigated": 17,
     "year": 2023
-  },
-  {
-    "__EMPTY": " "
-  },
-  {
-    "__EMPTY_2": "  "
   }
 ]

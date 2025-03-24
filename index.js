@@ -14,9 +14,6 @@ app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname)));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const getFRMData = require("./src/js/functions/index-FRM.js");
-const getPDGData = require("./src/js/functions/index-PDG.js");
-
 //APIS
 const BASE_API = "/api/v1";
 
@@ -106,15 +103,34 @@ app.get("/samples/PDG", (request, response )=>{
     response.sendFile(path.join(__dirname, 'samplesPDG.html'));
 });
 
-// Cambiar a método POST y recibir el parámetro de comunidad
-app.post("/api/PDG", (request, response) => {
-    const { community } = request.body;
+app.get("/api/PDG", async (req, res) => {
+    const { community } = req.query;
+
     if (!community) {
-        return response.status(400).json({ error: "Se requiere el parámetro 'community'" });
+        return res.status(400).json({ error: "Se requiere el parámetro 'community'" });
     }
-    const data = getPDGData(community);
-    response.json(data);
+
+    try {
+        const apiUrl = `https://sos2425-14.onrender.com/api/v1/cybercrime-data?autonomous_community=${encodeURIComponent(community)}`;
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+            throw new Error(`Error al consultar la API externa: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.length) {
+            return res.status(404).json({ error: "No se encontraron datos para la comunidad especificada" });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error("Error al obtener datos desde la API externa", error);
+        res.status(500).json({ error: "Error interno al consultar los datos" });
+    }
 });
+
 
 /****************************************************
  * Inicio del servidor http

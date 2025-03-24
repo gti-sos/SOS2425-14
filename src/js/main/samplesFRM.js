@@ -6,7 +6,7 @@ function samplesFRM() {
     form.addEventListener('submit', handleSubmit);
 }
 
-// Cargar comunidades autónomas desde la API en vez de un archivo JSON
+// Cargar comunidades autónomas desde la API
 function loadComunities() {
     const container = document.getElementById('communityForm');
     const before = document.getElementById('before-comunities');
