@@ -87,6 +87,15 @@ router.get("/education-data/:autonomous_community", (req, res) => {
     });
 });
 
+// Rechazar POST si vienen query parameters
+router.post("/education-data", (req, res, next) => {
+    if (Object.keys(req.query).length > 0) {
+        console.log("[POST] Error: Parámetros de consulta no permitidos en esta ruta");
+        return res.status(405).json({ error: "Método no permitido en esta URL con parámetros. Use PUT o GET." });
+    }
+    next(); // si no hay query params, pasa al siguiente middleware
+});
+
 // POST: Agregar un nuevo registro
 router.post("/education-data", (req, res) => {
     console.log("[POST] Solicitud recibida para agregar un nuevo registro");
@@ -132,6 +141,13 @@ router.post("/education-data", (req, res) => {
         });
     });
 });
+
+// POST no permitido a recurso específico
+router.post("/education-data/:autonomous_community/:year", (req, res) => {
+    console.log("[POST] Error: No se permite POST en recurso específico");
+    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
+});
+
 
 
 // GET: Obtener un dato específico (por comunidad autónoma y año)
@@ -222,11 +238,6 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
             res.status(200).json({ message: "Dato actualizado correctamente" });
         });
     });
-});
-
-// POST no permitido a datos especificos
-router.post("/education-data/:autonomous_community/:year", (req, res) => {
-    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
 });
 
 
