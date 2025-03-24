@@ -223,6 +223,17 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         });
     });
 });
+
+/****************************************************
+ * POST - NO PERMITIDO PARA RECURSO ESPECIFICO
+ ****************************************************/
+
+//Backlog: Si se intenta usar alguno de los métodos no permitidos por la tabla azul se debe devolver el código 405.
+router.post("/cybercrime-data/:autonomous_community/:year", (req, res) => {
+    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
+});
+
+
 // DELETE: Eliminar todos los datos
 router.delete("/cybercrime-data", (req, res) => {
     console.log("[DELETE] Solicitud recibida para eliminar todos los datos");
