@@ -225,7 +225,7 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
 });
 
 // POST no permitido a datos especificos
-router.post("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
+router.post("/education-data/:autonomous_community/:year", (req, res) => {
     res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
 });
 
