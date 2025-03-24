@@ -224,6 +224,11 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
     });
 });
 
+// POST no permitido a datos especificos
+router.post("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
+    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
+});
+
 
 // DELETE: Eliminar todos los datos
 router.delete("/education-data", (req, res) => {
@@ -272,7 +277,7 @@ router.delete("/education-data/:autonomous_community/:year", (req, res) => {
 //Manejo de métodos no permitidos
 router.all("/education-data", (req, res) => {
     if (!["GET", "POST", "DELETE"].includes(req.method)) {
-        return res.status(405).json({ error: "Método no permitido" });
+        return res.status(405).json({   error: "Método no permitido" });
     }
 });
 
