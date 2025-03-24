@@ -58,41 +58,12 @@ app.get("/samples/JDP", (request, response )=>{
     response.sendFile(path.join(__dirname, 'samplesJDP.html'));
 });
 
-
-
 /****************************************************
  * Rutas de Fran
  ****************************************************/
 
 app.get("/samples/FRM", (request, response )=>{
     response.sendFile(path.join(__dirname, 'samplesFRM.html'));
-});
-
-app.get("/api/FRM", (req, res) => {
-    const { community } = req.query;
-
-    if (!community) {
-        return res.status(400).json({ error: "Se requiere el parámetro 'community'" });
-    }
-
-    fetch(`https://sos2425-14.onrender.com/api/v1/education-data?autonomous_community=${encodeURIComponent(community)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.length === 0) {
-                return res.status(404).json({ error: "No se encontraron datos para la comunidad especificada" });
-            }
-
-            res.json(data);
-        })
-        .catch(error => {
-            console.error("Error obteniendo datos de la API", error);
-            res.status(500).json({ error: "Error interno del servidor" });
-        });
 });
 
 /****************************************************
@@ -102,35 +73,6 @@ app.get("/api/FRM", (req, res) => {
 app.get("/samples/PDG", (request, response )=>{
     response.sendFile(path.join(__dirname, 'samplesPDG.html'));
 });
-
-app.get("/api/PDG", async (req, res) => {
-    const { community } = req.query;
-
-    if (!community) {
-        return res.status(400).json({ error: "Se requiere el parámetro 'community'" });
-    }
-
-    try {
-        const apiUrl = `https://sos2425-14.onrender.com/api/v1/cybercrime-data?autonomous_community=${encodeURIComponent(community)}`;
-        const response = await fetch(apiUrl);
-        
-        if (!response.ok) {
-            throw new Error(`Error al consultar la API externa: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (!data.length) {
-            return res.status(404).json({ error: "No se encontraron datos para la comunidad especificada" });
-        }
-
-        res.json(data);
-    } catch (error) {
-        console.error("Error al obtener datos desde la API externa", error);
-        res.status(500).json({ error: "Error interno al consultar los datos" });
-    }
-});
-
 
 /****************************************************
  * Inicio del servidor http
