@@ -253,13 +253,13 @@ router.delete("/cybercrime-data", (req, res) => {
  * DELETE - Elimina un dato específico
  ****************************************************/
 
-router.delete("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
+router.delete("/cybercrime-data/:autonomous_community/:year", (req, res) => {
     const { autonomous_community, year } = req.params;
 
     // Backlog: Si se recibe un dato (JSON) que no tiene los campos esperados se debe devolver el código 400
     if (!autonomous_community || !year ) {
         return res.status(400).json({ 
-            error: "Se requieren todos los parámetros (autonomous_community, year, education_level)" 
+            error: "Se requieren todos los parámetros (autonomous_community, year)" 
         });
     }
     
@@ -275,7 +275,7 @@ router.delete("/employment-data/:autonomous_community/:year/:education_level", (
         }
         
         try {
-            console.log(`DELETE request for employment data: ${autonomous_community}/${year}`);
+            console.log(`DELETE request for cybercrime data: ${autonomous_community}/${year}`);
             let jsonData = JSON.parse(data);
             
             const initialLength = jsonData.length;
