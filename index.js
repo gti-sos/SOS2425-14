@@ -20,13 +20,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const BASE_API = "/api/v1";
 
-const educationRoutes = require("./src/routes/education");
+const educationRoutes = require("./src/back/education");
 app.use(BASE_API, educationRoutes);
 
-const employmentRoutes = require("./src/routes/employment");
+const employmentRoutes = require("./src/back/employment");
 app.use(BASE_API, employmentRoutes);
 
-const cybercrimeRoutes = require("./src/routes/cybercrime");
+const cybercrimeRoutes = require("./src/back/cybercrime");
 app.use(BASE_API, cybercrimeRoutes);
 
 
