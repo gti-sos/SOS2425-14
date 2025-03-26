@@ -4,7 +4,7 @@ const path = require("path");
 
 const router = express.Router();
 const db = new Datastore();
-const initialData = require("../json/initial-frm-data.json");
+const initialData = require("../json/data-frm.json");
 
 // Carga automática de datos iniciales al iniciar la API
 db.count({}, (err, count) => {
