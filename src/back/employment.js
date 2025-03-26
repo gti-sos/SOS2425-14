@@ -192,6 +192,10 @@ router.get("/employment-data/loadInitialData", (req, res) => {
     });
 });
 
+//Redirigir al docs de la API
+router.get("/employment-data/docs", (req, res) => {
+    res.redirect("https://documenter.getpostman.com/view/42370803/2sAYkLkbwf");
+});
 
 /****************************************************
  * GET - Para una comunidad autonoma en concreto (con posibilidad de filtrado por query). Respuesta de tipo ARRAY.
