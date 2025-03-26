@@ -37,36 +37,12 @@ app.use(express.static(__dirname));
 // Rutas iniciales
 
 app.get("/", (request, response) => {
-    response.sendFile(path.join(__dirname, 'about.html'));
+    response.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get("/about", (request, response) => {
     response.sendFile(path.join(__dirname, 'about.html'));
 });
-
-app.get("/cool", (request, response )=>{
-    response.send(cool());
-});
-
-app.get("/hello", (request, response )=>{
-    response.send("Hello from server");
-});
-
-
-// Samples
-
-app.get("/samples/JDP", (request, response )=>{
-    response.sendFile(path.join(__dirname, 'samplesJDP.html'));
-});
-
-app.get("/samples/FRM", (request, response )=>{
-    response.sendFile(path.join(__dirname, 'samplesFRM.html'));
-});
-
-app.get("/samples/PDG", (request, response )=>{
-    response.sendFile(path.join(__dirname, 'samplesPDG.html'));
-});
-
 
 // Inicio servidor
 
