@@ -1,0 +1,767 @@
+{
+	"info": {
+		"_postman_id": "942433b6-cf13-4aec-b533-8c39cd495fcb",
+		"name": "API-education-data",
+		"description": "This API operates with unemployment rates, employment rates, and activity rates of the population in different regions, years and education levels of Spain.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42370803"
+	},
+	"item": [
+		{
+			"name": "GET /employment-data (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un array\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(Array.isArray(data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El array tiene al menos un elemento\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Los objetos del array no contienen _id\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    if (data.length > 0) {\r",
+							"        pm.expect(data[0]).to.not.have.property(\"_id\");\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /employment-data (201)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 (Created)\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto contiene todos los campos requeridos\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    const campos = [\r",
+							"        \"autonomous_community\",\r",
+							"        \"year\",\r",
+							"        \"education_level\",\r",
+							"        \"activity_rate\",\r",
+							"        \"employment_rate\",\r",
+							"        \"unemployment_rate\"\r",
+							"    ];\r",
+							"    campos.forEach(campo => {\r",
+							"        pm.expect(json).to.have.property(campo);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"autonomous_community\": \"Andalucía\",\r\n    \"year\": 2019,\r\n    \"education_level\": \"TOTAL\",\r\n    \"activity_rate\": 79.12,\r\n    \"employment_rate\": 67.26,\r\n    \"unemployment_rate\": 14.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE recurso añadido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de éxito al eliminar\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message).to.include(\"eliminado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/Andalucía/2019/TOTAL",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"Andalucía",
+						"2019",
+						"TOTAL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Not Allowed)PUT /employment-data (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"autonomous_community\": \"Andalucía\",\r\n    \"year\": 2019,\r\n    \"education_level\": \"TOTAL\",\r\n    \"activity_rate\": 79.12,\r\n    \"employment_rate\": 67.26,\r\n    \"unemployment_rate\": 14.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /employment-data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de eliminación presente\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message.toLowerCase()).to.include(\"eliminado\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje indica que los datos han sido restaurados\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message.toLowerCase()).to.include(\"restaurados\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta contiene un array de datos válidos\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"data\");\r",
+							"    pm.expect(Array.isArray(json.data)).to.be.true;\r",
+							"    pm.expect(json.data.length).to.be.above(0);\r",
+							"    pm.expect(json.data[0]).to.not.have.property(\"_id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/loadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET recurso específico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto con los campos esperados\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"\r",
+							"    const campos = [\r",
+							"        \"autonomous_community\",\r",
+							"        \"year\",\r",
+							"        \"education_level\",\r",
+							"        \"activity_rate\",\r",
+							"        \"employment_rate\",\r",
+							"        \"unemployment_rate\"\r",
+							"    ];\r",
+							"\r",
+							"    campos.forEach(campo => {\r",
+							"        pm.expect(json).to.have.property(campo);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/Andalucía/2023/SUP",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"Andalucía",
+						"2023",
+						"SUP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(Not Allowed) POST recurso específico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/Andalucía/2023/SUP",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"Andalucía",
+						"2023",
+						"SUP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST añadir actualización",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 (Created)\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto contiene todos los campos requeridos\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    const campos = [\r",
+							"        \"autonomous_community\",\r",
+							"        \"year\",\r",
+							"        \"education_level\",\r",
+							"        \"activity_rate\",\r",
+							"        \"employment_rate\",\r",
+							"        \"unemployment_rate\"\r",
+							"    ];\r",
+							"    campos.forEach(campo => {\r",
+							"        pm.expect(json).to.have.property(campo);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"autonomous_community\": \"Andalucía\",\r\n    \"year\": 2019,\r\n    \"education_level\": \"TOTAL\",\r\n    \"activity_rate\": 79.12,\r\n    \"employment_rate\": 67.26,\r\n    \"unemployment_rate\": 14.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT recurso específico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de actualización presente\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message.toLowerCase()).to.include(\"actualizado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"activity_rate\": 15,\r\n    \"employment_rate\": 15,\r\n    \"unemployment_rate\": 15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/Andalucía/2019/TOTAL",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"Andalucía",
+						"2019",
+						"TOTAL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE recurso actualizado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de eliminación correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message.toLowerCase()).to.include(\"eliminado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/Andalucía/2019/TOTAL",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"Andalucía",
+						"2019",
+						"TOTAL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Bad request (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 400\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error presente en la respuesta\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"faltan\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"autonomous_community\": \"Madrid\",\r\n  \"year\": 2023\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET recurso inexistente (404)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 404\", () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error adecuado\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"no encontrado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data/PEPE/2023/SUP",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data",
+						"PEPE",
+						"2023",
+						"SUP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST recurso ya existe (409)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 409 (Conflict)\", () => {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de conflicto presente\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"ya existe\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"autonomous_community\": \"Madrid\",\r\n  \"year\": 2023,\r\n  \"education_level\": \"SUP\",\r\n  \"activity_rate\": 75.5,\r\n  \"employment_rate\": 70.0,\r\n  \"unemployment_rate\": 5.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/employment-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-data"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

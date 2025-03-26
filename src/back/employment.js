@@ -99,33 +99,11 @@ function applyNumericFilters(req, query, fields) {
     });
 }
 
-/**********************************************************************
- * Validación de campos con listas permitidas
- **********************************************************************/
-function isValidValue(value, validList) {
-    return validList.includes(value.toUpperCase());
-}
-
-const validEducationLevels = ["TOTAL", "INF", "SEC", "SUP"];
-const validAutonomousCommunities = [
-    "Andalucía", "Aragón", "Asturias", "Baleares", "Canarias", "Cantabria",
-    "Castilla-La Mancha", "Castilla y León", "Cataluña", "Comunitat Valenciana",
-    "Extremadura", "Galicia", "Madrid", "Murcia", "Navarra", "País Vasco", "TOTAL"
-  ];
-  
 /****************************************************
  * GET - Lista todos los datos (con posibilidad de filtrado)
  ****************************************************/
 router.get("/employment-data", (req, res) => {
     const { autonomous_community, year, from, to, education_level } = req.query;
-
-    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-    
-    if (education_level && !isValidValue(education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }    
 
     if (year && (from || to)) {
         return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
@@ -204,14 +182,6 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
     const { autonomous_community } = req.params;
     const { year, from, to, education_level } = req.query;
 
-    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-    
-    if (education_level && !isValidValue(education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }    
-
     const query = {
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
     };
@@ -266,13 +236,6 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
 router.get("/employment-data/:autonomous_community/:year", (req, res) => {
     const { autonomous_community, year } = req.params;
     const yearNum = parseInt(year);
-    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-    
-    if (education_level && !isValidValue(education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }    
 
     if (isNaN(yearNum)) {
         return res.status(400).json({ error: "El año debe ser un número válido" });
@@ -342,14 +305,6 @@ router.post("/employment-data", (req, res) => {
         unemployment_rate
     };
 
-    if (!isValidValue(newData.autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-      
-    if (!isValidValue(newData.education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }
-
     // Verificar si ya existe ese recurso
     db.findOne({
         autonomous_community: new RegExp(`^${record.autonomous_community}$`, 'i'),
@@ -402,14 +357,6 @@ router.delete("/employment-data", (req, res) => {
  ****************************************************/
 router.get("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year, education_level } = req.params;
-
-    if (!isValidValue(autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-    
-    if (!isValidValue(education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }
     
     const yearNum = parseInt(year);
     if (isNaN(yearNum)) {
@@ -449,15 +396,6 @@ router.put("/employment-data/:autonomous_community/:year/:education_level", (req
     const { autonomous_community, year, education_level } = req.params;
     const updateData = req.body;
 
-    //Validación de los campos
-    if (!isValidValue(autonomous_community, validAutonomousCommunities)) {
-        return res.status(400).json({ error: "Comunidad autónoma no válida" });
-    }
-      
-    if (!isValidValue(education_level, validEducationLevels)) {
-        return res.status(400).json({ error: "Nivel educativo no válido" });
-    }
-      
     // Validar que no se cambian los identificadores
     if (
         updateData.autonomous_community !== undefined &&
