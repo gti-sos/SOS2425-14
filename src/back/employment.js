@@ -6,6 +6,62 @@ const router = express.Router();
 const db = new Datastore(); // Base de datos en memoria
 const initialData = require("../json/initial-jdp-data.json");
 
+/**
+ * API desarrollada por Jaime Duffy Panés - Resumen de endpoints y filtros disponibles.
+ * ------------------------------------------------
+ * El conjunto de datos tiene tres columnas identifiactivas (autonomous_community, year y education_level),
+ * y tres columnas numéricas (activity_rate, employment_rate, unemployment_rate)
+ *
+ * ENDPOINTS IMPLEMENTADOS:
+ * -------------------------
+ * 1. GET /employment-data
+ *    - Devuelve todos los registros, con posibilidad de filtrado y paginación.
+ *    - Filtros disponibles por query:
+ *        - autonomous_community
+ *        - education_level
+ *        - year
+ *        - from, to (rango de años)
+ *        - activity_rateMin, activity_rateMax (rango de tasa de actividad)
+ *        - employment_rateMin, employment_rateMax (rango de tasa de empleo)
+ *        - unemployment_rateMin, unemployment_rateMax (rango de tasa de desempleo)
+ *        - limit, offset (paginación)
+ *
+ * 2. GET /employment-data/loadInitialData
+ *    - Recarga la base de datos con los datos iniciales.
+ *
+ * 3. GET /employment-data/:autonomous_community
+ *    - Devuelve los registros de una comunidad específica.
+ *    - Filtros disponibles (por query):
+ *        - year, from, to
+ *        - education_level
+ *        - activity_rateMin / Max
+ *        - employment_rateMin / Max
+ *        - unemployment_rateMin / Max
+ *        - limit, offset
+ *
+ * 4. GET /employment-data/:autonomous_community/:year
+ *    - Devuelve todos los niveles educativos para una comunidad en un año dado.
+ *    - Filtros disponibles:
+ *        - education_level
+ *        - activity_rateMin / Max
+ *        - employment_rateMin / Max
+ *        - unemployment_rateMin / Max
+ *
+ * 5. GET /employment-data/:autonomous_community/:year/:education_level
+ *    - Devuelve un único recurso exacto.
+ *
+ * 6. POST /employment-data
+ *    - Crea un nuevo recurso de empleo.
+ *
+ * 7. PUT /employment-data/:autonomous_community/:year/:education_level
+ *    - Actualiza las tasas de un recurso específico (no se permiten cambios en los identificadores).
+ *
+ * 8. DELETE /employment-data
+ *    - Elimina todos los recursos.
+ *
+ * 9. DELETE /employment-data/:autonomous_community/:year/:education_level
+ *    - Elimina un recurso específico.
+ */
 
 /****************************************************
  * Carga automática de datos iniciales al iniciar la API
@@ -37,6 +93,44 @@ router.get("/employment-data", (req, res) => {
     }
 
     const query = {};
+
+    //Filtrado por activity_rate
+    const activityRateMin = parseFloat(req.query.activity_rateMin);
+    const activityRateMax = parseFloat(req.query.activity_rateMax);
+
+    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
+        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
+    } else if (!isNaN(activityRateMin)) {
+        query.activity_rate = { $gte: activityRateMin };
+    } else if (!isNaN(activityRateMax)) {
+        query.activity_rate = { $lte: activityRateMax };
+    }
+
+    //filtrado por employment_rate
+    const employmentRateMin = parseFloat(req.query.employment_rateMin);
+    const employmentRateMax = parseFloat(req.query.employment_rateMax);
+
+    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
+        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
+    } else if (!isNaN(employmentRateMin)) {
+        query.employment_rate = { $gte: employmentRateMin };
+    } else if (!isNaN(employmentRateMax)) {
+        query.employment_rate = { $lte: employmentRateMax };
+    }
+
+    //filtrado por unemployment_rate
+    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
+    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
+
+    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
+    } else if (!isNaN(unemploymentRateMin)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin };
+    } else if (!isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $lte: unemploymentRateMax };
+    }
+
+
 
     if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
     if (education_level) query.education_level = new RegExp(`^${education_level}$`, 'i');
@@ -103,6 +197,43 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
     };
 
+    //Filtrado por activity_rate
+    const activityRateMin = parseFloat(req.query.activity_rateMin);
+    const activityRateMax = parseFloat(req.query.activity_rateMax);
+
+    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
+        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
+    } else if (!isNaN(activityRateMin)) {
+        query.activity_rate = { $gte: activityRateMin };
+    } else if (!isNaN(activityRateMax)) {
+        query.activity_rate = { $lte: activityRateMax };
+    }
+
+    //filtrado por employment_rate
+    const employmentRateMin = parseFloat(req.query.employment_rateMin);
+    const employmentRateMax = parseFloat(req.query.employment_rateMax);
+
+    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
+        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
+    } else if (!isNaN(employmentRateMin)) {
+        query.employment_rate = { $gte: employmentRateMin };
+    } else if (!isNaN(employmentRateMax)) {
+        query.employment_rate = { $lte: employmentRateMax };
+    }
+
+    //filtrado por unemployment_rate
+    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
+    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
+
+    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
+    } else if (!isNaN(unemploymentRateMin)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin };
+    } else if (!isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $lte: unemploymentRateMax };
+    }
+
+
     if (education_level) {
         query.education_level = new RegExp(`^${education_level}$`, 'i');
     }
@@ -128,7 +259,7 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
         }
         query.year = { $gte: fromYear, $lte: toYear };
     }
-    
+
     const limit = parseInt(req.query.limit) || 0;
     const offset = parseInt(req.query.offset) || 0;
     
@@ -156,6 +287,43 @@ router.get("/employment-data/:autonomous_community/:year", (req, res) => {
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
         year: yearNum
     };
+
+    //Filtrado por activity_rate
+    const activityRateMin = parseFloat(req.query.activity_rateMin);
+    const activityRateMax = parseFloat(req.query.activity_rateMax);
+
+    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
+        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
+    } else if (!isNaN(activityRateMin)) {
+        query.activity_rate = { $gte: activityRateMin };
+    } else if (!isNaN(activityRateMax)) {
+        query.activity_rate = { $lte: activityRateMax };
+    }
+
+    //filtrado por employment_rate
+    const employmentRateMin = parseFloat(req.query.employment_rateMin);
+    const employmentRateMax = parseFloat(req.query.employment_rateMax);
+
+    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
+        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
+    } else if (!isNaN(employmentRateMin)) {
+        query.employment_rate = { $gte: employmentRateMin };
+    } else if (!isNaN(employmentRateMax)) {
+        query.employment_rate = { $lte: employmentRateMax };
+    }
+
+    //filtrado por unemployment_rate
+    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
+    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
+
+    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
+    } else if (!isNaN(unemploymentRateMin)) {
+        query.unemployment_rate = { $gte: unemploymentRateMin };
+    } else if (!isNaN(unemploymentRateMax)) {
+        query.unemployment_rate = { $lte: unemploymentRateMax };
+    }
+
 
     db.find(query, { _id: 0 }, (err, docs) => {
         if (err) return res.status(500).json({ error: "Error interno del servidor" });
