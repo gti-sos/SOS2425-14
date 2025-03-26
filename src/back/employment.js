@@ -57,9 +57,15 @@ router.get("/employment-data", (req, res) => {
         query.year = { $gte: fromYear, $lte: toYear };
     }
 
-    db.find(query,{ _id: 0 }, (err, docs) => {
-        if (err) return res.status(500).json({ error: "Error interno del servidor" });
-        res.json(docs);
+    const limit = parseInt(req.query.limit) || 0;
+    const offset = parseInt(req.query.offset) || 0;
+
+    db.find(query, { _id: 0 })
+        .skip(offset)
+        .limit(limit)
+        .exec((err, docs) => {
+            if (err) return res.status(500).json({ error: "Error interno del servidor" });
+            res.status(200).json(docs);
     });
 });
 
@@ -122,11 +128,17 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
         }
         query.year = { $gte: fromYear, $lte: toYear };
     }
-
-    db.find(query,{ _id: 0 }, (err, docs) => {
-        if (err) return res.status(500).json({ error: "Error al acceder a la base de datos" });
-        res.status(200).json(docs);
-    });
+    
+    const limit = parseInt(req.query.limit) || 0;
+    const offset = parseInt(req.query.offset) || 0;
+    
+    db.find(query, { _id: 0 })
+      .skip(offset)
+      .limit(limit)
+      .exec((err, docs) => {
+          if (err) return res.status(500).json({ error: "Error al acceder a la base de datos" });
+          res.status(200).json(docs);
+      });
 });
 
 /****************************************************
