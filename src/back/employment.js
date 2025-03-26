@@ -1,113 +1,86 @@
 const express = require("express");
-const fs = require("fs");
+const Datastore = require("nedb");
 const path = require("path");
 
 const router = express.Router();
-const dataFilePath = path.join(__dirname, "../json/data-jdp.json");
+const db = new Datastore(); // Base de datos en memoria
 const initialData = require("../json/initial-jdp-data.json");
 
 
 /****************************************************
- * GET - Lista todos los datos de employment-data (con posibilidad de filtrado por query). Respuesta de tipo ARRAY.
+ * Carga automática de datos iniciales al iniciar la API
  ****************************************************/
+db.count({}, (err, count) => {
+    if (err) {
+        console.error("Error al contar registros en NeDB", err);
+        return;
+    }
+    if (count === 0) {
+        db.insert(initialData, (err, newDocs) => {
+            if (err) console.error("Error al insertar datos iniciales en NeDB", err);
+            else console.log(`Se han insertado ${newDocs.length} registros iniciales en memoria.`);
+        });
+    } else {
+        console.log(`La base de datos ya tiene ${count} registros.`);
+    }
+});
 
+
+/****************************************************
+ * GET - Lista todos los datos (con posibilidad de filtrado)
+ ****************************************************/
 router.get("/employment-data", (req, res) => {
-    //Obtener parametros de consulta tipo "?" 
-    const autonomousCommunity = req.query.autonomous_community;
-    const year = req.query.year;
-    const fromYear = parseInt(req.query.from);
-    const toYear = parseInt(req.query.to);
-    const educationLevel = req.query.education_level;
+    const { autonomous_community, year, from, to, education_level } = req.query;
 
-    // Validar los parámetros de consulta
-    if (year && (fromYear || toYear)) {
+    if (year && (from || to)) {
         return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
     }
 
-    if (year && isNaN(parseInt(year))) {
-        return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
-    }
+    const query = {};
 
-    if ((fromYear || toYear) && (isNaN(fromYear) || isNaN(toYear))) {
-        return res.status(400).json({ error: "Los parámetros 'from' y 'to' deben ser años válidos." });
-    }
+    if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
+    if (education_level) query.education_level = new RegExp(`^${education_level}$`, 'i');
 
-    if (fromYear > toYear) {
-        return res.status(400).json({ error: "El parámetro 'from' debe ser menor o igual que 'to'." });
-    }
-
-    // Leer el archivo JSON
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+    if (year) {
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
+        query.year = yearNum;
+    } else if (from && to) {
+        const fromYear = parseInt(from);
+        const toYear = parseInt(to);
+        if (isNaN(fromYear) || isNaN(toYear)) {
+            return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
         }
-
-        try {
-            console.log(`GET request to /employment-data with query params: ${JSON.stringify(req.query)}`);
-            let jsonData = JSON.parse(data);
-
-            // Aplicar filtros si existen
-
-            if (autonomousCommunity) {
-                jsonData = jsonData.filter(item => 
-                    item.autonomous_community && 
-                    item.autonomous_community.toLowerCase() === autonomousCommunity.toLowerCase()
-                );
-            }
-
-            if (year) {
-                const yearNum = parseInt(year);
-                jsonData = jsonData.filter(item => item.year === yearNum);
-            } 
-            else if (fromYear && toYear) {
-                jsonData = jsonData.filter(item => 
-                    item.year >= fromYear && item.year <= toYear
-                );
-            }
-
-            if (educationLevel) {
-                jsonData = jsonData.filter(item => 
-                    item.education_level && 
-                    item.education_level.toLowerCase() === educationLevel.toLowerCase()
-                );
-            }
-
-            res.json(jsonData);
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+        if (fromYear > toYear) {
+            return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
         }
+        query.year = { $gte: fromYear, $lte: toYear };
+    }
+
+    db.find(query,{ _id: 0 }, (err, docs) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        res.json(docs);
     });
 });
 
 
 /****************************************************
- * GET - Cargar datos iniciales desde initial-jdp-data.json si el archivo de datos está vacío
+ * GET - Reinicia la base de datos con los datos iniciales
  ****************************************************/
-
 router.get("/employment-data/loadInitialData", (req, res) => {
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        let JDPData = [];
+    db.remove({}, { multi: true }, (err) => {
+        if (err) return res.status(500).json({ error: "Error al eliminar datos existentes" });
 
-        if (!err) {
-            try {
-                JDPData = JSON.parse(data);
-                if (JDPData.length > 0) {
-                    return res.status(200).json({ message: "Los datos ya estaban inicializados", data: JDPData });
-                }
-            } catch (parseError) {
-                console.error("Error parseando JSON, inicializando array vacío.");
-            }
-        }
+        db.insert(initialData, (err, newDocs) => {
+            if (err) return res.status(500).json({ error: "Error al insertar datos iniciales" });
 
-        // Guardar los datos iniciales directamente
-        fs.writeFile(dataFilePath, JSON.stringify(initialData, null, 2), (err) => {
-            if (err) {
-                console.error("Error guardando datos iniciales", err);
-                return res.status(500).json({ error: "Error interno del servidor" });
-            }
-            res.status(201).json({ message: "Datos inicializados correctamente", data: initialData });
+            // Filtrar el _id
+            const cleanDocs = newDocs.map(({ _id, ...rest }) => rest);
+
+            res.status(201).json({
+                message: `Datos iniciales restaurados correctamente (${cleanDocs.length} registros)`,
+                data: cleanDocs
+            });
         });
     });
 });
@@ -116,146 +89,108 @@ router.get("/employment-data/loadInitialData", (req, res) => {
 /****************************************************
  * GET - Para una comunidad autonoma en concreto (con posibilidad de filtrado por query). Respuesta de tipo ARRAY.
  ****************************************************/
-
 router.get("/employment-data/:autonomous_community", (req, res) => {
-    const autonomousCommunity = req.params.autonomous_community;
-    const fromYear = parseInt(req.query.from);
-    const toYear = parseInt(req.query.to);
-    const singleYear = parseInt(req.query.year);
-    const educationLevel = req.query.education_level;
+    const { autonomous_community } = req.params;
+    const { year, from, to, education_level } = req.query;
 
-    // Validar los parámetros de consulta
-    if (singleYear && (fromYear || toYear)) {
+    const query = {
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
+    };
+
+    if (education_level) {
+        query.education_level = new RegExp(`^${education_level}$`, 'i');
+    }
+
+    if (year && (from || to)) {
         return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
     }
 
-    if (singleYear && isNaN(singleYear)) {
-        return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
-    }
-
-    if ((fromYear || toYear) && (isNaN(fromYear) || isNaN(toYear))) {
-        return res.status(400).json({ error: "Los parámetros 'from' y 'to' deben ser años válidos." });
-    }
-
-    if (fromYear > toYear) {
-        return res.status(400).json({ error: "El parámetro 'from' debe ser menor o igual que 'to'." });
-    }
-
-    // Leer el archivo JSON
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+    if (year) {
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) {
+            return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
         }
-
-        try {
-            const jsonData = JSON.parse(data);
-
-            // Filtrar los datos para la comunidad autónoma
-            let filteredData = jsonData.filter(item => 
-                item.autonomous_community.toLowerCase() === autonomousCommunity.toLowerCase()
-            );
-
-            // Aplicar filtro por año único si se proporciona
-            if (singleYear) {
-                filteredData = filteredData.filter(item => item.year === singleYear);
-            } 
-            // Aplicar filtro por rango de años si se proporciona
-            else if (fromYear && toYear) {
-                filteredData = filteredData.filter(item => 
-                    item.year >= fromYear && item.year <= toYear
-                );
-            }
-
-            // Aplicar filtro por nivel educativo si se proporciona
-            if (educationLevel) {
-                filteredData = filteredData.filter(item => 
-                    item.education_level.toLowerCase() === educationLevel.toLowerCase()
-                );
-            }
-
-            res.json(filteredData);
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+        query.year = yearNum;
+    } else if (from && to) {
+        const fromYear = parseInt(from);
+        const toYear = parseInt(to);
+        if (isNaN(fromYear) || isNaN(toYear)) {
+            return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
         }
+        if (fromYear > toYear) {
+            return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
+        }
+        query.year = { $gte: fromYear, $lte: toYear };
+    }
+
+    db.find(query,{ _id: 0 }, (err, docs) => {
+        if (err) return res.status(500).json({ error: "Error al acceder a la base de datos" });
+        res.status(200).json(docs);
     });
 });
 
 /****************************************************
  * POST - Crea un nuevo dato para employment-data
  ****************************************************/
-
 router.post("/employment-data", (req, res) => {
-    
     const newData = req.body;
-    
-    // Verificar que se proporcionen todos los campos obligatorios
-    if (!newData.autonomous_community || !newData.year || !newData.education_level||
-        !newData.activity_rate || !newData.employment_rate || !newData.unemployment_rate) {
-        return res.status(400).json({ 
-            error: "Datos incompletos. Se requieren todos los datos para poder realizar el POST."
-        });
+
+    const requiredFields = [
+        "autonomous_community",
+        "year",
+        "education_level",
+        "activity_rate",
+        "employment_rate",
+        "unemployment_rate"
+    ];
+
+    // Validar que todos los campos estén presentes
+    if (!requiredFields.every(field => newData.hasOwnProperty(field))) {
+        return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
 
-    // Verificar que los campos numéricos sean realmente números
-    if (isNaN(newData.year) || isNaN(newData.activity_rate) || 
-        isNaN(newData.employment_rate) || isNaN(newData.unemployment_rate)) {
-        return res.status(400).json({ 
-            error: "Los campos numéricos (year, activity_rate, employment_rate, unemployment_rate) deben ser valores numéricos."
-        });
-    }
-    
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
-        }
-        
-        try {
-            console.log("POST request to /employment-data");
-            let jsonData = JSON.parse(data);
-            
-            // Comprobar si ya existe un registro con los mismos identificadores
-            const exists = jsonData.some(item => 
-                item.autonomous_community.toLowerCase() === newData.autonomous_community.toLowerCase() &&
-                item.year === newData.year &&
-                item.education_level.toLowerCase() === newData.education_level.toLowerCase()
-            );
-            
-            //Backlog: No se puede hacer un POST con un recurso que ya existe; en el caso contrario se debe devolver el código 409.
-            if (exists) {
-                return res.status(409).json({ 
-                    error: "Ya existe un registro con estos identificadores" 
-                });
-            }
+    // Validar y convertir los datos
+    const year = parseInt(newData.year);
+    const activity_rate = parseFloat(newData.activity_rate);
+    const employment_rate = parseFloat(newData.employment_rate);
+    const unemployment_rate = parseFloat(newData.unemployment_rate);
 
-            // Convertir los campos numéricos a números
-            newData.year = parseInt(newData.year);
-            newData.activity_rate = parseFloat(newData.activity_rate);
-            newData.employment_rate = parseFloat(newData.employment_rate);
-            newData.unemployment_rate = parseFloat(newData.unemployment_rate);
-            
-            // Añadir el nuevo registro
-            jsonData.push(newData);
-            
-            // Guardar los datos actualizados.
-            fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
-                if (err) {
-                    console.error("Error guardando los datos", err);
-                    return res.status(500).json({ error: "Error interno del servidor" });
-                }
-                
-                // Devolver código 201 CREATED sin datos
-                res.status(201).send();
-            });
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
+    if (
+        isNaN(year) || isNaN(activity_rate) ||
+        isNaN(employment_rate) || isNaN(unemployment_rate)
+    ) {
+        return res.status(400).json({ error: "Los campos numéricos deben contener valores válidos" });
+    }
+
+    const record = {
+        autonomous_community: newData.autonomous_community,
+        year,
+        education_level: newData.education_level,
+        activity_rate,
+        employment_rate,
+        unemployment_rate
+    };
+
+    // Verificar si ya existe ese recurso
+    db.findOne({
+        autonomous_community: new RegExp(`^${record.autonomous_community}$`, 'i'),
+        year: record.year,
+        education_level: new RegExp(`^${record.education_level}$`, 'i')
+    }, (err, existing) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        if (existing) {
+            return res.status(409).json({ error: "Ya existe un recurso con los mismos identificadores" });
         }
+
+        // Insertar en la base de datos
+        db.insert(record, (err, created) => {
+            if (err) return res.status(500).json({ error: "Error al guardar el recurso" });
+
+            const { _id, ...cleaned } = created;
+            res.status(201).json(cleaned);
+        });
     });
 });
-
 
 /****************************************************
  * PUT - NO SE PERMITE HACER POST PARA COLECCIONES DE RECURSOS.
@@ -270,30 +205,15 @@ router.put("/employment-data", (req, res) => {
 /****************************************************
  * DELETE - Borra todos los datos de empleo
  ****************************************************/
-
 router.delete("/employment-data", (req, res) => {
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
+    db.remove({}, { multi: true }, (err, numRemoved) => {
         if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+            return res.status(500).json({ error: "Error al eliminar los datos" });
         }
-        
-        try {
-            console.log("DELETE request to /employment-data");
-            
-            // Sobrescribir con un array vacío
-            fs.writeFile(dataFilePath, JSON.stringify([], null, 2), (err) => {
-                if (err) {
-                    console.error("Error guardando los datos", err);
-                    return res.status(500).json({ error: "Error interno del servidor" });
-                }
-                
-                res.status(200).json({ message: "Todos los datos han sido eliminados" });
-            });
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
-        }
+
+        res.status(200).json({
+            message: `Se han eliminado ${numRemoved} registros correctamente`
+        });
     });
 });
 
@@ -301,46 +221,27 @@ router.delete("/employment-data", (req, res) => {
 /****************************************************
  * GET - Obtener un recuso en específico. Respuesta de tipo OBJECT
  ****************************************************/
-
 router.get("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
-    // Obtener parámetros de la URL
     const { autonomous_community, year, education_level } = req.params;
 
-    // Backlog: Si se recibe un dato (JSON) que no tiene los campos esperados se debe devolver el código 400
-    if (!autonomous_community || !year || !education_level) {
-        return res.status(400).json({ 
-            error: "Se requieren todos los parámetros (autonomous_community, year, education_level)" 
-        });
+    const yearNum = parseInt(year);
+    if (isNaN(yearNum)) {
+        return res.status(400).json({ error: "El año debe ser un número válido" });
     }
-    
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+
+    db.findOne({
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: yearNum,
+        education_level: new RegExp(`^${education_level}$`, 'i')
+    }, (err, doc) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+
+        if (!doc) {
+            return res.status(404).json({ error: "Recurso no encontrado" });
         }
-        
-        try {
-            console.log(`GET request to specific employment data: ${autonomous_community}/${year}/${education_level}`);
-            const jsonData = JSON.parse(data);
-            
-            const yearNum = parseInt(year);
-            
-            const specificData = jsonData.find(item => 
-                item.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
-                item.year === yearNum &&
-                item.education_level.toLowerCase() === education_level.toLowerCase()
-            );
-            
-            //Backlog: Si se intenta acceder a un recurso inexistente se debe devolver el código 404
-            if (specificData) {
-                res.json(specificData);
-            } else {
-                res.status(404).json({ error: "No se encontraron datos para los criterios especificados" });
-            }
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
-        }
+
+        const { _id, ...cleaned } = doc;
+        res.status(200).json(cleaned);
     });
 });
 
@@ -348,7 +249,6 @@ router.get("/employment-data/:autonomous_community/:year/:education_level", (req
 /****************************************************
  * POST - NO PERMITIDO PARA RECURSO ESPECIFICO
  ****************************************************/
-
 //Backlog: Si se intenta usar alguno de los métodos no permitidos por la tabla azul se debe devolver el código 405.
 router.post("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
@@ -358,142 +258,94 @@ router.post("/employment-data/:autonomous_community/:year/:education_level", (re
 /****************************************************
  * PUT - Actualiza un dato específico
  ****************************************************/
-
 router.put("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year, education_level } = req.params;
-    const yearNum = parseInt(year);
-    const updatedData = req.body;
-    
+    const updateData = req.body;
 
-    // Backlog: Si se recibe un dato (JSON) que no tiene los campos esperados se debe devolver el código 400
-    if (!autonomous_community || !year || !education_level) {
-        return res.status(400).json({ 
-            error: "Se requieren todos los parámetros (autonomous_community, year, education_level)" 
-        });
-    }
-    // Verificar que el año sea un número válido
-    if (isNaN(yearNum)) {
-        return res.status(400).json({ error: "El año debe ser un valor numérico" });
-    }
-    
-    // Backlog:Un dato pasado con un PUT debe contener el mismo id del recurso al que se especifica en la URL; en caso contrario se debe devolver el código 400.
-    if (updatedData.autonomous_community || updatedData.year || updatedData.education_level) {
-        return res.status(400).json({ 
-            error: "No se pueden modificar los campos identificadores (autonomous_community, year, education_level)" 
-        });
+    // Validar que no se cambian los identificadores
+    if (
+        updateData.autonomous_community !== undefined &&
+        updateData.autonomous_community !== autonomous_community
+    ) {
+        return res.status(400).json({ error: "No se puede modificar 'autonomous_community'" });
     }
 
-    // Verificar que los campos numéricos sean realmente números
-    if ((updatedData.activity_rate !== undefined && isNaN(updatedData.activity_rate)) || 
-        (updatedData.employment_rate !== undefined && isNaN(updatedData.employment_rate)) || 
-        (updatedData.unemployment_rate !== undefined && isNaN(updatedData.unemployment_rate))) {
-        return res.status(400).json({ 
-            error: "Los campos numéricos (activity_rate, employment_rate, unemployment_rate) deben ser valores numéricos." 
-        });
+    if (
+        updateData.year !== undefined &&
+        parseInt(updateData.year) !== parseInt(year)
+    ) {
+        return res.status(400).json({ error: "No se puede modificar 'year'" });
     }
-    
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+
+    if (
+        updateData.education_level !== undefined &&
+        updateData.education_level !== education_level
+    ) {
+        return res.status(400).json({ error: "No se puede modificar 'education_level'" });
+    }
+
+    // Validar numéricos
+    const parsedData = {
+        activity_rate: parseFloat(updateData.activity_rate),
+        employment_rate: parseFloat(updateData.employment_rate),
+        unemployment_rate: parseFloat(updateData.unemployment_rate)
+    };
+
+    if (
+        isNaN(parsedData.activity_rate) ||
+        isNaN(parsedData.employment_rate) ||
+        isNaN(parsedData.unemployment_rate)
+    ) {
+        return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
+    }
+
+    const query = {
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: parseInt(year),
+        education_level: new RegExp(`^${education_level}$`, 'i')
+    };
+
+    const update = {
+        $set: parsedData
+    };
+
+    db.update(query, update, {}, (err, numUpdated) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+
+        if (numUpdated === 0) {
+            return res.status(404).json({ error: "Recurso no encontrado" });
         }
-        
-        try {
-            console.log(`PUT request to update employment data: ${autonomous_community}/${year}/${education_level}`);
-            let jsonData = JSON.parse(data);
-            
-            const index = jsonData.findIndex(item => 
-                item.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
-                item.year === yearNum &&
-                item.education_level.toLowerCase() === education_level.toLowerCase()
-            );
-            
-            //Backlog: Error 404, Si se intenta actualizar un recurso inexistente
-            if (index === -1) {
-                return res.status(404).json({ error: "No se encontró el dato para actualizar" });
-            }
 
-            // Convertir los campos numéricos a números
-            if (updatedData.activity_rate !== undefined) updatedData.activity_rate = parseFloat(updatedData.activity_rate);
-            if (updatedData.employment_rate !== undefined) updatedData.employment_rate = parseFloat(updatedData.employment_rate);
-            if (updatedData.unemployment_rate !== undefined) updatedData.unemployment_rate = parseFloat(updatedData.unemployment_rate);
-            
-            jsonData[index] = { 
-                ...jsonData[index], 
-                ...updatedData 
-            };
-            
-            fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
-                if (err) {
-                    console.error("Error guardando los datos", err);
-                    return res.status(500).json({ error: "Error interno del servidor" });
-                }
-                
-                res.status(200).json({ message: "Dato actualizado correctamente" });
-            });
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
-        }
+        res.status(200).json({ message: "Recurso actualizado correctamente" });
     });
 });
-
 
 /****************************************************
  * DELETE - Elimina un dato específico
  ****************************************************/
-
 router.delete("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year, education_level } = req.params;
 
-    // Backlog: Si se recibe un dato (JSON) que no tiene los campos esperados se debe devolver el código 400
-    if (!autonomous_community || !year || !education_level) {
-        return res.status(400).json({ 
-            error: "Se requieren todos los parámetros (autonomous_community, year, education_level)" 
-        });
-    }
-    
     const yearNum = parseInt(year);
     if (isNaN(yearNum)) {
-        return res.status(400).json({ error: "El año debe ser un valor numérico" });
+        return res.status(400).json({ error: "El año debe ser un número válido" });
     }
-    
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error leyendo el archivo JSON", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+
+    const query = {
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: yearNum,
+        education_level: new RegExp(`^${education_level}$`, 'i')
+    };
+
+    db.remove(query, {}, (err, numRemoved) => {
+        if (err) return res.status(500).json({ error: "Error al eliminar el recurso" });
+
+        if (numRemoved === 0) {
+            return res.status(404).json({ error: "Recurso no encontrado" });
         }
-        
-        try {
-            console.log(`DELETE request for employment data: ${autonomous_community}/${year}/${education_level}`);
-            let jsonData = JSON.parse(data);
-            
-            const initialLength = jsonData.length;
-            jsonData = jsonData.filter(item => 
-                !(item.autonomous_community.toLowerCase() === autonomous_community.toLowerCase() &&
-                item.year === yearNum &&
-                item.education_level.toLowerCase() === education_level.toLowerCase())
-            );
-            
-            // Backlog: Error 404, Si se intenta eliminar un recurso inexistente.
-            if (jsonData.length === initialLength) {
-                return res.status(404).json({ error: "No se encontró el dato para eliminar" });
-            }
-            
-            fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
-                if (err) {
-                    console.error("Error guardando los datos", err);
-                    return res.status(500).json({ error: "Error interno del servidor" });
-                }
-                
-                res.status(200).json({ message: "Dato eliminado correctamente" });
-            });
-        } catch (parseError) {
-            console.error("Error parseando JSON", parseError);
-            res.status(500).json({ error: "Error en el formato de los datos almacenados" });
-        }
+
+        res.status(200).json({ message: "Recurso eliminado correctamente" });
     });
 });
-
 
 module.exports = router;
