@@ -130,6 +130,33 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
 });
 
 /****************************************************
+ * GET - Comunidad y año específicos (todos los niveles)
+ ****************************************************/
+router.get("/employment-data/:autonomous_community/:year", (req, res) => {
+    const { autonomous_community, year } = req.params;
+    const yearNum = parseInt(year);
+
+    if (isNaN(yearNum)) {
+        return res.status(400).json({ error: "El año debe ser un número válido" });
+    }
+
+    const query = {
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: yearNum
+    };
+
+    db.find(query, { _id: 0 }, (err, docs) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+
+        if (!docs || docs.length === 0) {
+            return res.status(404).json({ error: "No se encontraron datos para esa comunidad y año" });
+        }
+
+        res.status(200).json(docs);
+    });
+});
+
+/****************************************************
  * POST - Crea un nuevo dato para employment-data
  ****************************************************/
 router.post("/employment-data", (req, res) => {
