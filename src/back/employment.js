@@ -82,11 +82,50 @@ db.count({}, (err, count) => {
 });
 
 
+/**********************************************************************
+ * Función auxiliar para aplicar los filtros de las columnas numéricas
+ **********************************************************************/
+function applyNumericFilters(req, query, fields) {
+    fields.forEach(field => {
+        const min = parseFloat(req.query[`${field}Min`]);
+        const max = parseFloat(req.query[`${field}Max`]);
+        if (!isNaN(min) && !isNaN(max)) {
+            query[field] = { $gte: min, $lte: max };
+        } else if (!isNaN(min)) {
+            query[field] = { $gte: min };
+        } else if (!isNaN(max)) {
+            query[field] = { $lte: max };
+        }
+    });
+}
+
+/**********************************************************************
+ * Validación de campos con listas permitidas
+ **********************************************************************/
+function isValidValue(value, validList) {
+    return validList.includes(value.toUpperCase());
+}
+
+const validEducationLevels = ["TOTAL", "INF", "SEC", "SUP"];
+const validAutonomousCommunities = [
+    "Andalucía", "Aragón", "Asturias", "Baleares", "Canarias", "Cantabria",
+    "Castilla-La Mancha", "Castilla y León", "Cataluña", "Comunitat Valenciana",
+    "Extremadura", "Galicia", "Madrid", "Murcia", "Navarra", "País Vasco", "TOTAL"
+  ];
+  
 /****************************************************
  * GET - Lista todos los datos (con posibilidad de filtrado)
  ****************************************************/
 router.get("/employment-data", (req, res) => {
     const { autonomous_community, year, from, to, education_level } = req.query;
+
+    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+    
+    if (education_level && !isValidValue(education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }    
 
     if (year && (from || to)) {
         return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
@@ -94,43 +133,11 @@ router.get("/employment-data", (req, res) => {
 
     const query = {};
 
-    //Filtrado por activity_rate
-    const activityRateMin = parseFloat(req.query.activity_rateMin);
-    const activityRateMax = parseFloat(req.query.activity_rateMax);
-
-    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
-        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
-    } else if (!isNaN(activityRateMin)) {
-        query.activity_rate = { $gte: activityRateMin };
-    } else if (!isNaN(activityRateMax)) {
-        query.activity_rate = { $lte: activityRateMax };
-    }
-
-    //filtrado por employment_rate
-    const employmentRateMin = parseFloat(req.query.employment_rateMin);
-    const employmentRateMax = parseFloat(req.query.employment_rateMax);
-
-    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
-        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
-    } else if (!isNaN(employmentRateMin)) {
-        query.employment_rate = { $gte: employmentRateMin };
-    } else if (!isNaN(employmentRateMax)) {
-        query.employment_rate = { $lte: employmentRateMax };
-    }
-
-    //filtrado por unemployment_rate
-    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
-    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
-
-    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
-    } else if (!isNaN(unemploymentRateMin)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin };
-    } else if (!isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $lte: unemploymentRateMax };
-    }
-
-
+    applyNumericFilters(req, query, [
+        "activity_rate",
+        "employment_rate",
+        "unemployment_rate"
+    ]);
 
     if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
     if (education_level) query.education_level = new RegExp(`^${education_level}$`, 'i');
@@ -193,46 +200,23 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
     const { autonomous_community } = req.params;
     const { year, from, to, education_level } = req.query;
 
+    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+    
+    if (education_level && !isValidValue(education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }    
+
     const query = {
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
     };
 
-    //Filtrado por activity_rate
-    const activityRateMin = parseFloat(req.query.activity_rateMin);
-    const activityRateMax = parseFloat(req.query.activity_rateMax);
-
-    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
-        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
-    } else if (!isNaN(activityRateMin)) {
-        query.activity_rate = { $gte: activityRateMin };
-    } else if (!isNaN(activityRateMax)) {
-        query.activity_rate = { $lte: activityRateMax };
-    }
-
-    //filtrado por employment_rate
-    const employmentRateMin = parseFloat(req.query.employment_rateMin);
-    const employmentRateMax = parseFloat(req.query.employment_rateMax);
-
-    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
-        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
-    } else if (!isNaN(employmentRateMin)) {
-        query.employment_rate = { $gte: employmentRateMin };
-    } else if (!isNaN(employmentRateMax)) {
-        query.employment_rate = { $lte: employmentRateMax };
-    }
-
-    //filtrado por unemployment_rate
-    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
-    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
-
-    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
-    } else if (!isNaN(unemploymentRateMin)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin };
-    } else if (!isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $lte: unemploymentRateMax };
-    }
-
+    applyNumericFilters(req, query, [
+    "activity_rate",
+    "employment_rate",
+    "unemployment_rate"
+    ]);
 
     if (education_level) {
         query.education_level = new RegExp(`^${education_level}$`, 'i');
@@ -278,6 +262,13 @@ router.get("/employment-data/:autonomous_community", (req, res) => {
 router.get("/employment-data/:autonomous_community/:year", (req, res) => {
     const { autonomous_community, year } = req.params;
     const yearNum = parseInt(year);
+    if (autonomous_community && !isValidValue(autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+    
+    if (education_level && !isValidValue(education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }    
 
     if (isNaN(yearNum)) {
         return res.status(400).json({ error: "El año debe ser un número válido" });
@@ -288,42 +279,11 @@ router.get("/employment-data/:autonomous_community/:year", (req, res) => {
         year: yearNum
     };
 
-    //Filtrado por activity_rate
-    const activityRateMin = parseFloat(req.query.activity_rateMin);
-    const activityRateMax = parseFloat(req.query.activity_rateMax);
-
-    if (!isNaN(activityRateMin) && !isNaN(activityRateMax)) {
-        query.activity_rate = { $gte: activityRateMin, $lte: activityRateMax };
-    } else if (!isNaN(activityRateMin)) {
-        query.activity_rate = { $gte: activityRateMin };
-    } else if (!isNaN(activityRateMax)) {
-        query.activity_rate = { $lte: activityRateMax };
-    }
-
-    //filtrado por employment_rate
-    const employmentRateMin = parseFloat(req.query.employment_rateMin);
-    const employmentRateMax = parseFloat(req.query.employment_rateMax);
-
-    if (!isNaN(employmentRateMin) && !isNaN(employmentRateMax)) {
-        query.employment_rate = { $gte: employmentRateMin, $lte: employmentRateMax };
-    } else if (!isNaN(employmentRateMin)) {
-        query.employment_rate = { $gte: employmentRateMin };
-    } else if (!isNaN(employmentRateMax)) {
-        query.employment_rate = { $lte: employmentRateMax };
-    }
-
-    //filtrado por unemployment_rate
-    const unemploymentRateMin = parseFloat(req.query.unemployment_rateMin);
-    const unemploymentRateMax = parseFloat(req.query.unemployment_rateMax);
-
-    if (!isNaN(unemploymentRateMin) && !isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin, $lte: unemploymentRateMax };
-    } else if (!isNaN(unemploymentRateMin)) {
-        query.unemployment_rate = { $gte: unemploymentRateMin };
-    } else if (!isNaN(unemploymentRateMax)) {
-        query.unemployment_rate = { $lte: unemploymentRateMax };
-    }
-
+    applyNumericFilters(req, query, [
+        "activity_rate",
+        "employment_rate",
+        "unemployment_rate"
+    ]);
 
     db.find(query, { _id: 0 }, (err, docs) => {
         if (err) return res.status(500).json({ error: "Error interno del servidor" });
@@ -378,6 +338,14 @@ router.post("/employment-data", (req, res) => {
         unemployment_rate
     };
 
+    if (!isValidValue(newData.autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+      
+    if (!isValidValue(newData.education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }
+
     // Verificar si ya existe ese recurso
     db.findOne({
         autonomous_community: new RegExp(`^${record.autonomous_community}$`, 'i'),
@@ -431,6 +399,14 @@ router.delete("/employment-data", (req, res) => {
 router.get("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year, education_level } = req.params;
 
+    if (!isValidValue(autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+    
+    if (!isValidValue(education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }
+    
     const yearNum = parseInt(year);
     if (isNaN(yearNum)) {
         return res.status(400).json({ error: "El año debe ser un número válido" });
@@ -469,6 +445,15 @@ router.put("/employment-data/:autonomous_community/:year/:education_level", (req
     const { autonomous_community, year, education_level } = req.params;
     const updateData = req.body;
 
+    //Validación de los campos
+    if (!isValidValue(autonomous_community, validAutonomousCommunities)) {
+        return res.status(400).json({ error: "Comunidad autónoma no válida" });
+    }
+      
+    if (!isValidValue(education_level, validEducationLevels)) {
+        return res.status(400).json({ error: "Nivel educativo no válido" });
+    }
+      
     // Validar que no se cambian los identificadores
     if (
         updateData.autonomous_community !== undefined &&
