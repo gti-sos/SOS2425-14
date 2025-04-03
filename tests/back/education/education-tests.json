@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "2838c220-f4b6-4c6c-b19f-1bd95119382e",
-		"name": "SOS2425-14",
+		"name": "SOS2425-14 - Eduaction Data",
 		"description": "The `education-data` API manages educational statistics in Spain across different autonomous communities and years. It provides information on the percentage of the population enrolled in basic vocational training, middle-grade, and higher-grade education levels.\n\nThe API supports operations to retrieve, insert, update, and delete records, with built-in validation and duplicate prevention.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42127625"
@@ -188,56 +188,6 @@
 						"education-data",
 						"madrid",
 						"2025"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/education-data/loadInitialData (201)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code es 201\", () => {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"pm.test(\"La respuesta contiene datos válidos sin _id\", () => {",
-							"    const json = pm.response.json();",
-							"    pm.expect(json).to.have.property(\"data\");",
-							"    pm.expect(Array.isArray(json.data)).to.be.true;",
-							"    pm.expect(json.data[0]).to.not.have.property(\"_id\");",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/api/v1/education-data/loadInitialData?reset=true",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"education-data",
-						"loadInitialData"
-					],
-					"query": [
-						{
-							"key": "reset",
-							"value": "true"
-						}
 					]
 				}
 			},
@@ -801,6 +751,56 @@
 						"api",
 						"v1",
 						"education-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/education-data/loadInitialData (201)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"La respuesta contiene datos válidos sin _id\", () => {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json).to.have.property(\"data\");",
+							"    pm.expect(Array.isArray(json.data)).to.be.true;",
+							"    pm.expect(json.data[0]).to.not.have.property(\"_id\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/education-data/loadInitialData?reset=true",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"education-data",
+						"loadInitialData"
+					],
+					"query": [
+						{
+							"key": "reset",
+							"value": "true"
+						}
 					]
 				}
 			},
