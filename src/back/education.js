@@ -137,14 +137,28 @@ router.post("/education-data", (req, res) => {
     console.log("[POST] Solicitud para agregar un nuevo registro");
     const newEntry = req.body;
 
-    if (!newEntry.autonomous_community || !newEntry.year ||
-        newEntry.basic_fp === undefined || newEntry.middle_grade === undefined || newEntry.higher_grade === undefined) {
-        return res.status(400).json({ error: "Faltan campos requeridos" });
+    // Normalizar entradas
+    if (typeof newEntry.autonomous_community === "string") {
+        newEntry.autonomous_community = newEntry.autonomous_community.trim();
     }
 
+    newEntry.year = parseInt(newEntry.year);
+    const { basic_fp, middle_grade, higher_grade } = newEntry;
+
+    // Validación de campos requeridos y tipo correcto
+    if (!newEntry.autonomous_community || isNaN(newEntry.year) ||
+        basic_fp === undefined || middle_grade === undefined || higher_grade === undefined) {
+        return res.status(400).json({ error: "Faltan campos requeridos o tienen formato inválido" });
+    }
+
+    if (typeof basic_fp !== "number" || typeof middle_grade !== "number" || typeof higher_grade !== "number") {
+        return res.status(400).json({ error: "Los valores de formación deben ser numéricos" });
+    }
+
+    // Comprobación de duplicado
     db.findOne({
         autonomous_community: new RegExp(`^${newEntry.autonomous_community}$`, "i"),
-        year: parseInt(newEntry.year)
+        year: newEntry.year
     }, (err, doc) => {
         if (err) return res.status(500).json({ error: "Error en la base de datos" });
         if (doc) return res.status(409).json({ error: "El recurso ya existe" });
@@ -156,6 +170,7 @@ router.post("/education-data", (req, res) => {
         });
     });
 });
+
 
 // [POST] Ruta bloqueada para evitar POST en un recurso específico
 router.post("/education-data/:autonomous_community/:year", (req, res) => {
