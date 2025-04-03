@@ -643,7 +643,7 @@
 							"",
 							"pm.test(\"Mensaje indica que DELETE con parámetros no está permitido\", () => {",
 							"    const json = pm.response.json();",
-							"    pm.expect(json.error.toLowerCase()).to.include(\"no permitido\");",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"no está permitido\");",
 							"});",
 							"",
 							""
