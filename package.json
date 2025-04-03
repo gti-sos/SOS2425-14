@@ -9,13 +9,19 @@
     "test-api-employment-online": "npx newman run tests/back/employment-tests.json -e tests/back/api-env-online.json",
     "test-employment-local": "start-server-and-test start http://localhost:16078 test-api-employment-local",
     "test-employment-online": "start-server-and-test start https://sos2425-14.onrender.com test-api-employment-online",
-    "test-employment": "npm run test-employment-local"
+    "test-employment": "npm run test-employment-local",
+    "test-api-education-local": "npx newman run tests/back/education/education-tests.json -e tests/back/education/api-env-local.json",
+    "test-api-education-online": "npx newman run tests/back/education-tests.json -e tests/back/api-env-online.json",
+    "test-education-local": "start-server-and-test start http://localhost:16078 test-api-education-local",
+    "test-education-online": "start-server-and-test start https://sos2425-14.onrender.com test-api-education-online",
+    "test-education": "npm run test-education-local"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2",
     "nedb": "^1.8.0",
+    "newman": "^6.2.1",
     "papaparse": "^5.5.2",
     "xlsx": "^0.18.5"
   },

@@ -216,14 +216,20 @@ router.put("/education-data/:autonomous_community/:year", (req, res) => {
 // MÉTODOS DELETE
 // ----------------------------------------------------------
 
-// [DELETE] Elimina todos los registros de la base de datos
+// [DELETE] Elimina todos los registros (solo si no hay parámetros)
 router.delete("/education-data", (req, res) => {
     console.log("[DELETE] Solicitud para eliminar todos los registros");
+
+    if (Object.keys(req.query).length > 0) {
+        return res.status(405).json({ error: "DELETE con parámetros no está permitido. Use un recurso específico." });
+    }
+
     db.remove({}, { multi: true }, (err, numRemoved) => {
         if (err) return res.status(500).json({ error: "Error al eliminar datos" });
         res.status(200).json({ message: "Todos los datos han sido eliminados correctamente" });
     });
 });
+
 
 // [DELETE] Elimina un único registro por comunidad y año
 router.delete("/education-data/:autonomous_community/:year", (req, res) => {
