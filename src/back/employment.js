@@ -6,63 +6,6 @@ const router = express.Router();
 const db = new Datastore(); // Base de datos en memoria
 const initialData = require("../json/data-jdp.json");
 
-/**
- * API desarrollada por Jaime Duffy Panés - Resumen de endpoints y filtros disponibles.
- * ------------------------------------------------
- * El conjunto de datos tiene tres columnas identifiactivas (autonomous_community, year y education_level),
- * y tres columnas numéricas (activity_rate, employment_rate, unemployment_rate)
- *
- * ENDPOINTS IMPLEMENTADOS:
- * -------------------------
- * 1. GET /employment-data
- *    - Devuelve todos los registros, con posibilidad de filtrado y paginación.
- *    - Filtros disponibles por query:
- *        - autonomous_community
- *        - education_level
- *        - year
- *        - from, to (rango de años)
- *        - activity_rateMin, activity_rateMax (rango de tasa de actividad)
- *        - employment_rateMin, employment_rateMax (rango de tasa de empleo)
- *        - unemployment_rateMin, unemployment_rateMax (rango de tasa de desempleo)
- *        - limit, offset (paginación)
- *
- * 2. GET /employment-data/loadInitialData
- *    - Recarga la base de datos con los datos iniciales.
- *
- * 3. GET /employment-data/:autonomous_community
- *    - Devuelve los registros de una comunidad específica.
- *    - Filtros disponibles (por query):
- *        - year, from, to
- *        - education_level
- *        - activity_rateMin / Max
- *        - employment_rateMin / Max
- *        - unemployment_rateMin / Max
- *        - limit, offset
- *
- * 4. GET /employment-data/:autonomous_community/:year
- *    - Devuelve todos los niveles educativos para una comunidad en un año dado.
- *    - Filtros disponibles:
- *        - education_level
- *        - activity_rateMin / Max
- *        - employment_rateMin / Max
- *        - unemployment_rateMin / Max
- *
- * 5. GET /employment-data/:autonomous_community/:year/:education_level
- *    - Devuelve un único recurso exacto.
- *
- * 6. POST /employment-data
- *    - Crea un nuevo recurso de empleo.
- *
- * 7. PUT /employment-data/:autonomous_community/:year/:education_level
- *    - Actualiza las tasas de un recurso específico (no se permiten cambios en los identificadores).
- *
- * 8. DELETE /employment-data
- *    - Elimina todos los recursos.
- *
- * 9. DELETE /employment-data/:autonomous_community/:year/:education_level
- *    - Elimina un recurso específico.
- */
-
 /****************************************************
  * Carga automática de datos iniciales al iniciar la API
  ****************************************************/
