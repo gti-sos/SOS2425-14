@@ -36,7 +36,7 @@ db.count({}, (err, count) => {
 
 //Redirigir al docs de la API
 router.get("/cybercrime-data/docs", (req, res) => {
-    res.redirect("https://documenter.getpostman.com/view/42127625/2sB2cShj72");
+    res.redirect("https://documenter.getpostman.com/view/42335764/2sB2cU9hj3");
 });
 
 // ----------------------------------------------------------

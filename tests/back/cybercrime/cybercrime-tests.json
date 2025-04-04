@@ -9,6 +9,37 @@
 	"item": [
 		{
 			"name": "GET/(200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"La respuesta es un array\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(Array.isArray(data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El array tiene al menos un elemento\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Los objetos del array no contienen _id\", () => {\r",
+							"    const data = pm.response.json();\r",
+							"    if (data.length > 0) {\r",
+							"        pm.expect(data[0]).to.not.have.property(\"_id\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -28,12 +59,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -46,6 +74,30 @@
 		},
 		{
 			"name": "POST/(201)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 (Created)\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -62,12 +114,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -80,6 +129,20 @@
 		},
 		{
 			"name": "PUT/(405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -96,12 +159,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -114,6 +174,26 @@
 		},
 		{
 			"name": "DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de éxito al eliminar\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message).to.include(\"eliminado\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -130,12 +210,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -148,6 +225,28 @@
 		},
 		{
 			"name": "GET/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta contiene un array de datos válidos\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"data\");\r",
+							"    pm.expect(Array.isArray(json.data)).to.be.true;\r",
+							"    pm.expect(json.data.length).to.be.above(0);\r",
+							"    pm.expect(json.data[0]).to.not.have.property(\"_id\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -167,12 +266,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/loadInitialData",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/loadInitialData",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -186,6 +282,42 @@
 		},
 		{
 			"name": "GET/ recurso especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto con los campos esperados\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"\r",
+							"    const campos = [\r",
+							"        \"autonomous_community\",\r",
+							"        \"criminal_ofense\",\r",
+							"        \"cybersecurity\",\r",
+							"        \"arrested_investigated\",\r",
+							"        \"year\"\r",
+							"    ];\r",
+							"\r",
+							"    campos.forEach(campo => {\r",
+							"        pm.expect(json).to.have.property(campo);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -205,12 +337,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucia/2021",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/Andalucia/2021",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -225,6 +354,20 @@
 		},
 		{
 			"name": "POST/not allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -241,12 +384,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucía/2021",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/Andalucía/2021",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -254,6 +394,61 @@
 						"cybercrime-data",
 						"Andalucía",
 						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/(201) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 (Created)\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta es un objeto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(typeof json).to.equal(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El objeto no contiene el campo _id\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.not.have.property(\"_id\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2019\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
 					]
 				}
 			},
@@ -269,7 +464,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"autonomous_community\": \"Murcia\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2023\r\n    }",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 5,\r\n        \"cybersecurity\": 5,\r\n        \"arrested_investigated\": 5,\r\n        \"year\": 2019\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -277,26 +472,87 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Murcia/2023",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/TOTAL/2019",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"cybercrime-data",
-						"Murcia",
-						"2023"
+						"TOTAL",
+						"2019"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "POST/404 BAD REQUEST(faltan campos)",
+			"name": "DELETE/ 200 OK dato especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de eliminación correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"message\");\r",
+							"    pm.expect(json.message.toLowerCase()).to.include(\"eliminado\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/TOTAL/2019",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"TOTAL",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/400 BAD REQUEST(faltan campos)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 400\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error presente en la respuesta\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"faltan\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -313,12 +569,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -331,6 +584,26 @@
 		},
 		{
 			"name": "GET/404 not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 404\", () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error adecuado\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"no encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -338,12 +611,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/JAIME/2021",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data/JAIME/2021",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -357,67 +627,27 @@
 			"response": []
 		},
 		{
-			"name": "DELETE/ 200 OK dato especifico",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Navarra/2023",
-					"protocol": "https",
-					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"cybercrime-data",
-						"Navarra",
-						"2023"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "New Request",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2019\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/TOTAL/2019",
-					"protocol": "https",
-					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"cybercrime-data",
-						"TOTAL",
-						"2019"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "POST/409 Conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 409 (Conflict)\", () => {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de conflicto presente\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"error\");\r",
+							"    pm.expect(json.error.toLowerCase()).to.include(\"ya existe\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -434,53 +664,14 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/cybercrime-data",
 					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"cybercrime-data"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PUT/404",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"pepe\": 2019\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucia/2021",
-					"protocol": "https",
-					"host": [
-						"sos2425-14",
-						"onrender",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"cybercrime-data",
-						"Andalucia",
-						"2021"
 					]
 				}
 			},
