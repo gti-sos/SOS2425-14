@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "84f2ae89-8f8f-42df-b85b-3c60ae43ae25",
+		"name": "cybercrime-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42335764",
+		"_collection_link": "https://planetary-zodiac-741919.postman.co/workspace/SOS2425-14~556e81c5-66dc-443e-81ae-7ef47f8470cb/collection/42335764-84f2ae89-8f8f-42df-b85b-3c60ae43ae25?action=share&source=collection_link&creator=42335764"
+	},
+	"item": [
+		{
+			"name": "GET/(200)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/(201)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2019\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT/(405)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2019\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET/loadInitialData",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/loadInitialData",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET/ recurso especifico",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucia/2021",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"Andalucia",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/not allowed",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucía/2021",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"Andalucía",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT/200 OK",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"Murcia\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2023\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Murcia/2023",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"Murcia",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/404 BAD REQUEST(faltan campos)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"autonomous_community\": \"TOTAL\",\r\n            \"criminal_ofense\": 1766779,\r\n            \"cybersecurity\": 287963\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET/404 not found",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/JAIME/2021",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"JAIME",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE/ 200 OK dato especifico",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Navarra/2023",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"Navarra",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"year\": 2019\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/TOTAL/2019",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"TOTAL",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/409 Conflict",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"autonomous_community\": \"TOTAL\",\r\n            \"criminal_ofense\": 1766779,\r\n            \"cybersecurity\": 287963,\r\n            \"arrested_investigated\": 11280,\r\n            \"year\": 2020\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT/404",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"autonomous_community\": \"TOTAL\",\r\n        \"criminal_ofense\": 1766779,\r\n        \"cybersecurity\": 287963,\r\n        \"arrested_investigated\": 11280,\r\n        \"pepe\": 2019\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2425-14.onrender.com/api/v1/cybercrime-data/Andalucia/2021",
+					"protocol": "https",
+					"host": [
+						"sos2425-14",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cybercrime-data",
+						"Andalucia",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

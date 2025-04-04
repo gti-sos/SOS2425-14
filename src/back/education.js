@@ -35,7 +35,7 @@ db.count({}, (err, count) => {
 });
 
 //Redirigir al docs de la API
-router.get("/employment-data/docs", (req, res) => {
+router.get("/education-data/docs", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/42127625/2sB2cShj72");
 });
 

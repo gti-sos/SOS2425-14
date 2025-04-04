@@ -17,6 +17,9 @@ jobs:
 
       - name: Run tests - Employment API
         run: npm run test-employment
+        
+      - name: Run tests - Cybercrime API
+        run: npm run test-cybercrime
 
       - name: Deploy to Render
         uses: johnbeynon/render-deploy-action@v0.0.8

@@ -4,7 +4,7 @@ const path = require("path");
 
 const router = express.Router();
 const db = new Datastore(); // Base de datos en memoria
-const initialData = require("../json/initial-jdp-data.json");
+const initialData = require("../json/data-jdp.json");
 
 /**
  * API desarrollada por Jaime Duffy Panés - Resumen de endpoints y filtros disponibles.
