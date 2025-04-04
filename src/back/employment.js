@@ -337,19 +337,31 @@ router.put("/employment-data", (req, res) => {
 
 
 /****************************************************
- * DELETE - Borra todos los datos de empleo
+ * DELETE - Borra todos los datos de empleo (o posibilidad de filtrado)
  ****************************************************/
 router.delete("/employment-data", (req, res) => {
-    db.remove({}, { multi: true }, (err, numRemoved) => {
-        if (err) {
-            return res.status(500).json({ error: "Error al eliminar los datos" });
+    const { autonomous_community, year, education_level } = req.query;
+    const query = {};
+
+    if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
+    if (education_level) query.education_level = new RegExp(`^${education_level}$`, 'i');
+    if (year) {
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) return res.status(400).json({ error: "El año debe ser un número válido" });
+        query.year = yearNum;
+    }
+
+    db.remove(query, { multi: true }, (err, numRemoved) => {
+        if (err) return res.status(500).json({ error: "Error al eliminar los datos" });
+
+        if (numRemoved === 0) {
+            return res.status(404).json({ error: "No se encontraron registros que coincidan" });
         }
 
-        res.status(200).json({
-            message: `Se han eliminado ${numRemoved} registros correctamente`
-        });
+        res.status(200).json({ message: `Se han eliminado ${numRemoved} registros` });
     });
 });
+
 
 
 /****************************************************
