@@ -6,19 +6,9 @@ const router = express.Router();
 const db = new Datastore();
 const initialData = require("../json/data-pdg.json");
 
-// cybercrime-data.routes.js
-// ----------------------------------------------------------
-// RUTAS PARA GESTIÓN DE DATOS DE CIBERSEGURIDAD EN NeDB
-// ----------------------------------------------------------
-// Métodos:
-// - GET: Consultas con y sin filtros, carga inicial de datos.
-// - POST: Inserción de nuevos registros y control de errores.
-// - PUT: Actualización de registros existentes.
-// - DELETE: Eliminación de registros individuales o totales.
-
-// Inicializa la base de datos con datos por defecto si está vacía
-// Esto se ejecuta automáticamente al arrancar el servidor
-
+/****************************************************
+ * Carga automática de datos iniciales al iniciar la API
+ ****************************************************/
 db.count({}, (err, count) => {
     if (err) {
         console.error("Error al contar registros en NeDB", err);
@@ -33,232 +23,238 @@ db.count({}, (err, count) => {
         console.log(`La base de datos ya tiene ${count} registros.`);
     }
 });
+/**********************************************************************
+ * Función auxiliar para aplicar los filtros de las columnas numéricas
+ **********************************************************************/
+function applyNumericFilters(req, query, fields) {
+    fields.forEach(field => {
+        const min = parseFloat(req.query[`${field}Min`]);
+        const max = parseFloat(req.query[`${field}Max`]);
+        if (!isNaN(min) && !isNaN(max)) {
+            query[field] = { $gte: min, $lte: max };
+        } else if (!isNaN(min)) {
+            query[field] = { $gte: min };
+        } else if (!isNaN(max)) {
+            query[field] = { $lte: max };
+        }
+    });
+}
+/****************************************************
+ * GET - Lista todos los datos (con posibilidad de filtrado y paginación)
+ ****************************************************/
+router.get("/cybercrime-data", (req, res) => {
+    const { autonomous_community, year, from, to } = req.query;
+    const query = {};
 
-//Redirigir al docs de la API
+    if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
+
+    if (year && (from || to)) {
+        return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
+    }
+
+    if (year) {
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
+        query.year = yearNum;
+    } else if (from && to) {
+        const fromYear = parseInt(from);
+        const toYear = parseInt(to);
+        if (isNaN(fromYear) || isNaN(toYear)) return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
+        if (fromYear > toYear) return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
+        query.year = { $gte: fromYear, $lte: toYear };
+    }
+
+    applyNumericFilters(req, query, ["criminal_ofense", "cybersecurity", "arrested_investigated"]);
+
+    const limit = parseInt(req.query.limit) || 0;
+    const offset = parseInt(req.query.offset) || 0;
+
+    db.find(query, { _id: 0 }).skip(offset).limit(limit).exec((err, docs) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        res.status(200).json(docs);
+    });
+});
+
+/****************************************************
+ * GET - Reinicia la base de datos con los datos iniciales
+ ****************************************************/
+router.get("/cybercrime-data/loadInitialData", (req, res) => {
+    db.remove({}, { multi: true }, (err) => {
+        if (err) return res.status(500).json({ error: "Error al eliminar datos existentes" });
+        db.insert(initialData, (err, newDocs) => {
+            if (err) return res.status(500).json({ error: "Error al insertar datos iniciales" });
+            const cleanDocs = newDocs.map(({ _id, ...rest }) => rest);
+            res.status(201).json({ message: `Datos restaurados correctamente (${cleanDocs.length} registros)`, data: cleanDocs });
+        });
+    });
+});
+
 router.get("/cybercrime-data/docs", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/42335764/2sB2cU9hj3");
 });
 
-// ----------------------------------------------------------
-// MÉTODOS GET
-// ----------------------------------------------------------
-
-// [GET] Devuelve todos los registros, con posibilidad de filtrar por comunidad, año o rango de años
-router.get("/cybercrime-data", (req, res) => {
-    console.log("[GET] Solicitud recibida para obtener datos");
-    const query = {};
-    const { autonomous_community, year, from, to } = req.query;
-
-    if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, "i");
-    if (year) query.year = parseInt(year);
-    if (from && to) query.year = { $gte: parseInt(from), $lte: parseInt(to) };
-
-    db.find(query, (err, docs) => {
-        if (err) return res.status(500).json({ error: "Error en la base de datos" });
-        const cleanedDocs = docs.map(({ _id, ...rest }) => rest);
-        res.status(200).json(cleanedDocs);
-    });
-});
-
-// [GET] Carga los datos iniciales si la base está vacía o reinicia si ?reset=true
-router.get("/cybercrime-data/loadInitialData", (req, res) => {
-    console.log("[GET] Solicitud recibida para cargar datos iniciales");
-    const reset = req.query.reset === "true";
-
-    if (reset) {
-        db.remove({}, { multi: true }, (err) => {
-            if (err) return res.status(500).json({ error: "Error al eliminar datos existentes" });
-            db.insert(initialData, (err, newDocs) => {
-                if (err) return res.status(500).json({ error: "Error al insertar datos iniciales" });
-                res.status(201).json({ message: "Datos reinicializados correctamente", data: newDocs.map(({ _id, ...rest }) => rest) });
-            });
-        });
-    } else {
-        db.count({}, (err, count) => {
-            if (err) return res.status(500).json({ error: "Error al verificar datos existentes" });
-            if (count > 0) {
-                db.find({}, (err, docs) => {
-                    if (err) return res.status(500).json({ error: "Error al obtener datos" });
-                    res.status(200).json({ message: "Los datos ya estaban inicializados", data: docs.map(({ _id, ...rest }) => rest) });
-                });
-            } else {
-                db.insert(initialData, (err, newDocs) => {
-                    if (err) return res.status(500).json({ error: "Error al insertar datos" });
-                    res.status(201).json({ message: "Datos inicializados correctamente", data: newDocs.map(({ _id, ...rest }) => rest) });
-                });
-            }
-        });
-    }
-});
-
-// [GET] Devuelve registros de una comunidad autónoma en un rango de años
+/****************************************************
+ * GET - Comunidad específica (con filtros)
+ ****************************************************/
 router.get("/cybercrime-data/:autonomous_community", (req, res) => {
-    console.log("[GET] Solicitud para datos filtrados por comunidad y rango de años");
-    const { from, to } = req.query;
-    const autonomousCommunity = req.params.autonomous_community;
+    const { autonomous_community } = req.params;
+    const { year, from, to } = req.query;
 
-    if (!from || !to) return res.status(400).json({ error: "Debe proporcionar 'from' y 'to'" });
+    const query = {
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
+    };
 
-    db.find({
-        autonomous_community: new RegExp(`^${autonomousCommunity}$`, "i"),
-        year: { $gte: parseInt(from), $lte: parseInt(to) }
-    }, (err, docs) => {
-        if (err) return res.status(500).json({ error: "Error en la base de datos" });
-        const cleanedDocs = docs.map(({ _id, ...rest }) => rest);
-        res.status(200).json(cleanedDocs);
+    applyNumericFilters(req, query, ["criminal_ofense", "cybersecurity", "arrested_investigated"]);
+
+    if (year && (from || to)) {
+        return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'." });
+    }
+
+    if (year) {
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
+        query.year = yearNum;
+    } else if (from && to) {
+        const fromYear = parseInt(from);
+        const toYear = parseInt(to);
+        if (isNaN(fromYear) || isNaN(toYear)) return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
+        if (fromYear > toYear) return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
+        query.year = { $gte: fromYear, $lte: toYear };
+    }
+
+    const limit = parseInt(req.query.limit) || 0;
+    const offset = parseInt(req.query.offset) || 0;
+
+    db.find(query, { _id: 0 }).skip(offset).limit(limit).exec((err, docs) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        res.status(200).json(docs);
     });
 });
 
-// [GET] Devuelve un único registro por comunidad y año
+/****************************************************
+ * GET - Recurso exacto
+ ****************************************************/
 router.get("/cybercrime-data/:autonomous_community/:year", (req, res) => {
-    console.log("[GET] Solicitud para obtener un dato específico");
     const { autonomous_community, year } = req.params;
+    const yearNum = parseInt(year);
+    if (isNaN(yearNum)) return res.status(400).json({ error: "El año debe ser un número válido" });
 
     db.findOne({
-        autonomous_community: new RegExp(`^${autonomous_community}$`, "i"),
-        year: parseInt(year)
-    }, (err, doc) => {
-        if (err) return res.status(500).json({ error: "Error en la base de datos" });
-        if (!doc) return res.status(404).json({ error: "Dato no encontrado" });
-        const { _id, ...cleanDoc } = doc;
-        res.status(200).json(cleanDoc);
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: yearNum
+    }, { _id: 0 }, (err, doc) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        if (!doc) return res.status(404).json({ error: "Recurso no encontrado" });
+        res.status(200).json(doc);
     });
 });
 
-// ----------------------------------------------------------
-// MÉTODOS POST
-// ----------------------------------------------------------
-
-// [POST] Rechaza solicitudes con parámetros en la URL (control de errores)
-router.post("/cybercrime-data", (req, res, next) => {
-    if (Object.keys(req.query).length > 0) {
-        return res.status(405).json({ error: "Método no permitido con parámetros en la URL" });
-    }
-    next();
-});
-
-// [POST] Agrega un nuevo registro si no existe ya en la base de datos
+/****************************************************
+ * POST - Inserta nuevo recurso
+ ****************************************************/
 router.post("/cybercrime-data", (req, res) => {
-    console.log("[POST] Solicitud para agregar un nuevo registro");
-    const newEntry = req.body;
+    const { autonomous_community, year, criminal_ofense, cybersecurity, arrested_investigated } = req.body;
 
-    // Normalizar entradas
-    if (typeof newEntry.autonomous_community === "string") {
-        newEntry.autonomous_community = newEntry.autonomous_community.trim();
+    if (!autonomous_community || !year || criminal_ofense === undefined || cybersecurity === undefined || arrested_investigated === undefined) {
+        return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
 
-    newEntry.year = parseInt(newEntry.year);
-    const { criminal_ofense, cybersecurity, arrested_investigated } = newEntry;
+    const yearNum = parseInt(year);
+    const co = parseFloat(criminal_ofense);
+    const cs = parseFloat(cybersecurity);
+    const ai = parseFloat(arrested_investigated);
 
-    // Validación de campos requeridos y tipo correcto
-    if (!newEntry.autonomous_community || isNaN(newEntry.year) ||
-        criminal_ofense === undefined || cybersecurity === undefined || arrested_investigated === undefined) {
-        return res.status(400).json({ error: "Faltan campos requeridos o tienen formato inválido" });
+    if ([yearNum, co, cs, ai].some(isNaN)) {
+        return res.status(400).json({ error: "Los valores numéricos no son válidos" });
     }
 
-    if (typeof criminal_ofense !== "number" || typeof cybersecurity !== "number" || typeof arrested_investigated !== "number") {
-        return res.status(400).json({ error: "Los valores de formación deben ser numéricos" });
-    }
+    const record = { autonomous_community, year: yearNum, criminal_ofense: co, cybersecurity: cs, arrested_investigated: ai };
 
-    // Comprobación de duplicado
-    db.findOne({
-        autonomous_community: new RegExp(`^${newEntry.autonomous_community}$`, "i"),
-        year: newEntry.year
-    }, (err, doc) => {
-        if (err) return res.status(500).json({ error: "Error en la base de datos" });
-        if (doc) return res.status(409).json({ error: "El recurso ya existe" });
+    db.findOne({ autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'), year: yearNum }, (err, existing) => {
+        if (err) return res.status(500).json({ error: "Error interno del servidor" });
+        if (existing) return res.status(409).json({ error: "Recurso ya existente" });
 
-        db.insert(newEntry, (err, inserted) => {
-            if (err) return res.status(500).json({ error: "Error al insertar el nuevo dato" });
-            const { _id, ...cleanData } = inserted;
-            res.status(201).json({ message: "Registro agregado correctamente", data: cleanData });
+        db.insert(record, (err, created) => {
+            if (err) return res.status(500).json({ error: "Error al guardar el recurso" });
+            const { _id, ...cleaned } = created;
+            res.status(201).json(cleaned);
         });
     });
 });
 
+/****************************************************
+ * PUT - NO SE PERMITE HACER POST PARA COLECCIONES DE RECURSOS.
+ ****************************************************/
 
-// [POST] Ruta bloqueada para evitar POST en un recurso específico
-router.post("/cybercrime-data/:autonomous_community/:year", (req, res) => {
-    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT." });
+//Backlog: Si se intenta usar alguno de los métodos no permitidos por la tabla azul se debe devolver el código 405
+router.put("/cybercrime-data", (req, res) => {
+    res.status(405).json({ error: "Método no permitido para colecciones de recursos." });
 });
 
-// ----------------------------------------------------------
-// MÉTODO PUT
-// ----------------------------------------------------------
+/****************************************************
+ * DELETE - Borra todos los datos de cybercrime
+ ****************************************************/
+router.delete("/cybercrime-data", (req, res) => {
+    db.remove({}, { multi: true }, (err, numRemoved) => {
+        if (err) {
+            return res.status(500).json({ error: "Error al eliminar los datos" });
+        }
 
-// [PUT] Actualiza un dato específico por comunidad y año
+        res.status(200).json({
+            message: `Se han eliminado ${numRemoved} registros correctamente`
+        });
+    });
+});
+/****************************************************
+ * POST - NO PERMITIDO PARA RECURSO ESPECIFICO
+ ****************************************************/
+//Backlog: Si se intenta usar alguno de los métodos no permitidos por la tabla azul se debe devolver el código 405.
+router.post("/cybercrime-data/:autonomous_community/:year", (req, res) => {
+    res.status(405).json({ error: "Método no permitido en un recurso específico. Use PUT para actualizar" });
+});
+/****************************************************
+ * PUT - Actualiza un recurso existente
+ ****************************************************/
 router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
-    console.log("[PUT] Solicitud para actualizar un dato existente");
     const { autonomous_community, year } = req.params;
-    const updatedEntry = req.body;
-    const yearNum = parseInt(year);
+    const { criminal_ofense, cybersecurity, arrested_investigated } = req.body;
 
-    if (!updatedEntry.autonomous_community || !updatedEntry.year ||
-        updatedEntry.criminal_ofense === undefined || updatedEntry.cybersecurity === undefined || updatedEntry.arrested_investigated === undefined) {
-        return res.status(400).json({ error: "Faltan campos requeridos" });
-    }
+    const parsed = {
+        criminal_ofense: parseFloat(criminal_ofense),
+        cybersecurity: parseFloat(cybersecurity),
+        arrested_investigated: parseFloat(arrested_investigated)
+    };
 
-    if (updatedEntry.autonomous_community.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
-        updatedEntry.year !== yearNum) {
-        return res.status(400).json({ error: "Los identificadores no coinciden" });
-    }
-
-    if (isNaN(updatedEntry.criminal_ofense) || isNaN(updatedEntry.cybersecurity) || isNaN(updatedEntry.arrested_investigated)) {
-        return res.status(400).json({ error: "Los valores deben ser numéricos" });
+    if (Object.values(parsed).some(isNaN)) {
+        return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
     }
 
     db.update({
-        autonomous_community: new RegExp(`^${autonomous_community}$`, "i"),
-        year: yearNum
-    }, updatedEntry, {}, (err, numReplaced) => {
-        if (err) return res.status(500).json({ error: "Error al actualizar el dato" });
-        if (numReplaced === 0) return res.status(404).json({ error: "Dato no encontrado" });
-        res.status(200).json({ message: "Dato actualizado correctamente" });
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: parseInt(year)
+    }, { $set: parsed }, {}, (err, numUpdated) => {
+        if (err) return res.status(500).json({ error: "Error al actualizar" });
+        if (numUpdated === 0) return res.status(404).json({ error: "Recurso no encontrado" });
+        res.status(200).json({ message: "Recurso actualizado correctamente" });
     });
 });
 
-// ----------------------------------------------------------
-// MÉTODOS DELETE
-// ----------------------------------------------------------
-
-// [DELETE] Elimina todos los registros (solo si no hay parámetros)
-router.delete("/cybercrime-data", (req, res) => {
-    console.log("[DELETE] Solicitud para eliminar todos los registros");
-
-    if (Object.keys(req.query).length > 0) {
-        return res.status(405).json({ error: "DELETE con parámetros no está permitido. Use un recurso específico." });
-    }
-
-    db.remove({}, { multi: true }, (err, numRemoved) => {
-        if (err) return res.status(500).json({ error: "Error al eliminar datos" });
-        res.status(200).json({ message: "Todos los datos han sido eliminados correctamente" });
-    });
-});
-
-
-// [DELETE] Elimina un único registro por comunidad y año
+/****************************************************
+ * DELETE - Elimina un recurso exacto
+ ****************************************************/
 router.delete("/cybercrime-data/:autonomous_community/:year", (req, res) => {
-    console.log("[DELETE] Solicitud para eliminar un dato específico");
     const { autonomous_community, year } = req.params;
+    const yearNum = parseInt(year);
+    if (isNaN(yearNum)) return res.status(400).json({ error: "El año debe ser válido" });
 
     db.remove({
-        autonomous_community: new RegExp(`^${autonomous_community}$`, "i"),
-        year: parseInt(year)
+        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
+        year: yearNum
     }, {}, (err, numRemoved) => {
-        if (err) return res.status(500).json({ error: "Error al eliminar el dato" });
-        if (numRemoved === 0) return res.status(404).json({ error: "Dato no encontrado" });
-        res.status(200).json({ message: "Dato eliminado correctamente" });
+        if (err) return res.status(500).json({ error: "Error al eliminar el recurso" });
+        if (numRemoved === 0) return res.status(404).json({ error: "Recurso no encontrado" });
+        res.status(200).json({ message: "Recurso eliminado correctamente" });
     });
-});
-
-// ----------------------------------------------------------
-// MANEJO DE MÉTODOS NO PERMITIDOS
-// ----------------------------------------------------------
-
-router.all("/cybercrime-data", (req, res) => {
-    if (!["GET", "POST", "DELETE"].includes(req.method)) {
-        return res.status(405).json({ error: "Método no permitido" });
-    }
 });
 
 module.exports = router;
