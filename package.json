@@ -20,7 +20,8 @@
     "test-cybercrime-local": "start-server-and-test start http://localhost:16078 test-api-cybercrime-local",
     "test-cybercrime-online": "start-server-and-test start https://sos2425-14.onrender.com test-api-cybercrime-online",
     "test-cybercrime": "npm run test-cybercrime-local",
-    "test": "npm run test-employment-local && npm run test-education-local && npm run test-cybercrime-local"
+    "test": "npm run test-employment-local && npm run test-education-local && npm run test-cybercrime-local",
+    "test-online": "npm run test-employment-online && npm run test-education-online && npm run test-cybercrime-online"
   },
   "author": "",
   "license": "ISC",
