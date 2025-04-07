@@ -23,22 +23,7 @@ db.count({}, (err, count) => {
         console.log(`La base de datos ya tiene ${count} registros.`);
     }
 });
-/**********************************************************************
- * Función auxiliar para aplicar los filtros de las columnas numéricas
- **********************************************************************/
-function applyNumericFilters(req, query, fields) {
-    fields.forEach(field => {
-        const min = parseFloat(req.query[`${field}Min`]);
-        const max = parseFloat(req.query[`${field}Max`]);
-        if (!isNaN(min) && !isNaN(max)) {
-            query[field] = { $gte: min, $lte: max };
-        } else if (!isNaN(min)) {
-            query[field] = { $gte: min };
-        } else if (!isNaN(max)) {
-            query[field] = { $lte: max };
-        }
-    });
-}
+
 /****************************************************
  * GET - Lista todos los datos (con posibilidad de filtrado y paginación)
  ****************************************************/
@@ -300,7 +285,7 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         arrested_investigated
     } = req.body;
 
-    // Verifica coincidencia entre params y body
+    // Validación de identificadores
     if (
         !bodyCommunity || !bodyYear ||
         bodyCommunity.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
@@ -309,7 +294,7 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo deben coincidir" });
     }
 
-    // Validación de números
+    // Validación de campos numéricos
     const parsed = {
         criminal_ofense: parseFloat(criminal_ofense),
         cybersecurity: parseFloat(cybersecurity),
@@ -320,13 +305,7 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
     }
 
-    // Validación de identificadores consistentes
-    if (
-        updatedEntry.autonomous_community.toLowerCase() !== autonomous_community.toLowerCase().trim() ||
-        parseInt(updatedEntry.year) !== yearNum
-    ) {
-        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo no coinciden" });
-    }
+    // Actualización en la base de datos
     db.update({
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
         year: parseInt(year)
@@ -337,7 +316,6 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         res.status(200).json({ message: "Recurso actualizado correctamente" });
     });
 });
-
 
 /****************************************************
  * DELETE - Elimina un recurso exacto
