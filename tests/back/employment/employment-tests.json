@@ -895,7 +895,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"activity_rate\": 15,\r\n    \"employment_rate\": 15,\r\n    \"unemployment_rate\": 15\r\n}",
+					"raw": "{\r\n    \"autonomous_community\": \"Andalucía\",\r\n    \"year\": 2019,\r\n    \"education_level\": \"TOTAL\",\r\n    \"activity_rate\": 79.12,\r\n    \"employment_rate\": 67.26,\r\n    \"unemployment_rate\": 14.99\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
