@@ -43,37 +43,87 @@ function applyNumericFilters(req, query, fields) {
  * GET - Lista todos los datos (con posibilidad de filtrado y paginación)
  ****************************************************/
 router.get("/cybercrime-data", (req, res) => {
-    const { autonomous_community, year, from, to } = req.query;
+    console.log("[GET] Solicitud recibida para obtener datos con filtros");
+
+    const {
+        autonomous_community,
+        year,
+        from,
+        to,
+        criminal_ofense,
+        criminal_ofense_from,
+        criminal_ofense_to,
+        cybersecurity,
+        cybersecurity_from,
+        cybersecurity_to,
+        arrested_investigated,
+        arrested_investigated_from,
+        arrested_investigated_to,
+        limit,
+        offset
+    } = req.query;
+
     const query = {};
 
-    if (autonomous_community) query.autonomous_community = new RegExp(`^${autonomous_community}$`, 'i');
-
-    if (year && (from || to)) {
-        return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'. Usa solo uno." });
+    // Comunidad autónoma
+    if (autonomous_community) {
+        query.autonomous_community = new RegExp(`^${autonomous_community}$`, "i");
     }
 
+    // Año exacto o rango
     if (year) {
-        const yearNum = parseInt(year);
-        if (isNaN(yearNum)) return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
-        query.year = yearNum;
+        query.year = parseInt(year);
     } else if (from && to) {
-        const fromYear = parseInt(from);
-        const toYear = parseInt(to);
-        if (isNaN(fromYear) || isNaN(toYear)) return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
-        if (fromYear > toYear) return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
-        query.year = { $gte: fromYear, $lte: toYear };
+        query.year = { $gte: parseInt(from), $lte: parseInt(to) };
     }
 
-    applyNumericFilters(req, query, ["criminal_ofense", "cybersecurity", "arrested_investigated"]);
+    // criminal_ofense exacto o rango
+    if (criminal_ofense_from && criminal_ofense_to) {
+        query.criminal_ofense = {
+            $gte: parseFloat(criminal_ofense_from),
+            $lte: parseFloat(criminal_ofense_to)
+        };
+    } else if (criminal_ofense) {
+        query.criminal_ofense = parseFloat(criminal_ofense);
+    }
 
-    const limit = parseInt(req.query.limit) || 0;
-    const offset = parseInt(req.query.offset) || 0;
+    // cybersecurity exacto o rango
+    if (cybersecurity_from && cybersecurity_to) {
+        query.cybersecurity = {
+            $gte: parseFloat(cybersecurity_from),
+            $lte: parseFloat(cybersecurity_to)
+        };
+    } else if (cybersecurity) {
+        query.cybersecurity = parseFloat(cybersecurity);
+    }
 
-    db.find(query, { _id: 0 }).skip(offset).limit(limit).exec((err, docs) => {
-        if (err) return res.status(500).json({ error: "Error interno del servidor" });
-        res.status(200).json(docs);
-    });
+    // arrested_investigated exacto o rango
+    if (arrested_investigated_from && arrested_investigated_to) {
+        query.arrested_investigated = {
+            $gte: parseFloat(arrested_investigated_from),
+            $lte: parseFloat(arrested_investigated_to)
+        };
+    } else if (arrested_investigated) {
+        query.arrested_investigated = parseFloat(arrested_investigated);
+    }
+
+    // Opciones de paginación
+    const options = {
+        limit: limit ? parseInt(limit) : 0,
+        skip: offset ? parseInt(offset) : 0
+    };
+
+    db.find(query)
+        .sort({ year: 1, autonomous_community: 1 })
+        .skip(options.skip)
+        .limit(options.limit)
+        .exec((err, docs) => {
+            if (err) return res.status(500).json({ error: "Error en la base de datos" });
+            const cleanedDocs = docs.map(({ _id, ...rest }) => rest);
+            res.status(200).json(cleanedDocs);
+        });
 });
+
 
 /****************************************************
  * GET - Reinicia la base de datos con los datos iniciales
@@ -96,39 +146,64 @@ router.get("/cybercrime-data/docs", (req, res) => {
 /****************************************************
  * GET - Comunidad específica (con filtros)
  ****************************************************/
+// [GET] Devuelve registros de una comunidad autónoma con filtros y paginación
 router.get("/cybercrime-data/:autonomous_community", (req, res) => {
-    const { autonomous_community } = req.params;
-    const { year, from, to } = req.query;
+    console.log("[GET] Solicitud para datos de cibercrimen filtrados por comunidad, años y otros campos con paginación");
+
+    const {
+        from, to,
+        criminal_ofense, criminal_ofense_from, criminal_ofense_to,
+        cybersecurity, cybersecurity_from, cybersecurity_to,
+        arrested_investigated, arrested_investigated_from, arrested_investigated_to,
+        limit, offset
+    } = req.query;
+
+    const autonomousCommunity = req.params.autonomous_community;
+
+    if (!from || !to || isNaN(from) || isNaN(to)) {
+        return res.status(400).json({ error: "Debe proporcionar un rango válido con 'from' y 'to'" });
+    }
 
     const query = {
-        autonomous_community: new RegExp(`^${autonomous_community}$`, 'i')
+        autonomous_community: new RegExp(`^${autonomousCommunity}$`, "i"),
+        year: { $gte: parseInt(from), $lte: parseInt(to) }
     };
 
-    applyNumericFilters(req, query, ["criminal_ofense", "cybersecurity", "arrested_investigated"]);
-
-    if (year && (from || to)) {
-        return res.status(400).json({ error: "No se pueden usar 'from' y 'to' junto con 'year'." });
+    // Filtro para criminal_ofense
+    if (criminal_ofense_from && criminal_ofense_to) {
+        query.criminal_ofense = { $gte: parseFloat(criminal_ofense_from), $lte: parseFloat(criminal_ofense_to) };
+    } else if (criminal_ofense) {
+        query.criminal_ofense = parseFloat(criminal_ofense);
     }
 
-    if (year) {
-        const yearNum = parseInt(year);
-        if (isNaN(yearNum)) return res.status(400).json({ error: "El parámetro 'year' debe ser un año válido." });
-        query.year = yearNum;
-    } else if (from && to) {
-        const fromYear = parseInt(from);
-        const toYear = parseInt(to);
-        if (isNaN(fromYear) || isNaN(toYear)) return res.status(400).json({ error: "'from' y 'to' deben ser años válidos." });
-        if (fromYear > toYear) return res.status(400).json({ error: "'from' debe ser menor o igual que 'to'." });
-        query.year = { $gte: fromYear, $lte: toYear };
+    // Filtro para cybersecurity
+    if (cybersecurity_from && cybersecurity_to) {
+        query.cybersecurity = { $gte: parseFloat(cybersecurity_from), $lte: parseFloat(cybersecurity_to) };
+    } else if (cybersecurity) {
+        query.cybersecurity = parseFloat(cybersecurity);
     }
 
-    const limit = parseInt(req.query.limit) || 0;
-    const offset = parseInt(req.query.offset) || 0;
+    // Filtro para arrested_investigated
+    if (arrested_investigated_from && arrested_investigated_to) {
+        query.arrested_investigated = { $gte: parseFloat(arrested_investigated_from), $lte: parseFloat(arrested_investigated_to) };
+    } else if (arrested_investigated) {
+        query.arrested_investigated = parseFloat(arrested_investigated);
+    }
 
-    db.find(query, { _id: 0 }).skip(offset).limit(limit).exec((err, docs) => {
-        if (err) return res.status(500).json({ error: "Error interno del servidor" });
-        res.status(200).json(docs);
-    });
+    const options = {
+        limit: limit ? parseInt(limit) : 0,
+        skip: offset ? parseInt(offset) : 0
+    };
+
+    db.find(query)
+        .sort({ year: 1 })
+        .skip(options.skip)
+        .limit(options.limit)
+        .exec((err, docs) => {
+            if (err) return res.status(500).json({ error: "Error en la base de datos" });
+            const cleanedDocs = docs.map(({ _id, ...rest }) => rest);
+            res.status(200).json(cleanedDocs);
+        });
 });
 
 /****************************************************
@@ -217,8 +292,24 @@ router.post("/cybercrime-data/:autonomous_community/:year", (req, res) => {
  ****************************************************/
 router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
     const { autonomous_community, year } = req.params;
-    const { criminal_ofense, cybersecurity, arrested_investigated } = req.body;
+    const {
+        autonomous_community: bodyCommunity,
+        year: bodyYear,
+        criminal_ofense,
+        cybersecurity,
+        arrested_investigated
+    } = req.body;
 
+    // Verifica coincidencia entre params y body
+    if (
+        !bodyCommunity || !bodyYear ||
+        bodyCommunity.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
+        parseInt(bodyYear) !== parseInt(year)
+    ) {
+        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo deben coincidir" });
+    }
+
+    // Validación de números
     const parsed = {
         criminal_ofense: parseFloat(criminal_ofense),
         cybersecurity: parseFloat(cybersecurity),
@@ -229,15 +320,24 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
     }
 
+    // Validación de identificadores consistentes
+    if (
+        updatedEntry.autonomous_community.toLowerCase() !== autonomous_community.toLowerCase().trim() ||
+        parseInt(updatedEntry.year) !== yearNum
+    ) {
+        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo no coinciden" });
+    }
     db.update({
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
         year: parseInt(year)
     }, { $set: parsed }, {}, (err, numUpdated) => {
         if (err) return res.status(500).json({ error: "Error al actualizar" });
         if (numUpdated === 0) return res.status(404).json({ error: "Recurso no encontrado" });
+
         res.status(200).json({ message: "Recurso actualizado correctamente" });
     });
 });
+
 
 /****************************************************
  * DELETE - Elimina un recurso exacto
