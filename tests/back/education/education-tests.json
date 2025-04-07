@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "/education-data (200)",
+			"name": "GET sin filtros – devuelve todos los registros (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -49,57 +49,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data?autonomous_community=andalucia(200)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code es 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"La respuesta es un array con elementos sin _id\", () => {",
-							"    const json = pm.response.json();",
-							"    pm.expect(Array.isArray(json)).to.be.true;",
-							"    if (json.length > 0) {",
-							"        pm.expect(json[0]).to.not.have.property(\"_id\");",
-							"    }",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/api/v1/education-data?autonomous_community=andalucia",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"education-data"
-					],
-					"query": [
-						{
-							"key": "autonomous_community",
-							"value": "andalucia"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/education-data/madrid?from=2020&to=2021 (200)",
+			"name": "GET con filtros por comunidad, rango de años y rango de grado medio (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -151,7 +101,107 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/madrid/2025 - No existe (404)",
+			"name": "GET por comunidad con filtros de año y grado medio + paginación (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"La respuesta es un array con elementos sin _id\", () => {",
+							"    const json = pm.response.json();",
+							"    pm.expect(Array.isArray(json)).to.be.true;",
+							"    if (json.length > 0) {",
+							"        pm.expect(json[0]).to.not.have.property(\"_id\");",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/education-data?autonomous_community=andalucia",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"education-data"
+					],
+					"query": [
+						{
+							"key": "autonomous_community",
+							"value": "andalucia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET recurso específico (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"La respuesta es un array con elementos sin _id\", () => {",
+							"    const json = pm.response.json();",
+							"    pm.expect(Array.isArray(json)).to.be.true;",
+							"    if (json.length > 0) {",
+							"        pm.expect(json[0]).to.not.have.property(\"_id\");",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/education-data?autonomous_community=andalucia",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"education-data"
+					],
+					"query": [
+						{
+							"key": "autonomous_community",
+							"value": "andalucia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET recurso específico (404)",
 			"event": [
 				{
 					"listen": "test",
@@ -194,7 +244,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/loadInitialData (200)",
+			"name": "GET cargar datos iniciales (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -236,7 +286,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data (201)",
+			"name": "POST nuevo recurso (201)",
 			"event": [
 				{
 					"listen": "test",
@@ -287,7 +337,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data?autonomous_community=andalucia (405)",
+			"name": "POST recurso nuevo (405)",
 			"event": [
 				{
 					"listen": "test",
@@ -343,7 +393,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data - Dato ya esxistente (409)",
+			"name": "POST recurso ya esxistente (409)",
 			"event": [
 				{
 					"listen": "test",
@@ -393,7 +443,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data - Campo incorrecto (400)",
+			"name": "POST recurso nuevo con campo incorrecto (400)",
 			"event": [
 				{
 					"listen": "test",
@@ -443,7 +493,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data (405)",
+			"name": "PUT dato genérico (405)",
 			"event": [
 				{
 					"listen": "test",
@@ -477,7 +527,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/andalucia/2020 (200)",
+			"name": "PUT dato específico (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -529,7 +579,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/madrid/2020 - Dato no coincidente (400)",
+			"name": "PUT daots y url no coincidentes (400)",
 			"event": [
 				{
 					"listen": "test",
@@ -581,7 +631,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data?autonomous_community=andalucia (405)",
+			"name": "DELETE recursos con filtros (405)",
 			"event": [
 				{
 					"listen": "test",
@@ -630,7 +680,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/total/2027 (404)",
+			"name": "DELETE dato no existente (404)",
 			"event": [
 				{
 					"listen": "test",
@@ -673,7 +723,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/total/2022 (200)",
+			"name": "DELETE recurso específico (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -719,7 +769,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data (200)",
+			"name": "DELETE todos los recursos (200)",
 			"event": [
 				{
 					"listen": "test",
@@ -757,7 +807,7 @@
 			"response": []
 		},
 		{
-			"name": "/education-data/loadInitialData (201)",
+			"name": "GET recargar datos iniciales (201)",
 			"event": [
 				{
 					"listen": "test",
