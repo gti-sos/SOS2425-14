@@ -76,7 +76,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/education-data/madrid?from=2020&to=2021",
+					"raw": "{{BASE_URL}}/api/v1/education-data/?autonomous_community=Andalucia&from=2020&to=2023&middle_grade_from=35&middle_grade_to=37&limit=5&offset=0",
 					"host": [
 						"{{BASE_URL}}"
 					],
@@ -84,16 +84,36 @@
 						"api",
 						"v1",
 						"education-data",
-						"madrid"
+						""
 					],
 					"query": [
+						{
+							"key": "autonomous_community",
+							"value": "Andalucia"
+						},
 						{
 							"key": "from",
 							"value": "2020"
 						},
 						{
 							"key": "to",
-							"value": "2021"
+							"value": "2023"
+						},
+						{
+							"key": "middle_grade_from",
+							"value": "35"
+						},
+						{
+							"key": "middle_grade_to",
+							"value": "37"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "0"
 						}
 					]
 				}
@@ -131,19 +151,40 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/education-data?autonomous_community=andalucia",
+					"raw": "{{BASE_URL}}/api/v1/education-data/andalucia?from=2020&to=2023&middle_grade_from=35&middle_grade_to=37&limit=5&offset=0",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"education-data"
+						"education-data",
+						"andalucia"
 					],
 					"query": [
 						{
-							"key": "autonomous_community",
-							"value": "andalucia"
+							"key": "from",
+							"value": "2020"
+						},
+						{
+							"key": "to",
+							"value": "2023"
+						},
+						{
+							"key": "middle_grade_from",
+							"value": "35"
+						},
+						{
+							"key": "middle_grade_to",
+							"value": "37"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "0"
 						}
 					]
 				}
