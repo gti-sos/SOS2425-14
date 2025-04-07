@@ -222,20 +222,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/education-data?autonomous_community=andalucia",
+					"raw": "{{BASE_URL}}/api/v1/education-data/andalucia/2020",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"education-data"
-					],
-					"query": [
-						{
-							"key": "autonomous_community",
-							"value": "andalucia"
-						}
+						"education-data",
+						"andalucia",
+						"2020"
 					]
 				}
 			},
@@ -620,7 +616,7 @@
 			"response": []
 		},
 		{
-			"name": "PUT daots y url no coincidentes (400)",
+			"name": "PUT datos y url no coincidentes (400)",
 			"event": [
 				{
 					"listen": "test",
