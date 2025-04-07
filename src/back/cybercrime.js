@@ -217,8 +217,24 @@ router.post("/cybercrime-data/:autonomous_community/:year", (req, res) => {
  ****************************************************/
 router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
     const { autonomous_community, year } = req.params;
-    const { criminal_ofense, cybersecurity, arrested_investigated } = req.body;
+    const {
+        autonomous_community: bodyCommunity,
+        year: bodyYear,
+        criminal_ofense,
+        cybersecurity,
+        arrested_investigated
+    } = req.body;
 
+    // Verifica coincidencia entre params y body
+    if (
+        !bodyCommunity || !bodyYear ||
+        bodyCommunity.toLowerCase().trim() !== autonomous_community.toLowerCase().trim() ||
+        parseInt(bodyYear) !== parseInt(year)
+    ) {
+        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo deben coincidir" });
+    }
+
+    // Validación de números
     const parsed = {
         criminal_ofense: parseFloat(criminal_ofense),
         cybersecurity: parseFloat(cybersecurity),
@@ -235,9 +251,11 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
     }, { $set: parsed }, {}, (err, numUpdated) => {
         if (err) return res.status(500).json({ error: "Error al actualizar" });
         if (numUpdated === 0) return res.status(404).json({ error: "Recurso no encontrado" });
+
         res.status(200).json({ message: "Recurso actualizado correctamente" });
     });
 });
+
 
 /****************************************************
  * DELETE - Elimina un recurso exacto
