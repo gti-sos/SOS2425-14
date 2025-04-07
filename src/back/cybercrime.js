@@ -229,6 +229,13 @@ router.put("/cybercrime-data/:autonomous_community/:year", (req, res) => {
         return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
     }
 
+    // Validación de identificadores consistentes
+    if (
+        updatedEntry.autonomous_community.toLowerCase() !== autonomous_community.toLowerCase().trim() ||
+        parseInt(updatedEntry.year) !== yearNum
+    ) {
+        return res.status(400).json({ error: "Los identificadores en la URL y el cuerpo no coinciden" });
+    }
     db.update({
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
         year: parseInt(year)
