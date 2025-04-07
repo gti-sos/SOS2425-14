@@ -349,63 +349,69 @@ router.post("/employment-data/:autonomous_community/:year/:education_level", (re
  ****************************************************/
 router.put("/employment-data/:autonomous_community/:year/:education_level", (req, res) => {
     const { autonomous_community, year, education_level } = req.params;
-    const updateData = req.body;
+    const updatedData = req.body;
+
+    // Validar que todos los campos están presentes
+    const requiredFields = [
+        "autonomous_community",
+        "year",
+        "education_level",
+        "activity_rate",
+        "employment_rate",
+        "unemployment_rate"
+    ];
+
+    if (!requiredFields.every(field => updatedData.hasOwnProperty(field))) {
+        return res.status(400).json({ error: "Faltan campos obligatorios" });
+    }
 
     // Validar que no se cambian los identificadores
     if (
-        updateData.autonomous_community !== undefined &&
-        updateData.autonomous_community !== autonomous_community
+        updatedData.autonomous_community !== autonomous_community ||
+        parseInt(updatedData.year) !== parseInt(year) ||
+        updatedData.education_level !== education_level
     ) {
-        return res.status(400).json({ error: "No se puede modificar 'autonomous_community'" });
+        return res.status(400).json({ error: "No se pueden modificar los identificadores del recurso" });
     }
 
-    if (
-        updateData.year !== undefined &&
-        parseInt(updateData.year) !== parseInt(year)
-    ) {
-        return res.status(400).json({ error: "No se puede modificar 'year'" });
-    }
+    // Validar y convertir los campos numéricos
+    const yearNum = parseInt(updatedData.year);
+    const activity_rate = parseFloat(updatedData.activity_rate);
+    const employment_rate = parseFloat(updatedData.employment_rate);
+    const unemployment_rate = parseFloat(updatedData.unemployment_rate);
 
     if (
-        updateData.education_level !== undefined &&
-        updateData.education_level !== education_level
+        isNaN(yearNum) ||
+        isNaN(activity_rate) ||
+        isNaN(employment_rate) ||
+        isNaN(unemployment_rate)
     ) {
-        return res.status(400).json({ error: "No se puede modificar 'education_level'" });
-    }
-
-    // Validar numéricos
-    const parsedData = {
-        activity_rate: parseFloat(updateData.activity_rate),
-        employment_rate: parseFloat(updateData.employment_rate),
-        unemployment_rate: parseFloat(updateData.unemployment_rate)
-    };
-
-    if (
-        isNaN(parsedData.activity_rate) ||
-        isNaN(parsedData.employment_rate) ||
-        isNaN(parsedData.unemployment_rate)
-    ) {
-        return res.status(400).json({ error: "Todos los campos numéricos deben ser válidos" });
+        return res.status(400).json({ error: "Los campos numéricos deben contener valores válidos" });
     }
 
     const query = {
         autonomous_community: new RegExp(`^${autonomous_community}$`, 'i'),
-        year: parseInt(year),
+        year: yearNum,
         education_level: new RegExp(`^${education_level}$`, 'i')
     };
 
-    const update = {
-        $set: parsedData
+    const newData = {
+        autonomous_community: updatedData.autonomous_community,
+        year: yearNum,
+        education_level: updatedData.education_level,
+        activity_rate,
+        employment_rate,
+        unemployment_rate
     };
 
-    db.update(query, update, {}, (err, numUpdated) => {
+    db.update(query, { $set: newData }, {}, (err, numUpdated) => {
         if (err) return res.status(500).json({ error: "Error interno del servidor" });
 
         if (numUpdated === 0) {
             return res.status(404).json({ error: "Recurso no encontrado" });
         }
 
-        res.status(200).json({ message: "Recurso actualizado correctamente" });
+        res.status(200).json({ message: "Recurso actualizado correctamente", data: newData });
     });
 });
 
