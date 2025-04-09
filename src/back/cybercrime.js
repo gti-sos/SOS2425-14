@@ -1,28 +1,9 @@
-const express = require("express");
-const Datastore = require("nedb");
-const path = require("path");
+import express from "express";
+import Datastore from "nedb";
+import initialData from "../json/data-pdg.json" assert { type: "json" };
 
-const router = express.Router();
 const db = new Datastore();
-const initialData = require("../json/data-pdg.json");
-
-/****************************************************
- * Carga automática de datos iniciales al iniciar la API
- ****************************************************/
-db.count({}, (err, count) => {
-    if (err) {
-        console.error("Error al contar registros en NeDB", err);
-        return;
-    }
-    if (count === 0) {
-        db.insert(initialData, (err, newDocs) => {
-            if (err) console.error("Error al insertar datos iniciales en NeDB", err);
-            else console.log(`Se han insertado ${newDocs.length} registros iniciales en memoria.`);
-        });
-    } else {
-        console.log(`La base de datos ya tiene ${count} registros.`);
-    }
-});
+const router = express.Router();
 
 /****************************************************
  * GET - Lista todos los datos (con posibilidad de filtrado y paginación)
@@ -335,4 +316,28 @@ router.delete("/cybercrime-data/:autonomous_community/:year", (req, res) => {
     });
 });
 
-module.exports = router;
+/****************************************************
+ * Exportar el backend
+ ****************************************************/
+export function loadBackendPDG(app) {
+    app.use("/api/v1", router);
+
+    db.count({}, (err, count) => {
+        if (err) {
+            console.error("[cybercrime] Error al contar registros en NeDB:", err);
+            return;
+        }
+
+        if (count === 0) {
+            db.insert(initialData, (err, newDocs) => {
+                if (err) {
+                    console.error("[cybercrime] Error al insertar datos iniciales en NeDB:", err);
+                } else {
+                    console.log(`[cybercrime] Se han insertado ${newDocs.length} registros iniciales.`);
+                }
+            });
+        } else {
+            console.log(`[cybercrime] La base ya contiene ${count} registros.`);
+        }
+    });
+}

@@ -1,10 +1,9 @@
-const express = require("express");
-const Datastore = require("nedb");
-const path = require("path");
+import express from "express";
+import Datastore from "nedb";
+import initialData from "../json/data-frm.json" assert { type: "json" };
 
-const router = express.Router();
 const db = new Datastore();
-const initialData = require("../json/data-frm.json");
+const router = express.Router();
 
 // education-data.routes.js
 // ----------------------------------------------------------
@@ -403,4 +402,28 @@ router.all("/education-data", (req, res) => {
     }
 });
 
-module.exports = router;
+/****************************************************
+ * Exportar el backend
+ ****************************************************/
+export function loadBackendFRM(app) {
+    app.use("/api/v1", router);
+
+    db.count({}, (err, count) => {
+        if (err) {
+            console.error("[education] Error al contar registros en NeDB:", err);
+            return;
+        }
+
+        if (count === 0) {
+            db.insert(initialData, (err, newDocs) => {
+                if (err) {
+                    console.error("[education] Error al insertar datos iniciales en NeDB:", err);
+                } else {
+                    console.log(`[education] Se han insertado ${newDocs.length} registros iniciales.`);
+                }
+            });
+        } else {
+            console.log(`[education] La base ya contiene ${count} registros.`);
+        }
+    });
+}

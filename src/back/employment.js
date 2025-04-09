@@ -1,29 +1,9 @@
-const express = require("express");
-const Datastore = require("nedb");
-const path = require("path");
+import express from "express";
+import Datastore from "nedb";
+import initialData from '../json/data-jdp.json' assert { type: "json" };
 
+const db = new Datastore();
 const router = express.Router();
-const db = new Datastore(); // Base de datos en memoria
-const initialData = require("../json/data-jdp.json");
-
-/****************************************************
- * Carga automática de datos iniciales al iniciar la API
- ****************************************************/
-db.count({}, (err, count) => {
-    if (err) {
-        console.error("Error al contar registros en NeDB", err);
-        return;
-    }
-    if (count === 0) {
-        db.insert(initialData, (err, newDocs) => {
-            if (err) console.error("Error al insertar datos iniciales en NeDB", err);
-            else console.log(`Se han insertado ${newDocs.length} registros iniciales en memoria.`);
-        });
-    } else {
-        console.log(`La base de datos ya tiene ${count} registros.`);
-    }
-});
-
 
 /**********************************************************************
  * Función auxiliar para aplicar los filtros de las columnas numéricas
@@ -443,4 +423,30 @@ router.delete("/employment-data/:autonomous_community/:year/:education_level", (
     });
 });
 
-module.exports = router;
+
+/****************************************************
+ * Función para exportar el backend
+ ****************************************************/
+export function loadBackendJDP(app) {
+    app.use("/api/v1", router);
+
+    // Carga automática solo si la base está vacía
+    db.count({}, (err, count) => {
+        if (err) {
+            console.error("[employment] Error al contar registros en NeDB:", err);
+            return;
+        }
+
+        if (count === 0) {
+            db.insert(initialData, (err, newDocs) => {
+                if (err) {
+                    console.error("[employment] Error al insertar datos iniciales en NeDB:", err);
+                } else {
+                    console.log(`[employment] Se han insertado ${newDocs.length} registros iniciales.`);
+                }
+            });
+        } else {
+            console.log(`[employment] La base ya contiene ${count} registros.`);
+        }
+    });
+}

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node --no-deprecation index.js",
     "test-api-employment-local": "npx newman run tests/back/employment/employment-tests.json -e tests/back/employment/api-env-local.json",
