@@ -25,9 +25,7 @@ loadBackendJDP(app);
 loadBackendPDG(app);
 loadBackendFRM(app);
 
-
 // Rutas iniciales
-
 app.get("/", (request, response) => {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -37,7 +35,6 @@ app.get("/about", (request, response) => {
 });
 
 // Inicio servidor
-
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`);
 });
