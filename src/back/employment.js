@@ -1,6 +1,7 @@
 import express from "express";
 import Datastore from "nedb";
-import initialData from '../json/data-jdp.json' assert { type: "json" };
+import fs from "fs";
+const initialData = JSON.parse(fs.readFileSync(new URL("../json/data-jdp.json", import.meta.url)));
 
 const db = new Datastore();
 const router = express.Router();

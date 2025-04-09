@@ -1,6 +1,7 @@
 import express from "express";
 import Datastore from "nedb";
-import initialData from "../json/data-frm.json" assert { type: "json" };
+import fs from "fs";
+const initialData = JSON.parse(fs.readFileSync(new URL("../json/data-frm.json", import.meta.url)));
 
 const db = new Datastore();
 const router = express.Router();
@@ -14,24 +15,6 @@ const router = express.Router();
 // - POST: Inserción de nuevos registros y control de errores.
 // - PUT: Actualización de registros existentes.
 // - DELETE: Eliminación de registros individuales o totales.
-
-// Inicializa la base de datos con datos por defecto si está vacía
-// Esto se ejecuta automáticamente al arrancar el servidor
-
-db.count({}, (err, count) => {
-    if (err) {
-        console.error("Error al contar registros en NeDB", err);
-        return;
-    }
-    if (count === 0) {
-        db.insert(initialData, (err, newDocs) => {
-            if (err) console.error("Error al insertar datos iniciales en NeDB", err);
-            else console.log(`Se han insertado ${newDocs.length} registros iniciales en memoria.`);
-        });
-    } else {
-        console.log(`La base de datos ya tiene ${count} registros.`);
-    }
-});
 
 //Redirigir al docs de la API
 router.get("/education-data/docs", (req, res) => {
