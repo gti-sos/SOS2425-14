@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "api": "Employment Data",
+        "description": "Access unemployment, employment, and activity rate data for the active population with the Labor Market Data API.",
+        "path": "/api/v1/employment-data",
+        "image": "../images/labor_data.jpg"
+    },
+    {
+        "id": 2,
+        "api": "Education Data",
+        "description": "Access enrollment data for Basic, Intermediate, and Higher Vocational Training with the Education Enrollment Data API.",
+        "path": "/api/v1/education-data",
+        "image": "../images/enrollment_data.jpg"
+    },
+    {
+        "id": 3,
+        "api": "Crime Data",
+        "description": "Retrieve data on criminal offenses, cybercrime incidents, and related arrests with the Crime and Cybercrime Data API.",
+        "path": "/api/v1/cybercrime-data",
+        "image": "../images/crime_data.webp"
+    }
+]
