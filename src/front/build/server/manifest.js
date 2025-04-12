@@ -10,12 +10,13 @@ return {
 	assets: new Set(["favicon.png","images/crime_data.webp","images/enrollment_data.jpg","images/labor_data.jpg"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.DvccfI5y.js",app:"_app/immutable/entry/app.BklYg2Wn.js",imports:["_app/immutable/entry/start.DvccfI5y.js","_app/immutable/chunks/DTE9iFec.js","_app/immutable/chunks/D2QEyh5V.js","_app/immutable/chunks/CvjAcaUl.js","_app/immutable/entry/app.BklYg2Wn.js","_app/immutable/chunks/D2QEyh5V.js","_app/immutable/chunks/CqA-SK5v.js","_app/immutable/chunks/D8RsNkBn.js","_app/immutable/chunks/DhYTbytf.js","_app/immutable/chunks/CvjAcaUl.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.CvZeRnLh.js",app:"_app/immutable/entry/app.BNh9gvji.js",imports:["_app/immutable/entry/start.CvZeRnLh.js","_app/immutable/chunks/CkM-KLXz.js","_app/immutable/chunks/DvUjY8h5.js","_app/immutable/chunks/GyJkTNFx.js","_app/immutable/entry/app.BNh9gvji.js","_app/immutable/chunks/DvUjY8h5.js","_app/immutable/chunks/BaA98Pk7.js","_app/immutable/chunks/BloMgKyR.js","_app/immutable/chunks/CDjYmTfr.js","_app/immutable/chunks/Dapz-wY9.js","_app/immutable/chunks/GyJkTNFx.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-BUe4TMLh.js')),
-			__memo(() => import('./chunks/1-CIJ2888U.js')),
-			__memo(() => import('./chunks/2-D_btYZPN.js')),
-			__memo(() => import('./chunks/3-YrgcwCpx.js'))
+			__memo(() => import('./chunks/0-Ckod3Xu7.js')),
+			__memo(() => import('./chunks/1-2lW3SC9G.js')),
+			__memo(() => import('./chunks/2-7ZNgjtQu.js')),
+			__memo(() => import('./chunks/3-oKDFiPkG.js')),
+			__memo(() => import('./chunks/4-DdJvUlip.js'))
 		],
 		routes: [
 			{
@@ -30,6 +31,13 @@ return {
 				pattern: /^\/about\/?$/,
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 3 },
+				endpoint: null
+			},
+			{
+				id: "/education",
+				pattern: /^\/education\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 4 },
 				endpoint: null
 			}
 		],

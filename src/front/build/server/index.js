@@ -1,7 +1,7 @@
 import { d as define_property, s as safe_equals, o as object_prototype, a as array_prototype, g as get_descriptor, i as is_extensible, b as array_from, e as equals, c as get_prototype_of, f as is_array, r as run_all, h as index_of, j as decode_pathname, k as decode_params, n as normalize_path, l as disable_search, v as validate_layout_server_exports, m as validate_layout_exports, p as validate_page_server_exports, q as validate_page_exports, t as resolve, u as make_trackable, w as readable, x as writable } from './chunks/exports-CoBaX9l6.js';
 import { r as render, H as HYDRATION_START, a as HYDRATION_ERROR, b as HYDRATION_END, U as UNINITIALIZED, p as push$1, s as setContext, c as pop$1 } from './chunks/index-TGfQi5Z6.js';
 
-const BROWSER = false;
+const DEV = false;
 let base = "";
 let assets = base;
 const app_dir = "_app";
@@ -1027,8 +1027,8 @@ function update_effect(effect2) {
     effect2.wv = write_version;
     var deps = effect2.deps;
     var dep;
-    if (BROWSER && tracing_mode_flag && (effect2.f & DIRTY) !== 0 && deps !== null) ;
-    if (BROWSER) ;
+    if (DEV && tracing_mode_flag && (effect2.f & DIRTY) !== 0 && deps !== null) ;
+    if (DEV) ;
   } catch (error) {
     handle_error(error, effect2, previous_effect, previous_component_context || effect2.ctx);
   } finally {
@@ -1706,7 +1706,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "igwok7"
+  version_hash: "1mhthct"
 };
 async function get_hooks() {
   let handle;
@@ -3637,20 +3637,20 @@ async function load_server_data({ event, state, node, parent }) {
       ...event,
       fetch: (info, init2) => {
         const url2 = new URL(info instanceof Request ? info.url : info, event.url);
-        if (BROWSER && done && !uses.dependencies.has(url2.href)) ;
+        if (DEV && done && !uses.dependencies.has(url2.href)) ;
         return event.fetch(info, init2);
       },
       /** @param {string[]} deps */
       depends: (...deps) => {
         for (const dep of deps) {
           const { href } = new URL(dep, event.url);
-          if (BROWSER) ;
+          if (DEV) ;
           uses.dependencies.add(href);
         }
       },
       params: new Proxy(event.params, {
         get: (target, key2) => {
-          if (BROWSER && done && typeof key2 === "string" && !uses.params.has(key2)) ;
+          if (DEV && done && typeof key2 === "string" && !uses.params.has(key2)) ;
           if (is_tracking) {
             uses.params.add(key2);
           }
@@ -3661,7 +3661,7 @@ async function load_server_data({ event, state, node, parent }) {
         }
       }),
       parent: async () => {
-        if (BROWSER && done && !uses.parent) ;
+        if (DEV && done && !uses.parent) ;
         if (is_tracking) {
           uses.parent = true;
         }
@@ -3669,7 +3669,7 @@ async function load_server_data({ event, state, node, parent }) {
       },
       route: new Proxy(event.route, {
         get: (target, key2) => {
-          if (BROWSER && done && typeof key2 === "string" && !uses.route) ;
+          if (DEV && done && typeof key2 === "string" && !uses.route) ;
           if (is_tracking) {
             uses.route = true;
           }
@@ -5299,7 +5299,7 @@ async function render_page(event, page, options2, manifest, state, nodes, resolv
     const data_pathname = add_data_suffix(event.url.pathname);
     const fetched = [];
     if (nodes.ssr() === false && !(state.prerendering && should_prerender_data)) {
-      if (BROWSER && action_result && !event.request.headers.has("x-sveltekit-action")) ;
+      if (DEV && action_result && !event.request.headers.has("x-sveltekit-action")) ;
       return await render_response({
         branch: [],
         fetched,
@@ -5922,12 +5922,12 @@ async function respond(request, options2, manifest, state) {
       if (url.pathname === base || url.pathname === base + "/") {
         trailing_slash = "always";
       } else if (page_nodes) {
-        if (BROWSER) ;
+        if (DEV) ;
         trailing_slash = page_nodes.trailing_slash();
       } else if (route.endpoint) {
         const node = await route.endpoint();
         trailing_slash = node.trailingSlash ?? "never";
-        if (BROWSER) ;
+        if (DEV) ;
       }
       if (!is_data_request) {
         const normalized = normalize_path(url.pathname, trailing_slash);

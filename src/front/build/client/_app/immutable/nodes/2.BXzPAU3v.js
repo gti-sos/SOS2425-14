@@ -1,2 +1,0 @@
-import{t as r,h as t,a as s}from"../chunks/D8RsNkBn.js";import"../chunks/Dij-CRhC.js";import{s as i,h as n,$ as h}from"../chunks/D2QEyh5V.js";import{A as p}from"../chunks/D7etBmwK.js";var c=r(`<h2>SOS2425-14</h2> <hr> <div class="article borderless"><h3>Discover Our Project</h3> <p>Take a look at what we’ve been working on! Learn more about our goals, explore the datasets, and
-		find out how our APIs can help you.</p> <a href="/about">About our project</a></div> <!>`,1);function v(a){var o=c();t(m=>{h.title="SOS2425-14"});var e=i(n(o),6);p(e),s(a,o)}export{v as component};
