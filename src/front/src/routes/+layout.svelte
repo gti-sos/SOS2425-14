@@ -17,10 +17,6 @@
 <Menu/>
 <GitHub/>
 
-<div class="wrapper">
-    <div class="container">
-        <slot />
-    </div>
-</div>
+<slot />
 
 <Footer/>

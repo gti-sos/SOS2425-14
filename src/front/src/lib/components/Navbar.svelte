@@ -1,27 +1,50 @@
 <script>
 	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 
 	onMount(() => {
 		const navbar = document.getElementById('navbar');
-		const samplesLink = document.getElementById('samples-link');
-		const dropdown = document.querySelector('.dropdown');
+		const apisLink = document.getElementById('apis-link');
+		const dashboardLink = document.getElementById('dashboard-link');
+		const dropdownApis = document.getElementById('apis');
+		const dropdownDash = document.getElementById('dash');
 
 		if (navbar) {
 			window.addEventListener('scroll', () => {
-				if (window.scrollY > 0) {
-					navbar.classList.add('scrolled');
-				} else {
-					navbar.classList.remove('scrolled');
-				}
+				navbar.classList.toggle('scrolled', window.scrollY > 0);
 			});
 		}
 
-		if (samplesLink && dropdown) {
-			samplesLink.addEventListener('click', (event) => {
+		if (apisLink && dropdownApis && dropdownDash) {
+			apisLink.addEventListener('click', (event) => {
+				if (dropdownDash.classList.contains('show')) {
+					dropdownDash.classList.remove('show');
+				}
 				event.preventDefault();
-				dropdown.classList.toggle('show');
+				dropdownApis.classList.toggle('show');
 			});
 		}
+
+		if (dashboardLink && dropdownDash && dropdownApis) {
+			dashboardLink.addEventListener('click', (event) => {
+				if (dropdownApis.classList.contains('show')) {
+					dropdownApis.classList.remove('show');
+				}
+				event.preventDefault();
+				dropdownDash.classList.toggle('show');
+			});
+		}
+
+		const navLinks = document.querySelectorAll('nav a');
+
+		navLinks.forEach((link) => {
+			link.addEventListener('click', () => {
+				if (link.id !== 'apis-link' && link.id !== 'dashboard-link') {
+					dropdownApis?.classList.remove('show');
+					dropdownDash?.classList.remove('show');
+				}
+			});
+		});
 	});
 </script>
 
@@ -30,8 +53,18 @@
 	<nav>
 		<ul>
 			<li><a href="/">Home</a></li>
-			<li class="dropdown">
-				<a id="samples-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a>
+			<li class="dropdown" id="dash">
+				<a id="dashboard-link" style="cursor: pointer;"
+					>Dashboards<span class="dropdown-arrow"></span></a
+				>
+				<ul class="dropdown-content">
+					<li><a href="/education">Education</a></li>
+					<li><a href="/employment">Employment</a></li>
+					<li><a href="/crime">Crime</a></li>
+				</ul>
+			</li>
+			<li class="dropdown" id="apis">
+				<a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a>
 				<ul class="dropdown-content">
 					<li><a href="/api/v1/education-data">Education</a></li>
 					<li><a href="/api/v1/employment-data">Employment</a></li>

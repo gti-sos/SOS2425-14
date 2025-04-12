@@ -1,6 +1,7 @@
 import { fileURLToPath } from "url";
 import express from "express";
 import path from "path";
+import cors from "cors";
 import { handler } from './src/front/build/handler.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,23 +17,16 @@ const PORT = process.env.PORT || 16078;
 
 // Middlewares
 app.use(express.json());
-
-// Rutas estáticas
-app.use(handler);
+app.use(cors());
 
 // Cargar los módulos backend
 loadBackendJDP(app);
 loadBackendPDG(app);
 loadBackendFRM(app);
 
-// Rutas iniciales
-app.get("/", (request, response) => {
-    response.sendFile(path.join(__dirname, 'index.html'));
-});
+// Rutas estáticas
+app.use(handler);
 
-app.get("/about", (request, response) => {
-    response.sendFile(path.join(__dirname, 'about.html'));
-});
 
 // Inicio servidor
 app.listen(PORT, ()=>{
