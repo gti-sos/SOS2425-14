@@ -110,6 +110,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Dashboard - Education Data</title>
+</svelte:head>
+
 <div class="wrapper dash">
 	<div class="container dash">
 		{#if message}
@@ -117,7 +121,7 @@
 		{/if}
 
 		<div class="header">
-			<h3>Education</h3>
+			<h3>Education Data</h3>
 			<div class="actions">
 				<button on:click={addNew} class="green">
 					<i class="fas fa-plus"></i> Add New Record
