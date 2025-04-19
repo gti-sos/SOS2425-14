@@ -152,7 +152,7 @@
 		{/if}
 
 		<div class="header">
-			<h3>Employment Data</h3>
+			<h3>Datos de empleo</h3>
 			<div class="actions">
 				<button class="btn" on:click={() => (creating = !creating)}>
 					<i class="fas fa-plus"></i> Nuevo registro
