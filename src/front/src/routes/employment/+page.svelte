@@ -3,6 +3,8 @@
 	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+    import { goto } from '$app/navigation';
+
 
 	let DEVEL_HOST = 'http://localhost:16078';
 	let API = '/api/v1/employment-data';
@@ -212,7 +214,14 @@
                                 <td>{entry.unemployment_rate}</td>
 								<td class="actions">
 									<!-- svelte-ignore a11y_consider_explicit_label -->
-									<button class="btn-circle" title="Editar Registro"><i class="fas fa-pen"></i></button>
+									<button
+                                        class="btn-circle"
+                                        title="Editar Registro"
+                                        on:click={() => goto(`/employment/edit/${encodeURIComponent(entry.autonomous_community)}/${entry.year}/${encodeURIComponent(entry.education_level)}`)}
+                                        >
+                                        <i class="fas fa-pen"></i>
+                                        </button>
+
 									<!-- svelte-ignore a11y_consider_explicit_label -->
 									<!-- svelte-ignore a11y_no_static_element_interactions -->
 									<!-- svelte-ignore a11y_click_events_have_key_events -->
