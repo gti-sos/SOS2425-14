@@ -12,6 +12,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build Front
+        run: npm run build
+
       - name: Run api tests
         run: npm run test
       - name: Deploy to Render

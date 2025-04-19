@@ -27,7 +27,6 @@ loadBackendFRM(app);
 // Rutas estáticas
 app.use(handler);
 
-
 // Inicio servidor
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`);
