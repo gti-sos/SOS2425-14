@@ -99,11 +99,11 @@
             <input bind:value={autonomous_community} readonly />
             <input bind:value={year} readonly />
             <select bind:value={education_level} disabled>
-                <option disabled value="">Selecciona nivel educativo</option>
-                <option value="TOTAL">Total</option>
+                <option value="" disabled selected>Nivel educativo</option>
+                <option value="SUP">Educación superior (SUP)</option>
                 <option value="SEC">Secundaria (SEC)</option>
-                <option value="PRI">Primaria (PRI)</option>
-                <option value="TER">Terciaria (TER)</option>
+                <option value="INF">Inferior a secundaria (INF)</option>
+                <option value="TOTAL">Total (TOTAL)</option>
             </select>
             <input bind:value={activity_rate} placeholder="Tasa actividad" />
             <input bind:value={employment_rate} placeholder="Tasa empleo" />
