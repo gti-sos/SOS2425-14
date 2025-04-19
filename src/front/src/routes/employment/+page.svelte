@@ -11,11 +11,17 @@
 		API = DEVEL_HOST + API;
 	}
 
-	/**
-	 * @type {any[]}
-	 */
 	let employment = [];
 	let message = '';
+    let creating = false;
+    let form = {
+        autonomous_community: '',
+        year: '',
+        education_level: '',
+        activity_rate: '',
+        employment_rate: '',
+        unemployment_rate: ''
+    };
 
 	async function getEmploymentData() {
 		try {
@@ -29,9 +35,46 @@
 		}
 	}
 
-	function addNew() {
-		// Aquí podrías implementar un modal o formulario si quieres
+	async function createRecord() { 
+	try {
+		const res = await fetch(API, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(form)
+		});
+
+		const result = await res.json();
+
+		if (res.status === 201) {
+			message = 'Registro creado correctamente';
+			creating = false;
+			resetForm();
+			await getEmploymentData();
+		} else if (res.status === 400) {
+			message = `Datos inválidos: ${result.error || 'Revisa los campos.'}`;
+		} else if (res.status === 409) {
+			message = 'Ya existe un registro con esos identificadores.';
+		} else {
+			message = `Error inesperado (${res.status}) al procesar la petición.`;
+		}
+	} catch (error) {
+		console.error('[CREATE] Error:', error);
+		message = 'No se pudo conectar con el servidor.';
 	}
+	setTimeout(() => (message = ''), 5000);
+}
+
+
+    function resetForm() {
+        form = {
+            autonomous_community: '',
+            year: '',
+            education_level: '',
+            activity_rate: '',
+            employment_rate: '',
+            unemployment_rate: ''
+        };
+    }
 
 	async function loadInitialData() {
 		const url = `${API}/loadInitialData`;
@@ -109,17 +152,38 @@
 		<div class="header">
 			<h3>Employment Data</h3>
 			<div class="actions">
-				<button on:click={addNew} class="green">
+				<button class="btn" on:click={() => (creating = !creating)}>
 					<i class="fas fa-plus"></i> Nuevo registro
 				</button>
-				<button on:click={loadInitialData} class="green">
+				<button class="btn" on:click={loadInitialData}>
 					<i class="fas fa-sync-alt"></i> Recargar los datos iniciales
 				</button>
-				<button on:click={deleteAll} class="red">
+				<button class="btn" on:click={deleteAll}>
 					<i class="fas fa-trash-alt"></i> Eliminar todos los datos
 				</button>
 			</div>
 		</div>
+
+        {#if creating}
+            <form class="create-form" on:submit|preventDefault={createRecord}>
+                <input placeholder="Comunidad Autónoma" bind:value={form.autonomous_community} required />
+                <input type="number" placeholder="Año" bind:value={form.year} required />
+                <select bind:value={form.education_level} required>
+                    <option value="" disabled selected>Nivel educativo</option>
+                    <option value="SUP">Educación superior (SUP)</option>
+                    <option value="SEC">Secundaria (SEC)</option>
+                    <option value="INF">Inferior a secundaria (INF)</option>
+                    <option value="TOTAL">Total (TOTAL)</option>
+                </select>
+                <input type="number" step="0.01" placeholder="Tasa actividad" bind:value={form.activity_rate} required />
+                <input type="number" step="0.01" placeholder="Tasa empleo" bind:value={form.employment_rate} required />
+                <input type="number" step="0.01" placeholder="Tasa paro" bind:value={form.unemployment_rate} required />
+
+                <button type="submit" class="submit">Crear</button>
+                <button type="button" class="cancel" on:click={() => (creating = false)}>Cancelar</button>
+            </form> 
+        {/if}
+
         <div class="seeker"></div>
         <div class="table-container">
 			<table>
@@ -148,12 +212,12 @@
                                 <td>{entry.unemployment_rate}</td>
 								<td class="actions">
 									<!-- svelte-ignore a11y_consider_explicit_label -->
-									<button class="edit" title="Editar Registro"><i class="fas fa-pen"></i></button>
+									<button class="btn-circle" title="Editar Registro"><i class="fas fa-pen"></i></button>
 									<!-- svelte-ignore a11y_consider_explicit_label -->
 									<!-- svelte-ignore a11y_no_static_element_interactions -->
 									<!-- svelte-ignore a11y_click_events_have_key_events -->
 									<button
-										class="delete"
+										class="btn-circle"
 										title="Eliminar Registro"
 										on:click={() => deleteRecord(entry.autonomous_community, entry.year, entry.education_level)}
 										><i class="fas fa-times"></i></button

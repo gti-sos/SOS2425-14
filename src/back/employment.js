@@ -6,6 +6,9 @@ const initialData = JSON.parse(fs.readFileSync(new URL("../json/data-jdp.json", 
 const db = new Datastore();
 const router = express.Router();
 
+let comunidadesValidas = [];
+let nivelesEducativosValidos = [];
+
 /**********************************************************************
  * Función auxiliar para aplicar los filtros de las columnas numéricas
  **********************************************************************/
@@ -220,6 +223,14 @@ router.post("/employment-data", (req, res) => {
         return res.status(400).json({ error: "Los campos numéricos deben contener valores válidos" });
     }
 
+    if (!comunidadesValidas.includes(newData.autonomous_community)) {
+        return res.status(400).json({ error: "Comunidad Autónoma no válida." });
+      }
+      
+    if (!nivelesEducativosValidos.includes(newData.education_level)) {
+        return res.status(400).json({ error: "Nivel educativo no válido." });
+    }
+      
     const record = {
         autonomous_community: newData.autonomous_community,
         year,
@@ -441,11 +452,14 @@ export function loadBackendJDP(app) {
         if (count === 0) {
             db.insert(initialData, (err, newDocs) => {
                 if (err) {
-                    console.error("[employment] Error al insertar datos iniciales en NeDB:", err);
+                  console.error("[employment] Error al insertar datos iniciales en NeDB:", err);
                 } else {
-                    console.log(`[employment] Se han insertado ${newDocs.length} registros iniciales.`);
+                  console.log(`[employment] Se han insertado ${newDocs.length} registros iniciales.`);
+              
+                  comunidadesValidas = [...new Set(newDocs.map(d => d.autonomous_community))];
+                  nivelesEducativosValidos = [...new Set(newDocs.map(d => d.education_level))];
                 }
-            });
+              });
         } else {
             console.log(`[employment] La base ya contiene ${count} registros.`);
         }
