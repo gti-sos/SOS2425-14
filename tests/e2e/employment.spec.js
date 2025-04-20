@@ -58,13 +58,23 @@ test('create and delete employment entry', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Crear' }).click();
 
-  const row = page.locator('tr',{ hasText: `${testCommunity} ${testYear} ${testLevel}`});
-  await expect(row).toContainText(testEmployment); 
+  const row = page.locator('tr', {
+    has: page.locator('td', { hasText: testCommunity })
+  }).filter({
+    has: page.locator('td', { hasText: testYear })
+  }).filter({
+    has: page.locator('td', { hasText: testLevel })
+  });
   
+  await expect(row).toContainText(testEmployment);
+  
+  // Eliminar el registro
   const deleteButton = row.locator('button[title="Eliminar Registro"]');
+  await expect(deleteButton).toBeVisible();
   await deleteButton.click();
-  // Confirmar que ya no aparece
-  await expect(row).toHaveCount(0);
+  
+  // Verificar que la fila ha desaparecido
+  await expect(row).toHaveCount(0, { timeout: 5000 });
 });
 
 

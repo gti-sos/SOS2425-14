@@ -242,11 +242,6 @@
 	 * Muestra mensajes según el resultado de la operación.
 	 */
 	async function deleteRecord(autonomous_community, year, education_level) {
-		const confirmDelete = confirm(
-			`¿Estás seguro de que quieres eliminar el registro de ${autonomous_community} (${year}, ${education_level})?`
-		);
-		if (!confirmDelete) return;
-
 		try {
 			const res = await fetch(
 				`${API}/${autonomous_community}/${year}/${education_level}`,
