@@ -69,7 +69,7 @@
 				setTimeout(() => goto('/employment'), 1500);
 			} else if (res.status === 400) {
 				const errorData = await res.json();
-				message = `Error en los datos: ${errorData.error}`;
+				message = `Error en los datos`;
 			} else if (res.status === 404) {
 				message = 'El recurso que intentas actualizar no existe.';
 			} else {
@@ -77,7 +77,7 @@
 			}
 		} catch (err) {
 			const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
-			message = `No se pudo conectar con el servidor: ${errorMessage}`;
+			message = `No se pudo conectar con el servidor`;
 		}
 	}
 

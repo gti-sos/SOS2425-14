@@ -5,7 +5,6 @@
 	import { fade } from 'svelte/transition';
     import { goto } from '$app/navigation';
 
-
 	let DEVEL_HOST = 'http://localhost:16078';
 	let API = '/api/v1/employment-data';
 
@@ -43,17 +42,32 @@
 		offset: ''
 	};
 
-
+	/**
+	 * Hace GEt inicial a la API.
+	 * Muestra mensajes según el código de estado recibido.
+	 */
 	async function getEmploymentData() {
 		try {
 			const res = await fetch(API);
+
 			if (!res.ok) {
-				throw new Error(`HTTP error! status: ${res.status}`);
+				if (res.status === 404) {
+					message = 'No se encontraron datos de empleo.';
+				} else if (res.status === 500) {
+					message = 'Error del servidor. Intenta más tarde.';
+				} else {
+					message = `Error inesperado`;
+				}
+				employment = [];
+				return;
 			}
 			employment = await res.json();
 		} catch (error) {
-			console.error('[GET] Error getting employment data:', error);
+			console.error('[GET] Error cargando datos:', error);
+			message = 'No se pudo conectar con el servidor.';
+			employment = [];
 		}
+		setTimeout(() => (message = ''), 2000);
 	}
 
     function toggleFilters() {
@@ -80,41 +94,58 @@
 		}
 	}
 
-
     function toggleCreate() {
         creating = !creating;
         showFilters = false;
     }
 
+	/**
+	 * Realiza una búsqueda de registros filtrando por los parámetros del formulario.
+	 * Actualiza los resultados y muestra mensajes según el código de estado HTTP.
+	 */
 	async function searchRecords() {
 		const params = new URLSearchParams();
 
 		for (const [key, value] of Object.entries(search)) {
-			if (value !== '' && value !== null && value !== undefined) {
-				params.append(key, value);
+				if (value !== '' && value !== null && value !== undefined) {
+					params.append(key, value);
+				}
 			}
-		}
-
 
 		try {
 			const res = await fetch(`${API}?${params.toString()}`);
-			if (!res.ok) throw new Error('No se pudieron obtener resultados');
+
+			if (!res.ok) {
+				if (res.status === 400) {
+					message = 'Parámetros de búsqueda no válidos.';
+				} else if (res.status === 500) {
+					message = 'Error interno del servidor al buscar.';
+				} else {
+					message = `Error inesperado`;
+				}
+				employment = [];
+				return;
+			}
+
 			employment = await res.json();
+
 			if (employment.length === 0) {
-				message = 'No se encontraron resultados para los filtros aplicados.';
+				message = 'No se encontraron resultados para tu búsqueda.';
 			} else {
 				message = `Se encontraron ${employment.length} resultados.`;
 			}
-
-			setTimeout(() => message = '', 3000); 
-
 		} catch (err) {
-			message = `Error: ${err.message}`;
-			setTimeout(() => message = '', 3000);
+			console.error('[SEARCH] Error al buscar:', err);
+			message = 'No se pudo conectar con el servidor.';
 			employment = [];
 		}
+		setTimeout(() => (message = ''), 2000);
 	}
 
+	/**
+	 * Envía un nuevo registro a la API.
+	 * Muestra mensajes según el estado devuelto: éxito, conflicto o error de validación.
+	*/
 	async function createRecord() { 
 		try {
 			const res = await fetch(API, {
@@ -131,17 +162,17 @@
 				resetForm();
 				await getEmploymentData();
 			} else if (res.status === 400) {
-				message = `Datos inválidos: ${result.error || 'Revisa los campos.'}`;
+				message = `Datos inválidos: revisa los campos.`;
 			} else if (res.status === 409) {
 				message = 'Ya existe un registro con esos identificadores.';
 			} else {
-				message = `Error inesperado (${res.status}) al procesar la petición.`;
+				message = `Error inesperado al procesar la petición.`;
 			}
 		} catch (error) {
 			console.error('[CREATE] Error:', error);
 			message = 'No se pudo conectar con el servidor.';
 		}
-		setTimeout(() => (message = ''), 5000);
+		setTimeout(() => (message = ''), 2000);
 	}
 
 
@@ -156,7 +187,11 @@
         };
     }
 
-	async function loadInitialData() {
+	/**
+	 * Carga los datos iniciales desde la API.
+	 * Muestra mensajes según el resultado de la operación.
+	 */
+	 async function loadInitialData() {
 		const url = `${API}/loadInitialData`;
 
 		try {
@@ -170,28 +205,42 @@
 		}
 		setTimeout(() => {
 			message = '';
-		}, 3000);
+		}, 2000);
 	}
 
+	/**
+	 * Elimina todos los registros de la API.
+	 * Informa al usuario si la operación fue exitosa o si hubo algún error.
+	 */
 	async function deleteAll() {
 		const confirmDelete = confirm('¿Estás seguro de que quieres eliminar todos los registros?');
 		if (!confirmDelete) return;
 
 		try {
 			const res = await fetch(API, { method: 'DELETE' });
-			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-			message = 'Todos los registros han sido eliminados.';
-			await getEmploymentData();
+			if (res.status === 200) {
+				message = 'Todos los registros han sido eliminados.';
+				await getEmploymentData();
+			} else if (res.status === 404) {
+				message = 'No hay registros que eliminar.';
+			} else {
+				message = `Error al eliminar`;
+			}
 		} catch (error) {
 			console.error('[DELETE] Error deleting records:', error);
 			message = 'Error al eliminar los registros.';
 		}
+
 		setTimeout(() => {
 			message = '';
-		}, 3000);
+		}, 2000);
 	}
-
+	
+	/**
+	 * Elimina un registro específico de la API usando sus identificadores.
+	 * Muestra mensajes según el resultado de la operación.
+	 */
 	async function deleteRecord(autonomous_community, year, education_level) {
 		const confirmDelete = confirm(
 			`¿Estás seguro de que quieres eliminar el registro de ${autonomous_community} (${year}, ${education_level})?`
@@ -199,19 +248,27 @@
 		if (!confirmDelete) return;
 
 		try {
-			const res = await fetch(`${API}/${autonomous_community}/${year}/${education_level}`, {
-				method: 'DELETE'
-			});
-			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-			message = `Registro de ${autonomous_community} (${year}, ${education_level}) eliminado correctamente.`;
-			await getEmploymentData();
+			const res = await fetch(
+				`${API}/${autonomous_community}/${year}/${education_level}`,
+				{ method: 'DELETE' }
+			);
+
+			if (res.status === 200) {
+				message = `Registro de ${autonomous_community} (${year}, ${education_level}) eliminado correctamente.`;
+				await getEmploymentData();
+			} else if (res.status === 404) {
+				message = `Registro no encontrado.`;
+			} else {
+				message = `Error al eliminar`;
+			}
 		} catch (error) {
-			console.error('[DELETE ONE] Error deleting record:', error);
+			console.error('[DELETE] Error deleting record:', error);
 			message = 'Error al eliminar el registro.';
 		}
+
 		setTimeout(() => {
 			message = '';
-		}, 3000);
+		}, 2000);
 	}
 
 	onMount(async () => {
