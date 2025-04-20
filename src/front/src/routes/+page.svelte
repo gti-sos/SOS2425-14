@@ -1,5 +1,6 @@
 <script>
 	import ApiShowcase from '$lib/components/ApiShowcase.svelte';
+	import Members from '$lib/components/Members.svelte';
 </script>
 
 <svelte:head>
@@ -10,14 +11,29 @@
     <div class="container">
 		<h2>SOS2425-14</h2>
 		<hr />
-		<div class="article borderless">
-			<h3>Discover Our Project</h3>
+		<div class="article">
+			<h3>Project description</h3>
 			<p>
-				Take a look at what we’ve been working on! Learn more about our goals, explore the datasets, and
-				find out how our APIs can help you.
+			This project aims to analyze three datasets to identify potential correlations and trends between different socioeconomic factors. The datasets include:
 			</p>
-			<a href="/about">About our project</a>
+			<ul class="list-disc list-inside space-y-4">
+				<li>
+				  <strong>employment-data (developed by Jaime Duffy Panés)</strong>: Covers unemployment rates, employment rates, and activity rates of the active population.
+				  <a href="https://sos2425-14.onrender.com/api/v1/employment-data/docs" target="_blank" class="btn" style="margin-left: 0.75rem;">Docs</a>
+				</li>
+				<li>
+				  <strong>education-data (developed by Francisco Javier Rodríguez Martín)</strong>: Includes enrollment rates in Basic Vocational Training, Intermediate Vocational Training, and Higher Vocational Training.
+				  <a href="https://sos2425-14.onrender.com/api/v1/education-data/docs" target="_blank" class="btn" style="margin-left: 0.75rem;">Docs</a>
+				</li>
+				<li>
+				  <strong>cybercrime-data (developed by Pablo Domínguez Galván)
+				</strong>: Displays the total number of criminal offenses, cybercrime-related incidents, and arrests or investigations related to cybercrime.
+				  <a href="https://sos2425-14.onrender.com/api/v1/cybercrime-data/docs" target="_blank" class="btn" style="margin-left: 0.75rem;">Docs</a>
+				</li>
+			</ul>
+			  
 		</div>
+		<Members />
 		<ApiShowcase/>
     </div>
 </div>
