@@ -244,11 +244,6 @@ async function searchRecords() {
  * Muestra mensajes según el resultado de la operación.
  */
 async function deleteRecord(autonomous_community, year) {
-    const confirmDelete = confirm(
-        `¿Estás seguro de que quieres eliminar el registro de crimen cibernético en ${autonomous_community} (${year})?`
-    );
-    if (!confirmDelete) return;
-
     try {
         const res = await fetch(
             `${API}/${autonomous_community}/${year}`,

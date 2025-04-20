@@ -10,18 +10,18 @@ return {
 	assets: new Set(["favicon.png","images/crime_data.webp","images/enrollment_data.jpg","images/labor_data.jpg"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.ClLatqA-.js",app:"_app/immutable/entry/app.Batlu4o3.js",imports:["_app/immutable/entry/start.ClLatqA-.js","_app/immutable/chunks/CnWt8w9j.js","_app/immutable/chunks/C8gLBHYj.js","_app/immutable/chunks/K_54QM3B.js","_app/immutable/entry/app.Batlu4o3.js","_app/immutable/chunks/C8gLBHYj.js","_app/immutable/chunks/r9gLMdC5.js","_app/immutable/chunks/DaiKAr2_.js","_app/immutable/chunks/DPajP3yk.js","_app/immutable/chunks/BaqPXSF-.js","_app/immutable/chunks/CD6EvZl9.js","_app/immutable/chunks/K_54QM3B.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.BOPUprfk.js",app:"_app/immutable/entry/app.D99qcrAi.js",imports:["_app/immutable/entry/start.BOPUprfk.js","_app/immutable/chunks/Bj9Jtfmp.js","_app/immutable/chunks/C8gLBHYj.js","_app/immutable/chunks/K_54QM3B.js","_app/immutable/entry/app.D99qcrAi.js","_app/immutable/chunks/C8gLBHYj.js","_app/immutable/chunks/r9gLMdC5.js","_app/immutable/chunks/DaiKAr2_.js","_app/immutable/chunks/DPajP3yk.js","_app/immutable/chunks/BaqPXSF-.js","_app/immutable/chunks/CD6EvZl9.js","_app/immutable/chunks/K_54QM3B.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-BUemMJwv.js')),
-			__memo(() => import('./chunks/1-_ddUzlhJ.js')),
+			__memo(() => import('./chunks/0-CXG6PW3W.js')),
+			__memo(() => import('./chunks/1-N8czftCD.js')),
 			__memo(() => import('./chunks/2-DadriyBA.js')),
 			__memo(() => import('./chunks/3-DJMjNE3T.js')),
-			__memo(() => import('./chunks/4-C7NvCdyP.js')),
-			__memo(() => import('./chunks/5-Dn9DXjhF.js')),
-			__memo(() => import('./chunks/6-Do1vq-nQ.js')),
-			__memo(() => import('./chunks/7-DyiI1Rdr.js')),
-			__memo(() => import('./chunks/8-BzIghshI.js')),
-			__memo(() => import('./chunks/9-CjQ6Zc_l.js'))
+			__memo(() => import('./chunks/4-BtM4hEHA.js')),
+			__memo(() => import('./chunks/5-D__1rF67.js')),
+			__memo(() => import('./chunks/6-CPCVsVc1.js')),
+			__memo(() => import('./chunks/7-Cardp8IZ.js')),
+			__memo(() => import('./chunks/8-z4eafCho.js')),
+			__memo(() => import('./chunks/9-CAAK7Zo9.js'))
 		],
 		routes: [
 			{
