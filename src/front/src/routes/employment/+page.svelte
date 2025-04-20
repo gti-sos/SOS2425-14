@@ -16,6 +16,8 @@
 	let employment = [];
 	let message = '';
     let creating = false;
+	let showFilters = false;
+
     let form = {
         autonomous_community: '',
         year: '',
@@ -24,6 +26,23 @@
         employment_rate: '',
         unemployment_rate: ''
     };
+
+	let search = {
+		from: '',
+		to: '',
+		year: '',
+		autonomous_community: '',
+		education_level: '',
+		activity_rateMin: '',
+		activity_rateMax: '',
+		employment_rateMin: '',
+		employment_rateMax: '',
+		unemployment_rateMin: '',
+		unemployment_rateMax: '',
+		limit: '',
+		offset: ''
+	};
+
 
 	async function getEmploymentData() {
 		try {
@@ -37,34 +56,93 @@
 		}
 	}
 
-	async function createRecord() { 
-	try {
-		const res = await fetch(API, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(form)
-		});
-
-		const result = await res.json();
-
-		if (res.status === 201) {
-			message = 'Registro creado correctamente';
-			creating = false;
-			resetForm();
-			await getEmploymentData();
-		} else if (res.status === 400) {
-			message = `Datos inválidos: ${result.error || 'Revisa los campos.'}`;
-		} else if (res.status === 409) {
-			message = 'Ya existe un registro con esos identificadores.';
-		} else {
-			message = `Error inesperado (${res.status}) al procesar la petición.`;
+    function toggleFilters() {
+		showFilters = !showFilters;
+		creating = false;
+		if (!showFilters) {
+			search = {
+				from: '',
+				to: '',
+				year: '',
+				autonomous_community: '',
+				education_level: '',
+				activity_rateMin: '',
+				activity_rateMax: '',
+				employment_rateMin: '',
+				employment_rateMax: '',
+				unemployment_rateMin: '',
+				unemployment_rateMax: '',
+				limit: '',
+				offset: ''
+			};
+			message = '';
+			getEmploymentData();
 		}
-	} catch (error) {
-		console.error('[CREATE] Error:', error);
-		message = 'No se pudo conectar con el servidor.';
 	}
-	setTimeout(() => (message = ''), 5000);
-}
+
+
+    function toggleCreate() {
+        creating = !creating;
+        showFilters = false;
+    }
+
+	async function searchRecords() {
+		const params = new URLSearchParams();
+
+		for (const [key, value] of Object.entries(search)) {
+			if (value !== '' && value !== null && value !== undefined) {
+				params.append(key, value);
+			}
+		}
+
+
+		try {
+			const res = await fetch(`${API}?${params.toString()}`);
+			if (!res.ok) throw new Error('No se pudieron obtener resultados');
+			employment = await res.json();
+			if (employment.length === 0) {
+				message = 'No se encontraron resultados para los filtros aplicados.';
+			} else {
+				message = `Se encontraron ${employment.length} resultados.`;
+			}
+
+			setTimeout(() => message = '', 3000); 
+
+		} catch (err) {
+			message = `Error: ${err.message}`;
+			setTimeout(() => message = '', 3000);
+			employment = [];
+		}
+	}
+
+	async function createRecord() { 
+		try {
+			const res = await fetch(API, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(form)
+			});
+
+			const result = await res.json();
+
+			if (res.status === 201) {
+				message = 'Registro creado correctamente';
+				creating = false;
+				resetForm();
+				await getEmploymentData();
+			} else if (res.status === 400) {
+				message = `Datos inválidos: ${result.error || 'Revisa los campos.'}`;
+			} else if (res.status === 409) {
+				message = 'Ya existe un registro con esos identificadores.';
+			} else {
+				message = `Error inesperado (${res.status}) al procesar la petición.`;
+			}
+		} catch (error) {
+			console.error('[CREATE] Error:', error);
+			message = 'No se pudo conectar con el servidor.';
+		}
+		setTimeout(() => (message = ''), 5000);
+	}
 
 
     function resetForm() {
@@ -154,7 +232,10 @@
 		<div class="header">
 			<h3>Datos de empleo</h3>
 			<div class="actions">
-				<button class="btn" on:click={() => (creating = !creating)}>
+				<button class="btn" on:click={toggleFilters}>
+					<i class="fas fa-search"></i> Búsqueda
+				</button>
+				<button class="btn" on:click={toggleCreate}>
 					<i class="fas fa-plus"></i> Nuevo registro
 				</button>
 				<button class="btn" on:click={loadInitialData}>
@@ -185,6 +266,28 @@
                 <button type="button" class="cancel" on:click={() => (creating = false)}>Cancelar</button>
             </form> 
         {/if}
+
+		{#if showFilters}
+			<form class="create-form" on:submit|preventDefault={searchRecords}>
+				<input type="number" bind:value={search.from} placeholder="Desde año" />
+				<input type="number" bind:value={search.to} placeholder="Hasta año" />
+				<input type="number" bind:value={search.year} placeholder="Año exacto" />
+				<input type="text" bind:value={search.autonomous_community} placeholder="Comunidad autónoma" />
+				<input type="text" bind:value={search.education_level} placeholder="Nivel educativo" />
+
+				<input type="number" bind:value={search.activity_rateMin} placeholder="Tasa actividad min" />
+				<input type="number" bind:value={search.activity_rateMax} placeholder="Tasa actividad max" />
+				<input type="number" bind:value={search.employment_rateMin} placeholder="Tasa empleo min" />
+				<input type="number" bind:value={search.employment_rateMax} placeholder="Tasa empleo max" />
+				<input type="number" bind:value={search.unemployment_rateMin} placeholder="Tasa paro min" />
+				<input type="number" bind:value={search.unemployment_rateMax} placeholder="Tasa paro max" />
+
+				<input type="number" bind:value={search.limit} placeholder="Limitar a..." />
+				<input type="number" bind:value={search.offset} placeholder="Comenzar desde..." />
+
+				<button class="btn" type="submit">Buscar</button>
+			</form>
+		{/if}
 
         <div class="seeker"></div>
         <div class="table-container">
