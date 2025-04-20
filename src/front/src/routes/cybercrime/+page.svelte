@@ -71,7 +71,7 @@
         cybercrime = [];  // Asegúrate de que 'cybercrimeData' esté definida en tu código
     }
 
-    // Opcional: Limpiar el mensaje después de 2 segundos
+    //  Limpiar el mensaje después de 2 segundos
     setTimeout(() => (message = ''), 2000);
 }
 
