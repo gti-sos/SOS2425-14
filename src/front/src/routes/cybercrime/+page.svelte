@@ -43,17 +43,38 @@
 		offset: ''
 	};
 	
-	async function getCybercrimeData() {
-		try {
-			const res = await fetch(API);
-			if (!res.ok) {
-				throw new Error(`HTTP error! status: ${res.status}`);
-			}
-			cybercrime = await res.json();
-		} catch (error) {
-			console.error('[GET] Error getting cybercrime data:', error);
-		}
-	}
+/**
+ * Hace un GET inicial a la API para obtener los datos de crimen cibernético.
+ * Muestra mensajes según el código de estado recibido.
+ */
+ async function getCybercrimeData() {
+    try {
+        const res = await fetch(API);
+
+        if (!res.ok) {
+            if (res.status === 404) {
+                message = 'No se encontraron datos de crimen cibernético.';
+            } else if (res.status === 500) {
+                message = 'Error del servidor. Intenta más tarde.';
+            } else {
+                message = `Error inesperado`;
+            }
+            cybercrime = [];  // Asegúrate de que 'cybercrimeData' esté definida en tu código
+            return;
+        }
+
+        // Si la respuesta es correcta, obtenemos los datos
+        cybercrime = await res.json();  // 'cybercrimeData' es donde guardamos los datos
+    } catch (error) {
+        console.error('[GET] Error cargando datos:', error);
+        message = 'No se pudo conectar con el servidor.';
+        cybercrime = [];  // Asegúrate de que 'cybercrimeData' esté definida en tu código
+    }
+
+    // Opcional: Limpiar el mensaje después de 2 segundos
+    setTimeout(() => (message = ''), 2000);
+}
+
 	
 	function toggleFilters() {
 		showFilters = !showFilters;
@@ -85,32 +106,53 @@
 		creating = !creating;
 		showFilters = false;
 	}
-	
-	async function searchRecords() {
-		const params = new URLSearchParams();
-	
-		for (const [key, value] of Object.entries(search)) {
-			if (value !== '' && value !== null && value !== undefined) {
-				params.append(key, value);
-			}
-		}
-	
-		try {
-			const res = await fetch(`${API}?${params.toString()}`);
-			if (!res.ok) throw new Error('No se pudieron obtener resultados');
-			cybercrime = await res.json();
-			if (cybercrime.length === 0) {
-				message = 'No se encontraron resultados para los filtros aplicados.';
-			} else {
-				message = `Se encontraron ${cybercrime.length} resultados.`;
-			}
-			setTimeout(() => (message = ''), 3000);
-		} catch (err) {
-			message = `Error: ${err.message}`;
-			setTimeout(() => (message = ''), 3000);
-			cybercrime = [];
-		}
-	}
+	/**
+ * Realiza una búsqueda de registros filtrando por los parámetros del formulario.
+ * Actualiza los resultados y muestra mensajes según el código de estado HTTP.
+ */
+async function searchRecords() {
+    const params = new URLSearchParams();
+
+    // Filtra solo los parámetros que no están vacíos
+    for (const [key, value] of Object.entries(search)) {  // Aquí usamos 'form' en lugar de 'search'
+        if (value !== '' && value !== null && value !== undefined) {
+            params.append(key, value);
+        }
+    }
+
+    try {
+        const res = await fetch(`${API}?${params.toString()}`);
+
+        if (!res.ok) {
+            if (res.status === 400) {
+                message = 'Parámetros de búsqueda no válidos.';
+            } else if (res.status === 500) {
+                message = 'Error interno del servidor al buscar.';
+            } else {
+                message = `Error inesperado`;
+            }
+            cybercrime = [];  // Asegúrate de que 'cybercrimeData' esté definida en tu código
+            return;
+        }
+
+        // Si la búsqueda fue exitosa, se almacenan los resultados en 'cybercrimeData'
+        cybercrime = await res.json();
+
+        // Mensajes según el número de resultados encontrados
+        if (cybercrime.length === 0) {
+            message = 'No se encontraron resultados para tu búsqueda.';
+        } else {
+            message = `Se encontraron ${cybercrime.length} resultados.`;
+        }
+    } catch (err) {
+        console.error('[SEARCH] Error al buscar:', err);
+        message = 'No se pudo conectar con el servidor.';
+        cybercrime = [];  // Asegúrate de que 'cybercrimeData' esté definida en tu código
+    }
+
+    // Limpiar el mensaje después de 2 segundos
+    setTimeout(() => (message = ''), 2000);
+}
 	
 	async function createRecord() {
 		try {
@@ -138,7 +180,7 @@
 			console.error('[CREATE] Error:', error);
 			message = 'No se pudo conectar con el servidor.';
 		}
-		setTimeout(() => (message = ''), 5000);
+		setTimeout(() => (message = ''), 2000);
 	}
 	
 	function resetForm() {
@@ -165,53 +207,76 @@
 		}
 		setTimeout(() => {
 			message = '';
-		}, 3000);
+		}, 2000);
 	}
 	
-	async function deleteAll() {
-		const confirmDelete = confirm('¿Estás seguro de que quieres eliminar todos los registros?');
-		if (!confirmDelete) return;
-	
-		try {
-			const res = await fetch(API, { method: 'DELETE' });
-			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-	
-			message = 'Todos los registros han sido eliminados.';
-			await getCybercrimeData();
-		} catch (error) {
-			console.error('[DELETE] Error deleting records:', error);
-			message = 'Error al eliminar los registros.';
-		}
-		setTimeout(() => {
-			message = '';
-		}, 3000);
-	}
-	
-	async function deleteRecord(autonomous_community, year) {
-		const confirmDelete = confirm(
-			`¿Estás seguro de que quieres eliminar el registro de ${autonomous_community} (${year})?`
-		);
-		if (!confirmDelete) return;
-	
-		try {
-			const res = await fetch(`${API}/${autonomous_community}/${year}`, {
-				method: 'DELETE'
-			});
-			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-			message = `Registro de ${autonomous_community} (${year}) eliminado correctamente.`;
-			await getCybercrimeData();
-		} catch (error) {
-			console.error('[DELETE ONE] Error deleting record:', error);
-			message = 'Error al eliminar el registro.';
-		}
-		setTimeout(() => {
-			message = '';
-		}, 3000);
-	}
-	
-	onMount(async () => {
-		await getCybercrimeData();
-	});
+/**
+ * Elimina todos los registros de crimen cibernético de la API.
+ * Informa al usuario si la operación fue exitosa o si hubo algún error.
+ */
+ async function deleteAll() {
+    const confirmDelete = confirm('¿Estás seguro de que quieres eliminar todos los registros de crimen cibernético?');
+    if (!confirmDelete) return;
+
+    try {
+        const res = await fetch(API, { method: 'DELETE' });
+
+        if (res.status === 200) {
+            message = 'Todos los registros de crimen cibernético han sido eliminados.';
+            await getCybercrimeData();  // Aquí obtenemos los datos actualizados después de la eliminación
+        } else if (res.status === 404) {
+            message = 'No hay registros de crimen cibernético que eliminar.';
+        } else {
+            message = `Error al eliminar los registros de crimen cibernético.`;
+        }
+    } catch (error) {
+        console.error('[DELETE] Error eliminando registros de crimen cibernético:', error);
+        message = 'Error al eliminar los registros de crimen cibernético.';
+    }
+
+    setTimeout(() => {
+        message = '';
+    }, 2000);
+}
+
+/**
+ * Elimina un registro específico de crimen cibernético de la API usando sus identificadores.
+ * Muestra mensajes según el resultado de la operación.
+ */
+async function deleteRecord(autonomous_community, year) {
+    const confirmDelete = confirm(
+        `¿Estás seguro de que quieres eliminar el registro de crimen cibernético en ${autonomous_community} (${year})?`
+    );
+    if (!confirmDelete) return;
+
+    try {
+        const res = await fetch(
+            `${API}/${autonomous_community}/${year}`,
+            { method: 'DELETE' }
+        );
+
+        if (res.status === 200) {
+            message = `Registro de crimen cibernético en ${autonomous_community} (${year}) eliminado correctamente.`;
+            await getCybercrimeData();  // Actualiza los datos después de eliminar el registro
+        } else if (res.status === 404) {
+            message = `Registro de crimen cibernético no encontrado.`;
+        } else {
+            message = `Error al eliminar el registro de crimen cibernético.`;
+        }
+    } catch (error) {
+        console.error('[DELETE] Error eliminando el registro de crimen cibernético:', error);
+        message = 'Error al eliminar el registro de crimen cibernético.';
+    }
+
+    setTimeout(() => {
+        message = '';
+    }, 2000);
+}
+
+onMount(async () => {
+    await getCybercrimeData();  // Inicializa la carga de datos de crimen cibernético cuando se monta el componente
+});
+
 	</script>
 	
 <svelte:head>
