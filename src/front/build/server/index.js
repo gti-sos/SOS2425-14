@@ -1,5 +1,5 @@
-import { r as render, s as set, L as LEGACY_PROPS, g as get, f as flushSync, d as define_property, m as mutable_source, i as init_operations, a as get_first_child, H as HYDRATION_START, b as get_next_sibling, c as HYDRATION_ERROR, e as HYDRATION_END, h as hydration_failed, j as clear_text_content, k as array_from, l as component_root, n as set_active_reaction, o as set_active_effect, p as is_array, q as active_effect, t as active_reaction, u as create_text, v as branch, w as push, x as setContext, y as pop, z as push$1, A as component_context, B as pop$1, C as BROWSER } from './chunks/index-Cf8uAw7r.js';
-import { d as decode_pathname, a as decode_params, n as normalize_path, b as disable_search, v as validate_layout_server_exports, c as validate_layout_exports, e as validate_page_server_exports, f as validate_page_exports, r as resolve, m as make_trackable, g as readable, w as writable } from './chunks/exports-C5vMSjTI.js';
+import { r as render, s as set, L as LEGACY_PROPS, g as get, f as flushSync, d as define_property, m as mutable_source, i as init_operations, a as get_first_child, H as HYDRATION_START, b as get_next_sibling, c as HYDRATION_ERROR, e as HYDRATION_END, h as hydration_failed, j as clear_text_content, k as array_from, l as component_root, n as set_active_reaction, o as set_active_effect, p as is_array, q as active_effect, t as active_reaction, u as create_text, v as branch, w as push, x as setContext, y as pop, z as push$1, A as component_context, B as pop$1, C as BROWSER } from './chunks/index-CAjZYzUI.js';
+import { d as decode_pathname, a as decode_params, n as normalize_path, b as disable_search, v as validate_layout_server_exports, c as validate_layout_exports, e as validate_page_server_exports, f as validate_page_exports, r as resolve, m as make_trackable, g as readable, w as writable } from './chunks/exports-CglpfZVo.js';
 
 let base = "";
 let assets = base;
@@ -540,7 +540,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "5h0qz8"
+  version_hash: "77t3w2"
 };
 async function get_hooks() {
   let handle;
@@ -2073,7 +2073,10 @@ async function handle_error_and_jsonify(event, options2, error) {
   }
   const status = get_status(error);
   const message = get_message(error);
-  return await options2.hooks.handleError({ error, event, status, message }) ?? { message };
+  return await with_event(
+    event,
+    () => options2.hooks.handleError({ error, event, status, message })
+  ) ?? { message };
 }
 function redirect_response(status, location) {
   const response = new Response(void 0, {
@@ -2084,28 +2087,28 @@ function redirect_response(status, location) {
 }
 function clarify_devalue_error(event, error) {
   if (error.path) {
-    return `Data returned from \`load\` while rendering ${event.route.id} is not serializable: ${error.message} (data${error.path})`;
+    return `Data returned from \`load\` while rendering ${event.route.id} is not serializable: ${error.message} (${error.path})`;
   }
   if (error.path === "") {
     return `Data returned from \`load\` while rendering ${event.route.id} is not a plain object`;
   }
   return error.message;
 }
-function stringify_uses(node) {
-  const uses = [];
+function serialize_uses(node) {
+  const uses = {};
   if (node.uses && node.uses.dependencies.size > 0) {
-    uses.push(`"dependencies":${JSON.stringify(Array.from(node.uses.dependencies))}`);
+    uses.dependencies = Array.from(node.uses.dependencies);
   }
   if (node.uses && node.uses.search_params.size > 0) {
-    uses.push(`"search_params":${JSON.stringify(Array.from(node.uses.search_params))}`);
+    uses.search_params = Array.from(node.uses.search_params);
   }
   if (node.uses && node.uses.params.size > 0) {
-    uses.push(`"params":${JSON.stringify(Array.from(node.uses.params))}`);
+    uses.params = Array.from(node.uses.params);
   }
-  if (node.uses?.parent) uses.push('"parent":1');
-  if (node.uses?.route) uses.push('"route":1');
-  if (node.uses?.url) uses.push('"url":1');
-  return `"uses":{${uses.join(",")}}`;
+  if (node.uses?.parent) uses.parent = 1;
+  if (node.uses?.route) uses.route = 1;
+  if (node.uses?.url) uses.url = 1;
+  return uses;
 }
 function has_prerendered_path(manifest, pathname) {
   return manifest._.prerendered_routes.has(pathname) || pathname.at(-1) === "/" && manifest._.prerendered_routes.has(pathname.slice(0, -1));
@@ -3685,13 +3688,16 @@ function get_data(event, options2, nodes, csp, global) {
   try {
     const strings = nodes.map((node) => {
       if (!node) return "null";
-      return `{"type":"data","data":${uneval(node.data, replacer)},${stringify_uses(node)}${node.slash ? `,"slash":${JSON.stringify(node.slash)}` : ""}}`;
+      const payload = { type: "data", data: node.data, uses: serialize_uses(node) };
+      if (node.slash) payload.slash = node.slash;
+      return uneval(payload, replacer);
     });
     return {
       data: `[${strings.join(",")}]`,
       chunks: count > 0 ? iterator : null
     };
   } catch (e) {
+    e.path = e.path.slice(1);
     throw new Error(clarify_devalue_error(
       event,
       /** @type {any} */
@@ -4069,8 +4075,8 @@ function get_data_json(event, options2, nodes) {
       if (node.type === "error" || node.type === "skip") {
         return JSON.stringify(node);
       }
-      return `{"type":"data","data":${stringify(node.data, reducers)},${stringify_uses(
-        node
+      return `{"type":"data","data":${stringify(node.data, reducers)},"uses":${JSON.stringify(
+        serialize_uses(node)
       )}${node.slash ? `,"slash":${JSON.stringify(node.slash)}` : ""}}`;
     });
     return {
@@ -4079,6 +4085,7 @@ function get_data_json(event, options2, nodes) {
       chunks: count > 0 ? iterator : null
     };
   } catch (e) {
+    e.path = "data" + e.path;
     throw new Error(clarify_devalue_error(
       event,
       /** @type {any} */
