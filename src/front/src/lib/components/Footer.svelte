@@ -8,9 +8,9 @@
 		</ul>
 		<ul>
 			<h5>APIs</h5>
-			<li><a href="/api/v1/education-data">Education</a></li>
-			<li><a href="/api/v1/employment-data">Employment</a></li>
-			<li><a href="/api/v1/cybercrime-data">Cybercrime</a></li>
+			<li><a href="/api/v1/education-data/docs">Education</a></li>
+			<li><a href="/api/v1/employment-data/docs">Employment</a></li>
+			<li><a href="/api/v1/cybercrime-data/docs">Cybercrime</a></li>
 		</ul>
 		<ul>
 			<h5>GitHub</h5>

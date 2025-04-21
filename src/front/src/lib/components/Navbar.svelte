@@ -66,9 +66,9 @@
 			<li class="dropdown" id="apis">
 				<a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a>
 				<ul class="dropdown-content">
-					<li><a href="/api/v1/education-data">Education</a></li>
-					<li><a href="/api/v1/employment-data">Employment</a></li>
-					<li><a href="/api/v1/cybercrime-data">Crime</a></li>
+					<li><a href="/api/v1/education-data/docs">Education</a></li>
+					<li><a href="/api/v1/employment-data/docs">Employment</a></li>
+					<li><a href="/api/v1/cybercrime-data/docs">Crime</a></li>
 				</ul>
 			</li>
 			<li><a href="/about">About</a></li>
