@@ -1313,3 +1313,7 @@ form.create-form select:invalid {
 }
 
 
+select.empty,
+select.empty option {
+   color: #888 !important;
+ }

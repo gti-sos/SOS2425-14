@@ -26,7 +26,7 @@ test('get employment link', async ({ page }) => {
 test('create and delete employment entry', async ({ page }) => {
   const testCommunity = 'Madrid';
   const testYear = '2025';
-  const testLevel = 'SUP';
+  const testLevel = 'Educación superior (SUP)';
   const testActivity = '90.01';
   const testEmployment = '85.55';
   const testUnemployment = '4.46';
@@ -46,11 +46,15 @@ test('create and delete employment entry', async ({ page }) => {
   // Crear nuevo registro
   await page.getByRole('button', { name: 'Nuevo registro' }).click();
 
-  await page.getByPlaceholder('Comunidad Autónoma').fill(testCommunity);
+  await page.locator('select[name="autonomous_community"]').click(); 
+  await page.waitForTimeout(500); // Esperar a que se abra el dropdown
+  await page.selectOption('select[name="autonomous_community"]', { label: testCommunity });
+
   await page.getByPlaceholder('Año').fill(testYear);
-  await page.locator('select').click();
-  await page.waitForTimeout(500); // Wait 500ms for dropdown to fully open
-  await page.selectOption('select', { label: 'Educación superior (SUP)' });
+
+  await page.locator('select[name="education_level"]').click(); 
+  await page.waitForTimeout(500);
+  await page.selectOption('select[name="education_level"]', { label: testLevel });
 
   await page.getByPlaceholder('Tasa actividad').fill(testActivity);
   await page.getByPlaceholder('Tasa empleo').fill(testEmployment);
@@ -58,16 +62,16 @@ test('create and delete employment entry', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Crear' }).click();
 
-  const row = page.locator('tr', {
-    has: page.locator('td', { hasText: testCommunity })
-  }).filter({
-    has: page.locator('td', { hasText: testYear })
-  }).filter({
-    has: page.locator('td', { hasText: testLevel })
-  });
-  
+  const row = page.locator('tr').filter({
+      has: page.locator('td').nth(0).filter({ hasText: testCommunity })
+    }).filter({
+      has: page.locator('td').nth(1).filter({ hasText: testYear })
+    }).filter({
+      has: page.locator('td').nth(2).filter({ hasText: 'SUP' })
+    });  
+
   await expect(row).toContainText(testEmployment);
-  
+
   // Eliminar el registro
   const deleteButton = row.locator('button[title="Eliminar Registro"]');
   await expect(deleteButton).toBeVisible();
