@@ -301,9 +301,31 @@
 
         {#if creating}
             <form class="create-form" on:submit|preventDefault={createRecord}>
-                <input placeholder="Comunidad Autónoma" bind:value={form.autonomous_community} required />
+                <select  name="autonomous_community" bind:value={form.autonomous_community} required>
+					<option value="" disabled selected>Comunidad autónoma</option>
+					<option value="Andalucía">Andalucía</option>
+					<option value="Aragón">Aragón</option>
+					<option value="Asturias">Asturias</option>
+					<option value="Baleares">Baleares</option>
+					<option value="Canarias">Canarias</option>
+					<option value="Cantabria">Cantabria</option>
+					<option value="Castilla y León">Castilla y León</option>
+					<option value="Castilla-La Mancha">Castilla-La Mancha</option>
+					<option value="Cataluña">Cataluña</option>
+					<option value="Ceuta y Melilla">Ceuta y Melilla</option>
+					<option value="Comunitat Valenciana">Comunitat Valenciana</option>
+					<option value="Extremadura">Extremadura</option>
+					<option value="Galicia">Galicia</option>
+					<option value="La Rioja">La Rioja</option>
+					<option value="Madrid">Madrid</option>
+					<option value="Murcia">Murcia</option>
+					<option value="Navarra">Navarra</option>
+					<option value="País Vasco">País Vasco</option>
+					<option value="TOTAL">TOTAL</option>
+				</select>
+
                 <input type="number" placeholder="Año" bind:value={form.year} required />
-                <select bind:value={form.education_level} required>
+                <select name="education_level" bind:value={form.education_level} required>
                     <option value="" disabled selected>Nivel educativo</option>
                     <option value="SUP">Educación superior (SUP)</option>
                     <option value="SEC">Secundaria (SEC)</option>
@@ -324,8 +346,45 @@
 				<input type="number" bind:value={search.from} placeholder="Desde año" />
 				<input type="number" bind:value={search.to} placeholder="Hasta año" />
 				<input type="number" bind:value={search.year} placeholder="Año exacto" />
-				<input type="text" bind:value={search.autonomous_community} placeholder="Comunidad autónoma" />
-				<input type="text" bind:value={search.education_level} placeholder="Nivel educativo" />
+				<select
+ 					name="autonomous_community"
+ 					bind:value={search.autonomous_community}
+ 					class:empty={search.autonomous_community === ""}
+ 					>
+ 					<option value="" disabled selected>Comunidad autónoma</option>
+ 					<option value="Andalucía">Andalucía</option>
+ 					<option value="Aragón">Aragón</option>
+ 					<option value="Asturias">Asturias</option>
+ 					<option value="Baleares">Baleares</option>
+ 					<option value="Canarias">Canarias</option>
+ 					<option value="Cantabria">Cantabria</option>
+ 					<option value="Castilla y León">Castilla y León</option>
+ 					<option value="Castilla-La Mancha">Castilla-La Mancha</option>
+ 					<option value="Cataluña">Cataluña</option>
+ 					<option value="Ceuta y Melilla">Ceuta y Melilla</option>
+ 					<option value="Comunitat Valenciana">Comunitat Valenciana</option>
+ 					<option value="Extremadura">Extremadura</option>
+ 					<option value="Galicia">Galicia</option>
+ 					<option value="La Rioja">La Rioja</option>
+ 					<option value="Madrid">Madrid</option>
+ 					<option value="Murcia">Murcia</option>
+ 					<option value="Navarra">Navarra</option>
+ 					<option value="País Vasco">País Vasco</option>
+ 					<option value="TOTAL">TOTAL</option>
+ 				</select>
+
+				<select
+					name="education_level"
+					bind:value={search.education_level}
+					class:empty={search.education_level === ""}
+					>
+					<option value="" disabled selected>Nivel educativo</option>
+					<option value="SUP">Educación superior (SUP)</option>
+					<option value="SEC">Secundaria (SEC)</option>
+					<option value="INF">Inferior a secundaria (INF)</option>
+					<option value="TOTAL">Total (TOTAL)</option>
+			 	</select>
+
 
 				<input type="number" bind:value={search.activity_rateMin} placeholder="Tasa actividad min" />
 				<input type="number" bind:value={search.activity_rateMax} placeholder="Tasa actividad max" />
