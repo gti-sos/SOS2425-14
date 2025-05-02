@@ -290,16 +290,16 @@ onMount(async () => {
 			<h3>Datos de Educación</h3>
 			<div class="actions">
 				<button class="btn" on:click={toggleFilters}>
-					<i class="fas fa-search"></i> Búsqueda
+					<i class="fas fa-search"></i> Buscar
 				</button>
 				<button class="btn" on:click={toggleCreate}>
 					<i class="fas fa-plus"></i> Nuevo registro
 				</button>
 				<button class="btn" on:click={loadInitialData}>
-					<i class="fas fa-sync-alt"></i> Recargar los datos iniciales
+					<i class="fas fa-sync-alt"></i> Recargar
 				</button>
 				<button class="btn" on:click={deleteAll}>
-					<i class="fas fa-trash-alt"></i> Eliminar todos los datos
+					<i class="fas fa-trash-alt"></i> Eliminar
 				</button>
 			</div>
 		</div>
