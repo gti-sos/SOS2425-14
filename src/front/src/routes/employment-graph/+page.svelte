@@ -106,6 +106,8 @@
         "Ceuta y Melilla",
         "TOTAL"
     ];
+
+    let quickChartUrl = "";
     
     // Valor por defecto
     let selectedCommunity = "Andalucía";
@@ -133,6 +135,7 @@
             //educationLevels = [...new Set(myData.map(item => item.education_level))];
             
             renderChart();
+            generateQuickChartUrl();
         } catch (error) {
             console.error(`ERROR al obtener datos de ${API}: ${error}`);
             // @ts-ignore
@@ -273,6 +276,53 @@
         getData();
     }
 
+    function generateQuickChartUrl() {
+        const unemploymentByYear = {};
+        
+        myData.forEach(d => {
+            // @ts-ignore
+            if (d.education_level === "TOTAL" && !unemploymentByYear[d.year]) {
+                // @ts-ignore
+                unemploymentByYear[d.year] = d.unemployment_rate;
+            }
+        });
+
+
+        const labels = Object.keys(unemploymentByYear);
+        const data = Object.values(unemploymentByYear).map(rate => parseFloat(rate.toFixed(2)));
+
+        const chartConfig = {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Tasa de paro (%)",
+                        data: data,
+                        backgroundColor: "rgba(138, 43, 226, 0.7)"
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: `Tasa de paro en ${selectedCommunity} por año`
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 30
+                        }
+                    }]
+                }
+            }
+        };
+
+        quickChartUrl = `https://quickchart.io/chart?w=500&h=300&c=${encodeURIComponent(JSON.stringify(chartConfig))}`;
+    }
+
+
     onMount(async () => {
         await getData();
     });
@@ -283,13 +333,6 @@
     <div class="container">
         <h2>Gráficas de employment-data</h2>
         <hr />
-
-        <div class="article">
-			<h3>Gráfica de la tasa de empleo</h3>
-			<p>
-			Esta gráfica permite visualizar los datos de empleo por año y nivel educativo. Puedes seleccionar la comunidad autónoma en específico. 
-			</p>
-		</div>
         
         <div class="graph-container">
             <h3>
@@ -300,7 +343,16 @@
                     <option value={community}>{community}</option>
                 {/each}
             </select>
+        </div>
 
+        <div class="article">
+			<h3>Gráfica de la tasa de empleo</h3>
+			<p>
+			Esta gráfica permite visualizar los datos de empleo por año y nivel educativo. Puedes seleccionar la comunidad autónoma en específico. 
+			</p>
+		</div>
+        
+        <div class="graph-container">
             <figure class="highcharts-figure">
                 <div id="container"></div>
                 {#if loadingData}
@@ -311,5 +363,19 @@
                 {/if}
             </figure>
         </div>
+
+        <div class="article">
+			<h3>Gráfica de la tasa de paro</h3>
+			<p>
+			Esta gráfica permite visualizar la tasa de paro por años según la comunidad autónoma elegida.
+			</p>
+		</div>
+        
+        <div class="graph-container">
+            {#if quickChartUrl}
+                <img src={quickChartUrl} alt="Gráfica de tasa de paro" />
+            {/if}
+        </div>
+        
     </div>
 </div>
