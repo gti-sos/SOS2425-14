@@ -10,18 +10,19 @@ return {
 	assets: new Set(["favicon.png","images/crime_data.webp","images/enrollment_data.jpg","images/labor_data.jpg"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.yz4f-ogT.js",app:"_app/immutable/entry/app.VsIID-fZ.js",imports:["_app/immutable/entry/start.yz4f-ogT.js","_app/immutable/chunks/DUTV1AL5.js","_app/immutable/chunks/DOV76-9X.js","_app/immutable/chunks/BFnYxA1T.js","_app/immutable/entry/app.VsIID-fZ.js","_app/immutable/chunks/DOV76-9X.js","_app/immutable/chunks/ByobJIaC.js","_app/immutable/chunks/B3u6e_HZ.js","_app/immutable/chunks/Ggrbtp_H.js","_app/immutable/chunks/DRl-et_x.js","_app/immutable/chunks/BwcI-lJy.js","_app/immutable/chunks/BFnYxA1T.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.BVV_e27r.js",app:"_app/immutable/entry/app.Bor-Evm6.js",imports:["_app/immutable/entry/start.BVV_e27r.js","_app/immutable/chunks/CBd0k46R.js","_app/immutable/chunks/9WqpKGnU.js","_app/immutable/chunks/Bs83m-22.js","_app/immutable/chunks/C8PSm_dE.js","_app/immutable/entry/app.Bor-Evm6.js","_app/immutable/chunks/9WqpKGnU.js","_app/immutable/chunks/e9-FdQ4l.js","_app/immutable/chunks/CoNQuiwa.js","_app/immutable/chunks/0Uz-nMqn.js","_app/immutable/chunks/7L3gHbTa.js","_app/immutable/chunks/Fd7H7wga.js","_app/immutable/chunks/Bs83m-22.js","_app/immutable/chunks/C8PSm_dE.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-9-hOrgcE.js')),
-			__memo(() => import('./chunks/1-Np1OELeD.js')),
-			__memo(() => import('./chunks/2-ClQVNLet.js')),
-			__memo(() => import('./chunks/3-VjpsMVAK.js')),
-			__memo(() => import('./chunks/4-CqpQoKKy.js')),
-			__memo(() => import('./chunks/5-C2YBeFOw.js')),
-			__memo(() => import('./chunks/6-D9kZcL9k.js')),
-			__memo(() => import('./chunks/7-BO5aSa0e.js')),
-			__memo(() => import('./chunks/8-BvYXg7S1.js')),
-			__memo(() => import('./chunks/9-Du8C6wce.js'))
+			__memo(() => import('./chunks/0-CR4785N_.js')),
+			__memo(() => import('./chunks/1-Din5w8gv.js')),
+			__memo(() => import('./chunks/2-Dm-x8Ur-.js')),
+			__memo(() => import('./chunks/3-uERc5V_D.js')),
+			__memo(() => import('./chunks/4-Dph5WoXK.js')),
+			__memo(() => import('./chunks/5-ChMblBLy.js')),
+			__memo(() => import('./chunks/6-BrD1rbCs.js')),
+			__memo(() => import('./chunks/7-BqEM0Df7.js')),
+			__memo(() => import('./chunks/8-CnoLgZKc.js')),
+			__memo(() => import('./chunks/9-BAmsuJfh.js')),
+			__memo(() => import('./chunks/10-BbmfbZpS.js'))
 		],
 		routes: [
 			{
@@ -64,6 +65,13 @@ return {
 				pattern: /^\/education\/edit\/([^/]+?)\/([^/]+?)\/?$/,
 				params: [{"name":"autonomous_community","optional":false,"rest":false,"chained":false},{"name":"year","optional":false,"rest":false,"chained":false}],
 				page: { layouts: [0,], errors: [1,], leaf: 7 },
+				endpoint: null
+			},
+			{
+				id: "/employment-graph",
+				pattern: /^\/employment-graph\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 10 },
 				endpoint: null
 			},
 			{
