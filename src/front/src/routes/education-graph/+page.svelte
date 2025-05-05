@@ -105,6 +105,7 @@
 
 		Highcharts.chart('container', {
 			chart: {
+				type: 'column',
 				backgroundColor: '#052a42',
 				spacing: [30, 25, 30, 25]
 			},
@@ -116,7 +117,6 @@
 					fontWeight: '800'
 				}
 			},
-
 			subtitle: {
 				text: `Formación Profesional en ${selectedCommunity}`,
 				align: 'left',
@@ -125,7 +125,6 @@
 					fontWeight: 'bold'
 				}
 			},
-
 			yAxis: {
 				title: {
 					text: 'Número de Matriculados',
@@ -134,9 +133,8 @@
 				labels: {
 					style: { color: '#fff' }
 				},
-                gridLineColor: '#ffffff33'
+				gridLineColor: '#ffffff33'
 			},
-
 			xAxis: {
 				categories: years,
 				title: {
@@ -147,7 +145,6 @@
 					style: { color: '#fff' }
 				}
 			},
-
 			legend: {
 				layout: 'vertical',
 				align: 'right',
@@ -156,21 +153,36 @@
 					color: '#fff'
 				}
 			},
-
 			plotOptions: {
+				area: {
+					fillOpacity: 0.5,
+					marker: {
+						enabled: false
+					}
+				},
 				series: {
 					label: {
 						connectorAllowed: false
 					}
 				}
 			},
-
 			series: [
-				{ name: 'FP Básica', data: basic },
-				{ name: 'Grado Medio', data: middle },
-				{ name: 'Grado Superior', data: higher }
+				{
+					name: 'FP Básica',
+					data: basic,
+					color: '#36A2EB'
+				},
+				{
+					name: 'Grado Medio',
+					data: middle,
+					color: '#FFCE56'
+				},
+				{
+					name: 'Grado Superior',
+					data: higher,
+					color: '#FF6384'
+				}
 			],
-
 			responsive: {
 				rules: [
 					{
@@ -324,37 +336,44 @@
 		{#if showChart}
 			<div transition:fade={{ duration: 400 }}>
 				<div class="article">
-					<h3>Evolución de las Tasas de Matriculación</h3>
+					<h3 style="font-size: 1.5em; text-transform: none;">
+						Evolución temporal de las tasas de matriculación por nivel educativo
+					</h3>
 					<p>
 						Visualiza cómo han cambiado las tasas de matriculación en Formación Profesional Básica,
 						de Grado Medio y de Grado Superior a lo largo del tiempo y entre distintas comunidades
 						autónomas.
-					</p><br>
-                    <figure class="highcharts-figure">
-                        <div id="container">
-                            {#if loadingData}
-                                <p>Cargando Datos...</p>
-                            {/if}
-                            {#if errorMessage}
-                                <p style="background-color: rgb(247, 111, 111); padding: 10px 20px;">
-                                    {errorMessage}
-                                </p>
-                            {/if}
-                        </div>
-                    </figure>
+					</p>
+					<br />
+					<figure class="highcharts-figure">
+						<div id="container">
+							{#if loadingData}
+								<p>Cargando Datos...</p>
+							{/if}
+							{#if errorMessage}
+								<p style="background-color: rgb(247, 111, 111); padding: 10px 20px;">
+									{errorMessage}
+								</p>
+							{/if}
+						</div>
+					</figure>
 				</div>
-				<div class="article">
-					<h3>Distribución de Matrículas por Nivel Educativo</h3>
+				<div class="article" style="margin-top: 0;">
+					<h3 style="font-size: 1.5em; text-transform: none;">
+						Distribución de matriculados por nivel educativo en el año seleccionado
+					</h3>
 					<p>
-						Representación del número de estudiantes matriculados en Formación Profesional Básica,
-						de Grado Medio y de Grado Superior durante el último año disponible para la comunidad
-						autónoma seleccionada.
-					</p><br>
+						Compara el número de matriculados en los distintos niveles de Formación Profesional
+						durante un año específico en la comunidad autónoma seleccionada, permitiendo analizar la
+						distribución entre FP Básica, Grado Medio y Grado Superior.
+					</p>
 					<div
 						class="graph-container"
-						style="background: none; box-shadow: none; padding: 0.5em 0; margin-top: -1em;"
+						style="background: none; box-shadow: none; padding: 0.5em 0; margin-top: -1em; font-size: 90%;"
 					>
-						<h3 style="font-size: 1.2em; text-transform: none;">Selecciona el Año:</h3>
+						<h3 style="font-size: 1.2em; text-transform: none; font-weight: 500;">
+							Selecciona el Año:
+						</h3>
 						<select bind:value={selectedBarYear} on:change={renderBarChart} class="custom-select">
 							<option disabled value="">Selecciona un año</option>
 							{#each years as year}
