@@ -1,1 +1,0 @@
-import{ap as a}from"./BGtGGxyh.js";a();

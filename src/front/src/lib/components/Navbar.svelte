@@ -96,6 +96,7 @@
 					<li><a href="/analytics">Group</a></li>
 				</ul>
 			</li>
+			<li><a href="/integrations">Integrations</a></li>
 			<li class="dropdown" id="apis">
 				<a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a>
 				<ul class="dropdown-content">
