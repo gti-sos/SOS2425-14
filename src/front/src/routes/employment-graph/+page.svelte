@@ -1,11 +1,3 @@
-<!-- svelte-ignore css_unused_selector -->
-<svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-</svelte:head>
 
 <style>
     .highcharts-figure,
@@ -111,6 +103,24 @@
     
     // Valor por defecto
     let selectedCommunity = "Andalucía";
+
+
+    //Esta funcion carga los scripts en vez de svelte:head
+    // @ts-ignore
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const existing = document.querySelector(`script[src="${src}"]`);
+            // @ts-ignore
+            if (existing) return resolve();
+
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
    
     async function getData() {
         loadingData = true;
@@ -180,6 +190,7 @@
         console.log(`Generando gráfico con ${chartData.length} puntos de datos`);
         
         // Crear el gráfico
+        // @ts-ignore
         Highcharts.chart('container', {
             chart: {
                 type: 'heatmap',
@@ -227,9 +238,13 @@
             },
 
             tooltip: {
+                // @ts-ignore
                 formatter: function() {
+                    // @ts-ignore
                     return `<b>Año: ${years[this.point.x]}</b><br>` +
+                           // @ts-ignore
                            `<b>Nivel educativo: ${educationLevels[this.point.y]}</b><br>` +
+                           // @ts-ignore
                            `<b>Tasa de empleo: ${this.point.value.toFixed(2)}%</b>`;
                 }
             },
@@ -324,8 +339,20 @@
 
 
     onMount(async () => {
-        await getData();
+        try {
+            await loadScript('https://code.highcharts.com/highcharts.js');
+            await loadScript('https://code.highcharts.com/modules/heatmap.js');
+            await loadScript('https://code.highcharts.com/modules/exporting.js');
+            await loadScript('https://code.highcharts.com/modules/export-data.js');
+            await loadScript('https://code.highcharts.com/modules/accessibility.js');
+
+            await getData();
+        } catch (err) {
+            errorMessage = `Error cargando scripts de Highcharts: ${err}`;
+            console.error(err);
+        }
     });
+
 </script>
 
 
