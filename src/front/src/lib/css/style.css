@@ -1136,7 +1136,7 @@ table {
 }
 
 table th {
-	padding: 20px 30px;
+	padding: 20px 40px;
 	text-align: justify;
 	color: #ffffff93;
 }
@@ -1144,10 +1144,11 @@ table th {
 table td {
 	background-color: #0b3c558f;
 	padding: 25px 35px;
+	text-align: right;
 }
 
 table tr {
-	margin: 10px 0;
+	margin: 10px 25px 10px 0;
 }
 
 tbody tr td:first-child {

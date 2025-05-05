@@ -44,7 +44,10 @@ test('create and delete education entry', async ({ page }) => {
   // Crear nuevo registro
   await page.getByRole('button', { name: 'Crear' }).click();
 
-  await page.getByPlaceholder('Comunidad Autónoma').fill(testCommunity);
+  await page.locator('select[name="ccaa"]').click(); 
+  await page.waitForTimeout(500); // Esperar a que se abra el dropdown
+  await page.selectOption('select[name="ccaa"]', { label: testCommunity });
+
   await page.getByPlaceholder('Año').fill(testYear);
 
   await page.getByPlaceholder('Formación Profesional Básica').fill(testBasic);
@@ -53,10 +56,12 @@ test('create and delete education entry', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Añadir' }).click();
 
-  const row = page.locator('tr', {
-    has: page.locator('td', { hasText: testCommunity })
+  const row = page.locator('tr').filter({
+    has: page.locator('td').nth(0).filter({ hasText: testCommunity })
   }).filter({
-    has: page.locator('td', { hasText: testYear })
+    has: page.locator('td').nth(1).filter({ hasText: testYear })
+  }).filter({
+    has: page.locator('td').nth(2).filter({ hasText: testBasic})
   });
 
   await expect(row).toContainText(testHigher);
