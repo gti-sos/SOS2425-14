@@ -1,1 +1,0 @@
-import{t as i,a as r}from"../chunks/DVcqKrii.js";import"../chunks/CjgycXNd.js";var o=i('<div class="wrapper"><div class="container"><h2>Gráficas de education-data</h2> <hr style="width: 100%; animation: loadHrGraph 1s"></div></div>');function p(a){var t=o();r(a,t)}export{p as component};

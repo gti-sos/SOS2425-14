@@ -433,7 +433,7 @@ div.container hr {
 		opacity: 0;
 	}
 	100% {
-		width: 100%;
+		width: 55em;
 		opacity: 1;
 	}
 }
@@ -1401,8 +1401,9 @@ select.empty option {
 	font-size: 1rem;
 	font-family: 'Kanit', sans-serif;
 	flex: 1 1 180px;
-	max-width: 220px;
-	min-width: 150px;
+	max-width: 250px;
+	min-width: 200px;
+	text-align: center;
 	transition: border-color 0.3s, box-shadow 0.3s;
 	appearance: none;
 	-webkit-appearance: none;

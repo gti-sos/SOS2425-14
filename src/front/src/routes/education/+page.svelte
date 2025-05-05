@@ -309,13 +309,13 @@
 			<form class="create-form" on:submit|preventDefault={createRecord}>
 				<select  name="ccaa" bind:value={form.autonomous_community} required>
 					<option value="" disabled selected>Comunidad autónoma</option>
-					<option value="Andalucía">Andalucía</option>
-					<option value="Aragón">Aragón</option>
+					<option value="Andalucia">Andalucia</option>
+					<option value="Aragon">Aragon</option>
 					<option value="Asturias">Asturias</option>
 					<option value="Baleares">Baleares</option>
 					<option value="Canarias">Canarias</option>
 					<option value="Cantabria">Cantabria</option>
-					<option value="Castilla y León">Castilla y León</option>
+					<option value="Castilla y Leon">Castilla y Leon</option>
 					<option value="Castilla-La Mancha">Castilla-La Mancha</option>
 					<option value="Cataluña">Cataluña</option>
 					<option value="Ceuta y Melilla">Ceuta y Melilla</option>
@@ -326,7 +326,7 @@
 					<option value="Madrid">Madrid</option>
 					<option value="Murcia">Murcia</option>
 					<option value="Navarra">Navarra</option>
-					<option value="País Vasco">País Vasco</option>
+					<option value="Pais Vasco">Pais Vasco</option>
 					<option value="TOTAL">TOTAL</option>
 				</select>
 				<input type="number" placeholder="Año" bind:value={form.year} required />
