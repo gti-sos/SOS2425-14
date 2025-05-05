@@ -133,7 +133,8 @@
 				},
 				labels: {
 					style: { color: '#fff' }
-				}
+				},
+                gridLineColor: '#ffffff33'
 			},
 
 			xAxis: {
