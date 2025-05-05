@@ -348,7 +348,7 @@
 						Representación del número de estudiantes matriculados en Formación Profesional Básica,
 						de Grado Medio y de Grado Superior durante el último año disponible para la comunidad
 						autónoma seleccionada.
-					</p>
+					</p><br>
 					<div
 						class="graph-container"
 						style="background: none; box-shadow: none; padding: 0.5em 0; margin-top: -1em;"
