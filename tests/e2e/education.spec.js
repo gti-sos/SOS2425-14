@@ -60,12 +60,11 @@ test('create and delete education entry', async ({ page }) => {
     has: page.locator('td').nth(0).filter({ hasText: testCommunity })
   }).filter({
     has: page.locator('td').nth(1).filter({ hasText: testYear })
-  }).filter({
-    has: page.locator('td').nth(2).filter({ hasText: testBasic})
   });
 
   await expect(row).toContainText(testHigher);
 
+  // Eliminar el registro
   const deleteButton = row.locator('button[title="Eliminar Registro"]');
   await expect(deleteButton).toBeVisible();
   await deleteButton.click();

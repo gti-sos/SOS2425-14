@@ -307,21 +307,27 @@
 
 		{#if creating}
 			<form class="create-form" on:submit|preventDefault={createRecord}>
-				<select
-					name="ccaa"
-					style="	color: #ffffff68;"
-					id="ccaa"
-					placeholder="Comunidad autónoma"
-					required
-				>
-					<option style="color: aliceblue; background-color: var(--bg);" disabled selected value=""
-						>Comunidad autónoma</option
-					>
-					{#each ccaa as comunidad}
-						<option style="background-color: var(--bg); color: #fff;" value={comunidad}
-							>{comunidad}</option
-						>
-					{/each}
+				<select  name="ccaa" bind:value={form.autonomous_community} required>
+					<option value="" disabled selected>Comunidad autónoma</option>
+					<option value="Andalucía">Andalucía</option>
+					<option value="Aragón">Aragón</option>
+					<option value="Asturias">Asturias</option>
+					<option value="Baleares">Baleares</option>
+					<option value="Canarias">Canarias</option>
+					<option value="Cantabria">Cantabria</option>
+					<option value="Castilla y León">Castilla y León</option>
+					<option value="Castilla-La Mancha">Castilla-La Mancha</option>
+					<option value="Cataluña">Cataluña</option>
+					<option value="Ceuta y Melilla">Ceuta y Melilla</option>
+					<option value="Comunitat Valenciana">Comunitat Valenciana</option>
+					<option value="Extremadura">Extremadura</option>
+					<option value="Galicia">Galicia</option>
+					<option value="La Rioja">La Rioja</option>
+					<option value="Madrid">Madrid</option>
+					<option value="Murcia">Murcia</option>
+					<option value="Navarra">Navarra</option>
+					<option value="País Vasco">País Vasco</option>
+					<option value="TOTAL">TOTAL</option>
 				</select>
 				<input type="number" placeholder="Año" bind:value={form.year} required />
 				<input
@@ -356,16 +362,32 @@
 				<input type="number" bind:value={search.from} placeholder="Desde año" />
 				<input type="number" bind:value={search.to} placeholder="Hasta año" />
 				<input type="number" bind:value={search.year} placeholder="Año exacto" />
-				<select name="ccaa" style="	color: #ffffff68;" id="ccaa" placeholder="Comunidad autónoma">
-					<option style="color: aliceblue; background-color: var(--bg);" disabled selected value=""
-						>Comunidad autónoma</option
-					>
-					{#each ccaa as comunidad}
-						<option style="background-color: var(--bg); color: #fff;" value={comunidad}
-							>{comunidad}</option
-						>
-					{/each}
-				</select>
+				<select
+ 					name="ccaa"
+ 					bind:value={search.autonomous_community}
+ 					class:empty={search.autonomous_community === ""}
+ 					>
+ 					<option value="" disabled selected>Comunidad autónoma</option>
+ 					<option value="Andalucía">Andalucía</option>
+ 					<option value="Aragón">Aragón</option>
+ 					<option value="Asturias">Asturias</option>
+ 					<option value="Baleares">Baleares</option>
+ 					<option value="Canarias">Canarias</option>
+ 					<option value="Cantabria">Cantabria</option>
+ 					<option value="Castilla y León">Castilla y León</option>
+ 					<option value="Castilla-La Mancha">Castilla-La Mancha</option>
+ 					<option value="Cataluña">Cataluña</option>
+ 					<option value="Ceuta y Melilla">Ceuta y Melilla</option>
+ 					<option value="Comunitat Valenciana">Comunitat Valenciana</option>
+ 					<option value="Extremadura">Extremadura</option>
+ 					<option value="Galicia">Galicia</option>
+ 					<option value="La Rioja">La Rioja</option>
+ 					<option value="Madrid">Madrid</option>
+ 					<option value="Murcia">Murcia</option>
+ 					<option value="Navarra">Navarra</option>
+ 					<option value="País Vasco">País Vasco</option>
+ 					<option value="TOTAL">TOTAL</option>
+ 				</select>
 				<!-- Campos con valores decimales -->
 				<input
 					type="number"
