@@ -13,7 +13,7 @@ function _page($$payload, $$props) {
   {
     $$payload.out += "<!--[!-->";
   }
-  $$payload.out += `<!--]--> <div class="header"><h3>Datos de ciberdelincuencia</h3> <div class="actions"><button class="btn"><i class="fas fa-search"></i> Búsqueda</button> <button class="btn"><i class="fas fa-plus"></i> Nuevo registro</button> <button class="btn"><i class="fas fa-sync-alt"></i> Recargar los datos iniciales</button> <button class="btn"><i class="fas fa-trash-alt"></i> Eliminar todos los datos</button></div></div> `;
+  $$payload.out += `<!--]--> <div class="header"><h3>Datos de ciberdelincuencia</h3> <div class="actions"><button class="btn"><i class="fas fa-search"></i> Buscar</button> <button class="btn"><i class="fas fa-plus"></i> Nuevo registro</button> <button class="btn"><i class="fas fa-sync-alt"></i> Recargar</button> <button class="btn"><i class="fas fa-trash-alt"></i> Eliminar</button></div></div> `;
   {
     $$payload.out += "<!--[!-->";
   }
@@ -31,4 +31,4 @@ function _page($$payload, $$props) {
 }
 
 export { _page as default };
-//# sourceMappingURL=_page.svelte-DRh_uAxz.js.map
+//# sourceMappingURL=_page.svelte-2a9-uT1K.js.map

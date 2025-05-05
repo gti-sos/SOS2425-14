@@ -4,7 +4,7 @@ import './exports-CglpfZVo.js';
 
 function Navbar($$payload, $$props) {
   push();
-  $$payload.out += `<header id="navbar"><h1>SOS2425-14</h1> <nav><ul><li><a href="/">Home</a></li> <li class="dropdown" id="dash"><a id="dashboard-link" style="cursor: pointer;">Dashboards<span class="dropdown-arrow"></span></a> <ul class="dropdown-content"><li><a href="/education">Education</a></li> <li><a href="/employment">Employment</a></li> <li><a href="/cybercrime">Crime</a></li></ul></li> <li class="dropdown" id="apis"><a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a> <ul class="dropdown-content"><li><a href="/api/v1/education-data/docs">Education</a></li> <li><a href="/api/v1/employment-data/docs">Employment</a></li> <li><a href="/api/v1/cybercrime-data/docs">Crime</a></li></ul></li> <li><a href="/about">About</a></li></ul></nav> <i class="fas fa-bars" id="menu-icon-open"></i></header>`;
+  $$payload.out += `<header id="navbar"><h1>SOS2425-14</h1> <nav><ul><li><a href="/">Home</a></li> <li class="dropdown" id="dash"><a id="dashboard-link" style="cursor: pointer;">Dashboards<span class="dropdown-arrow"></span></a> <ul class="dropdown-content"><li><a href="/education">Education</a></li> <li><a href="/employment">Employment</a></li> <li><a href="/cybercrime">Crime</a></li></ul></li> <li class="dropdown" id="graphs"><a id="graphs-link" style="cursor: pointer;">Graphs<span class="dropdown-arrow"></span></a> <ul class="dropdown-content"><li><a href="/education-graph">Education</a></li> <li><a href="/employment-graph">Employment</a></li> <li><a href="/cybercrime-graph">Crime</a></li> <li><a href="/analytics">Group</a></li></ul></li> <li><a href="/integrations">Integrations</a></li> <li class="dropdown" id="apis"><a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a> <ul class="dropdown-content"><li><a href="/api/v1/education-data/docs">Education</a></li> <li><a href="/api/v1/employment-data/docs">Employment</a></li> <li><a href="/api/v1/cybercrime-data/docs">Crime</a></li></ul></li> <li><a href="/about">About</a></li></ul></nav> <i class="fas fa-bars" id="menu-icon-open"></i></header>`;
   pop();
 }
 function Menu($$payload, $$props) {
@@ -35,4 +35,4 @@ function _layout($$payload, $$props) {
 }
 
 export { _layout as default };
-//# sourceMappingURL=_layout.svelte-CGIlRB04.js.map
+//# sourceMappingURL=_layout.svelte-CzmA3vN_.js.map

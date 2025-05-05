@@ -8,6 +8,8 @@
 		const dashboardLink = document.getElementById('dashboard-link');
 		const dropdownApis = document.getElementById('apis');
 		const dropdownDash = document.getElementById('dash');
+		const graphsLink = document.getElementById('graphs-link');
+		const dropdownGraphs = document.getElementById('graphs');
 
 		if (navbar) {
 			window.addEventListener('scroll', () => {
@@ -15,20 +17,39 @@
 			});
 		}
 
-		if (apisLink && dropdownApis && dropdownDash) {
+		if (apisLink && dropdownApis && dropdownDash && dropdownGraphs) {
 			apisLink.addEventListener('click', (event) => {
 				if (dropdownDash.classList.contains('show')) {
 					dropdownDash.classList.remove('show');
+				}
+				if (dropdownGraphs.classList.contains('show')) {
+					dropdownGraphs.classList.remove('show');
 				}
 				event.preventDefault();
 				dropdownApis.classList.toggle('show');
 			});
 		}
 
-		if (dashboardLink && dropdownDash && dropdownApis) {
+		if (graphsLink && dropdownApis && dropdownDash && dropdownGraphs) {
+			graphsLink.addEventListener('click', (event) => {
+				if (dropdownApis.classList.contains('show')) {
+					dropdownApis.classList.remove('show');
+				}
+				if (dropdownDash.classList.contains('show')) {
+					dropdownDash.classList.remove('show');
+				}
+				event.preventDefault();
+				dropdownGraphs.classList.toggle('show');
+			});
+		}
+
+		if (dashboardLink && dropdownDash && dropdownApis && dropdownGraphs) {
 			dashboardLink.addEventListener('click', (event) => {
 				if (dropdownApis.classList.contains('show')) {
 					dropdownApis.classList.remove('show');
+				}
+				if (dropdownGraphs.classList.contains('show')) {
+					dropdownGraphs.classList.remove('show');
 				}
 				event.preventDefault();
 				dropdownDash.classList.toggle('show');
@@ -39,9 +60,10 @@
 
 		navLinks.forEach((link) => {
 			link.addEventListener('click', () => {
-				if (link.id !== 'apis-link' && link.id !== 'dashboard-link') {
+				if (link.id !== 'apis-link' && link.id !== 'dashboard-link' && link.id !== 'graphs-link') {
 					dropdownApis?.classList.remove('show');
 					dropdownDash?.classList.remove('show');
+					dropdownGraphs?.classList.remove('show');
 				}
 			});
 		});
@@ -63,6 +85,18 @@
 					<li><a href="/cybercrime">Crime</a></li>
 				</ul>
 			</li>
+			<li class="dropdown" id="graphs">
+				<a id="graphs-link" style="cursor: pointer;"
+					>Graphs<span class="dropdown-arrow"></span></a
+				>
+				<ul class="dropdown-content">
+					<li><a href="/education-graph">Education</a></li>
+					<li><a href="/employment-graph">Employment</a></li>
+					<li><a href="/cybercrime-graph">Crime</a></li>
+					<li><a href="/analytics">Group</a></li>
+				</ul>
+			</li>
+			<li><a href="/integrations">Integrations</a></li>
 			<li class="dropdown" id="apis">
 				<a id="apis-link" style="cursor: pointer;">APIs<span class="dropdown-arrow"></span></a>
 				<ul class="dropdown-content">
