@@ -290,31 +290,19 @@
 			<h3>Datos de Educación</h3>
 			<div class="actions">
 				<button class="btn" on:click={toggleFilters}>
-<<<<<<< HEAD
 					<i class="fas fa-search"></i>
 					<p>Buscar</p>
-=======
 					<i class="fas fa-search"></i> Buscar
->>>>>>> 1a41cb3121ec0c45dc8626bbd0f419890bbe4e3a
 				</button>
 				<button class="btn" on:click={toggleCreate}>
 					<i class="fas fa-plus"></i>
 					<p>Crear</p>
 				</button>
 				<button class="btn" on:click={loadInitialData}>
-<<<<<<< HEAD
-					<i class="fas fa-sync-alt"></i>
-					<p>Recargar</p>
-				</button>
-				<button class="btn" on:click={deleteAll}>
-					<i class="fas fa-trash-alt"></i>
-					<p>Borrar</p>
-=======
 					<i class="fas fa-sync-alt"></i> Recargar
 				</button>
 				<button class="btn" on:click={deleteAll}>
 					<i class="fas fa-trash-alt"></i> Eliminar
->>>>>>> 1a41cb3121ec0c45dc8626bbd0f419890bbe4e3a
 				</button>
 			</div>
 		</div>
