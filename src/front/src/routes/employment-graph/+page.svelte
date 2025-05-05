@@ -359,7 +359,7 @@
 <div class="wrapper">
     <div class="container">
         <h2>Gráficas de employment-data</h2>
-        <hr />
+        <hr style="width: 100%; animation: loadHrGraph 1s;"/>
         
         <div class="graph-container">
             <h3>
