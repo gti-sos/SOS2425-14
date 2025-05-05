@@ -42,7 +42,7 @@ test('create and delete education entry', async ({ page }) => {
   await educationLink.click();
 
   // Crear nuevo registro
-  await page.getByRole('button', { name: 'Nuevo registro' }).click();
+  await page.getByRole('button', { name: 'Crear' }).click();
 
   await page.getByPlaceholder('Comunidad Autónoma').fill(testCommunity);
   await page.getByPlaceholder('Año').fill(testYear);
@@ -51,7 +51,7 @@ test('create and delete education entry', async ({ page }) => {
   await page.getByPlaceholder('Grado Medio').fill(testIntermediate);
   await page.getByPlaceholder('Grado Superior').fill(testHigher);
 
-  await page.getByRole('button', { name: 'Crear' }).click();
+  await page.getByRole('button', { name: 'Añadir' }).click();
 
   const row = page.locator('tr', {
     has: page.locator('td', { hasText: testCommunity })

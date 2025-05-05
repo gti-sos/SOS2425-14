@@ -290,13 +290,11 @@
 			<h3>Datos de Educación</h3>
 			<div class="actions">
 				<button class="btn" on:click={toggleFilters}>
-					<i class="fas fa-search"></i>
-					<p>Buscar</p>
 					<i class="fas fa-search"></i> Buscar
 				</button>
 				<button class="btn" on:click={toggleCreate}>
 					<i class="fas fa-plus"></i>
-					<p>Crear</p>
+					Crear
 				</button>
 				<button class="btn" on:click={loadInitialData}>
 					<i class="fas fa-sync-alt"></i> Recargar
@@ -348,7 +346,7 @@
 					step="any"
 				/>
 
-				<button type="submit" class="submit">Crear</button>
+				<button type="submit" class="submit">Añadir</button>
 				<button type="button" class="cancel" on:click={() => (creating = false)}>Cancelar</button>
 			</form>
 		{/if}
@@ -358,12 +356,7 @@
 				<input type="number" bind:value={search.from} placeholder="Desde año" />
 				<input type="number" bind:value={search.to} placeholder="Hasta año" />
 				<input type="number" bind:value={search.year} placeholder="Año exacto" />
-				<select
-					name="ccaa"
-					style="	color: #ffffff68;"
-					id="ccaa"
-					placeholder="Comunidad autónoma"
-				>
+				<select name="ccaa" style="	color: #ffffff68;" id="ccaa" placeholder="Comunidad autónoma">
 					<option style="color: aliceblue; background-color: var(--bg);" disabled selected value=""
 						>Comunidad autónoma</option
 					>
