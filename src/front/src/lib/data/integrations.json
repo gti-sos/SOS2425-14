@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "api":"Jaime",
+        "description":"Visualización de las APIs porpuestas por Jaime Duffy Panés",
+        "path":"/integrations/jaime",
+        "image":"/images/labor_data.jpg"
+    },
+    {
+        "id":2,
+        "api":"Fran",
+        "description":"Visualización de las APIs porpuestas por Francisco Javier Rodríguez Martín",
+        "path":"/integrations/fran",
+        "image": "/images/enrollment_data.jpg"
+    },
+    {
+        "id":3,
+        "api":"Pablo",
+        "description":"Visualización de las APIs porpuestas por Pablo Dominguez Galván",
+        "path":"/integrations/pablo",
+        "image": "/images/crime_data.webp"
+    }
+]
