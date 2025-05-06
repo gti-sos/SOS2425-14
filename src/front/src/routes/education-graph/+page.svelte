@@ -17,8 +17,6 @@
 	let loadingData = true;
 	let errorMessage = '';
 
-	let quickChartUrl = '';
-
 	let showChart = false;
 
 	// Lista de comunidades autónomas españolas

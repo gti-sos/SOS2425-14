@@ -10,23 +10,24 @@ return {
 	assets: new Set(["favicon.png","images/crime_data.webp","images/enrollment_data.jpg","images/labor_data.jpg"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.CUTfIjoJ.js",app:"_app/immutable/entry/app.SVg__ZfK.js",imports:["_app/immutable/entry/start.CUTfIjoJ.js","_app/immutable/chunks/a4wE99Zp.js","_app/immutable/chunks/BaMWEeME.js","_app/immutable/chunks/D71RAph_.js","_app/immutable/chunks/C8OUaCOK.js","_app/immutable/entry/app.SVg__ZfK.js","_app/immutable/chunks/BaMWEeME.js","_app/immutable/chunks/rnFZeDME.js","_app/immutable/chunks/ClsRt7R4.js","_app/immutable/chunks/DT8wYXko.js","_app/immutable/chunks/_I-LaDUW.js","_app/immutable/chunks/CQXpAjan.js","_app/immutable/chunks/D71RAph_.js","_app/immutable/chunks/C8OUaCOK.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.DesKOMAM.js",app:"_app/immutable/entry/app.D6xSkRzG.js",imports:["_app/immutable/entry/start.DesKOMAM.js","_app/immutable/chunks/BSc2Qz-A.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js","_app/immutable/entry/app.D6xSkRzG.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/D1bc0aDY.js","_app/immutable/chunks/BgiXASfF.js","_app/immutable/chunks/D1Iy4rpg.js","_app/immutable/chunks/DoZVsEKz.js","_app/immutable/chunks/CiueXfto.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-Ce9T8Mjk.js')),
-			__memo(() => import('./chunks/1-bLaWoB6R.js')),
-			__memo(() => import('./chunks/2--UDtV9-G.js')),
-			__memo(() => import('./chunks/3-D_u92tqz.js')),
-			__memo(() => import('./chunks/4-4TYVxXw0.js')),
-			__memo(() => import('./chunks/5-T4-8vAXi.js')),
-			__memo(() => import('./chunks/6-CwjwR3mI.js')),
-			__memo(() => import('./chunks/7-ChCu7-Hq.js')),
-			__memo(() => import('./chunks/8-DO5z7JAe.js')),
-			__memo(() => import('./chunks/9-uRMu9lnI.js')),
-			__memo(() => import('./chunks/10-JaMNrFfl.js')),
-			__memo(() => import('./chunks/11-DJWDUhmC.js')),
-			__memo(() => import('./chunks/12-B3gOnNO-.js')),
-			__memo(() => import('./chunks/13-DK_kzoNV.js')),
-			__memo(() => import('./chunks/14-Dp4Pp42H.js'))
+			__memo(() => import('./chunks/0-BX-PNIwj.js')),
+			__memo(() => import('./chunks/1-DSelo4LU.js')),
+			__memo(() => import('./chunks/2-BMGt7CPw.js')),
+			__memo(() => import('./chunks/3-Clar_Oxq.js')),
+			__memo(() => import('./chunks/4-2UqykP7G.js')),
+			__memo(() => import('./chunks/5-DW9k25hv.js')),
+			__memo(() => import('./chunks/6-jpP7KfyU.js')),
+			__memo(() => import('./chunks/7-Bct5SyYz.js')),
+			__memo(() => import('./chunks/8-731-exc6.js')),
+			__memo(() => import('./chunks/9-CIJA6Op-.js')),
+			__memo(() => import('./chunks/10-DMjsvgqn.js')),
+			__memo(() => import('./chunks/11-DXELLkL8.js')),
+			__memo(() => import('./chunks/12-B3Gz_KYD.js')),
+			__memo(() => import('./chunks/13-BIivCd5L.js')),
+			__memo(() => import('./chunks/14-BljhCEv8.js')),
+			__memo(() => import('./chunks/15-BDxRrAlk.js'))
 		],
 		routes: [
 			{
@@ -114,10 +115,17 @@ return {
 				endpoint: null
 			},
 			{
+				id: "/integrations/fran",
+				pattern: /^\/integrations\/fran\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 14 },
+				endpoint: null
+			},
+			{
 				id: "/integrations/jaime",
 				pattern: /^\/integrations\/jaime\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 14 },
+				page: { layouts: [0,], errors: [1,], leaf: 15 },
 				endpoint: null
 			}
 		],
