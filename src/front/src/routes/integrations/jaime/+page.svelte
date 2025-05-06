@@ -239,10 +239,15 @@
 
 </script>
 
+<svelte:head>
+	<title>Integrations - Jaime Duffy Panés</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</svelte:head>
 
 <div class="wrapper">
     <div class="container">
-        <h2 style="text-align: center;">Integraciones <br> Employment-data</h2>
+        <h2 style="text-align: center;">Integraciones <br><i>Jaime Duffy Panés</i></h2>
         <hr style="width: 100%; animation: loadHrGraph 1s" />
 
         <div class="article">

@@ -3,6 +3,12 @@
 	import data from '$lib/data/integrations.json';
 </script>
 
+<svelte:head>
+	<title>SOS2425-14 - Integrations</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</svelte:head>
+
 <div class="wrapper">
 	<div class="container">
 		<h2>Integraciones</h2>
