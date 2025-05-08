@@ -1,60 +1,33 @@
-<style>
-    .highcharts-figure,
-    .highcharts-data-table table {
-        min-width: 360px;
-        max-width: 800px;
-        margin: 1em auto;
-    }
-
-    .highcharts-description {
-        margin: 10px;
-    }
-
-    .highcharts-data-table table {
-        font-family: Verdana, sans-serif;
-        border-collapse: collapse;
-        border: 1px solid #ebebeb;
-        margin: 10px auto;
-        text-align: center;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .highcharts-data-table caption {
-        padding: 1em 0;
-        font-size: 1.2em;
-        color: #555;
-    }
-
-    .highcharts-data-table th {
-        font-weight: 600;
-        padding: 0.5em;
-    }
-
-    .highcharts-data-table td,
-    .highcharts-data-table th,
-    .highcharts-data-table caption {
-        padding: 0.5em;
-    }
-
-    .highcharts-data-table thead tr,
-    .highcharts-data-table tbody tr:nth-child(even) {
-        background: #f8f8f8;
-    }
-
-    .highcharts-data-table tr:hover {
-        background: #f1f7ff;
-    }
-
-
-</style>
-
 <script>
     import { onMount } from "svelte";
+    import { fade } from 'svelte/transition';
+    import { dev } from "$app/environment"; 
+    import { tick } from 'svelte';
+
+    let DEVEL_HOST = "http://localhost:16078";
 
     const API_G18 = "https://sos2425-18.onrender.com/api/v2/dana-grants-subsidies-stats";
+    const API_G17 = 'https://sos2425-17.onrender.com/api/v2/university-academic-performance';
+	const API_G11 = 'https://sos2425-11.onrender.com/api/v1/autonomy-dependence-applications';
+	const API_G13 = 'https://sos2425-13.onrender.com/api/v1/water-supply-improvements';
+	const API_G10 = 'https://sos2425-10.onrender.com/api/v1/radars-stats';
+    let API_EMPLOYMENT = "/api/v1/employment-data";
+
+    if(dev){
+        API_EMPLOYMENT = DEVEL_HOST + API_EMPLOYMENT;
+    }
     // @ts-ignore
-    let myData = [];
+	let data17 = [];
+	// @ts-ignore
+	let data11 = [];
+	// @ts-ignore
+	let data13 = [];
+    let data10 = [];
+    // @ts-ignore
+    let data18 = [];
+    // @ts-ignore
+    let employmentData = [];
+
     let loadingData = true;
     let errorMessage = "";
 
@@ -73,8 +46,190 @@
         });
     }
 
-   
-    async function getData() {
+    /*
+    FETCH a las APIS
+    */
+
+    //Fetch grupo 13- Integración
+    async function getDataG13() {
+        loadingData = true;
+        errorMessage = "";
+        data13 = [];
+        employmentData = [];
+
+        try {
+            let emp = await fetch(API_EMPLOYMENT, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!emp.ok) {
+                throw new Error(`Error en la respuesta: ${emp.status}`);
+            }
+
+            let empData = await emp.json();
+            employmentData = empData;
+
+            console.log(`Solicitando datos a: ${API_G13}`);
+            let res = await fetch(API_G13, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error(`Error en la respuesta: ${res.status}`);
+            }
+
+            let data = await res.json();
+
+            // Si no hay datos, intenta cargar los iniciales y vuelve a hacer fetch
+            if (data.length === 0) {
+                console.warn("No hay datos. Cargando datos iniciales...");
+                const loadRes = await fetch(`${API_G13}/loadInitialData`, {
+                    method: "GET"
+                });
+
+                if (!loadRes.ok) {
+                    throw new Error("No se pudo cargar datos iniciales");
+                }
+
+                // Espera para reintentar obtener los datos
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Nuevo fetch después de cargar datos
+                res = await fetch(API_G13, {
+                    method: "GET",
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!res.ok) {
+                    throw new Error("Error al obtener datos tras la carga inicial");
+                }
+
+                data = await res.json();
+            }
+
+            data13 = data;
+            console.log(`Datos recibidos: ${data13.length} registros`);
+
+            renderChart13();
+
+        } catch (error) {
+            console.error(`ERROR G13: ${error}`);
+            // @ts-ignore
+            errorMessage = `Error al cargar datos G13: ${error.message}`;
+        } finally {
+            loadingData = false;
+        }
+    }
+
+    //Fetch grupo 17
+    async function getDataG17() {
+        loadingData = true;
+        errorMessage = "";
+        data17 = [];
+
+        try {
+            console.log(`Solicitando datos a: ${API_G17}`);
+            let res = await fetch(API_G17, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error(`Error en la respuesta: ${res.status}`);
+            }
+
+            let data = await res.json();
+
+            // Si no hay datos, intenta cargar los iniciales y vuelve a hacer fetch
+            if (data.length === 0) {
+                console.warn("No hay datos. Cargando datos iniciales...");
+                const loadRes = await fetch(`${API_G17}/loadInitialData`, {
+                    method: "GET"
+                });
+
+                if (!loadRes.ok) {
+                    throw new Error("No se pudo cargar datos iniciales");
+                }
+
+                // Espera para reintentar obtener los datos
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Nuevo fetch después de cargar datos
+                res = await fetch(API_G17, {
+                    method: "GET",
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!res.ok) {
+                    throw new Error("Error al obtener datos tras la carga inicial");
+                }
+
+                data = await res.json();
+            }
+
+            data17 = data;
+            console.log(`Datos recibidos: ${data17.length} registros`);
+
+            renderChart17();
+
+        } catch (error) {
+            console.error(`ERROR G17: ${error}`);
+            // @ts-ignore
+            errorMessage = `Error al cargar datos G17: ${error.message}`;
+        } finally {
+            loadingData = false;
+        }
+    }
+
+    //fetch grupo 10
+    async function getDataG10() {
+        loadingData = true;
+        errorMessage = "";
+        data10 = [];
+
+        const url = `${API_G10}?autonomousCommunity=Andalucía&year=2023`
+        
+        try {
+            console.log(`Solicitando datos a: ${API_G10}`);
+            const res = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (!res.ok) {
+                throw new Error(`Error en la respuesta: ${res.status}`);
+            }
+  
+            const data = await res.json();
+            data10 = data;
+            console.log(`Datos recibidos: ${data10.length} registros`);
+            
+            renderChart10();
+            
+        } catch (error) {
+            console.error(`ERROR G10: ${error}`);
+            // @ts-ignore
+            errorMessage = `Error al cargar datos G10: ${error.message}`;
+            loadingData = false;
+        }
+    }
+
+    //Fetch grupo 18
+    async function getData18() {
         loadingData = true;
         errorMessage = "";
         
@@ -92,11 +247,10 @@
             }
   
             const data = await res.json();
-            myData = data;
-            console.log(`Datos recibidos: ${myData.length} registros`);
-            console.log("Muestra de datos:", myData.slice(0, 2));
+            data18 = data;
+            console.log(`Datos recibidos: ${data18.length} registros`);
             
-            renderChart();
+            renderChart18();
         } catch (error) {
             console.error(`ERROR al obtener datos: ${error}`);
             // @ts-ignore
@@ -106,21 +260,15 @@
         }
     }
 
-    function renderChart() {
+    // Grafica widget grupo 18
+    function renderChart18() {
         // @ts-ignore
-        if (!myData || myData.length === 0) {
-            console.log("No hay datos para mostrar");
-            errorMessage = "No hay datos disponibles";
-            return;
-        }
-
-        // @ts-ignore
-        console.log("Estructura de los primeros datos:", JSON.stringify(myData[0], null, 2));
+        console.log("Estructura de los primeros datos:", JSON.stringify(data18[0], null, 2));
         
         const municipalityData = {};
         
         // @ts-ignore
-        myData.forEach(item => {
+        data18.forEach(item => {
             const municipality = item.mun_name
             const amount = item.amt_granted
             
@@ -220,8 +368,116 @@
         });
     }
 
+   
+    async function renderChart13() {
+        await tick(); 
+        const andaluciaData = {};
+        
+        // @ts-ignore
+        employmentData.forEach(item => {
+        if (item.autonomous_community?.toLowerCase() === 'andalucía' && 
+            item.education_level === 'TOTAL') {
+            
+            const year = item.year.toString();
+            
+            // @ts-ignore
+            if (!andaluciaData[year]) {
+                // @ts-ignore
+                andaluciaData[year] = {
+                    activity_rate: null,
+                    project_count: null
+                };
+            }
+            // @ts-ignore
+            andaluciaData[year].activity_rate = item.activity_rate;
+        }
+        });
+        
+        // @ts-ignore
+        data13.forEach(item => {
+        if (item.autonomous_community?.toLowerCase() === 'andalucía' || 
+            item.autonomous_community?.toLowerCase() === 'andalucia') {
+            
+            const year = item.year.toString();
+            
+            // @ts-ignore
+            if (!andaluciaData[year]) {
+            // @ts-ignore
+            andaluciaData[year] = {
+                activity_rate: null,
+                project_count: null
+            };
+            }
+            // @ts-ignore
+            andaluciaData[year].project_count = item.project_count;
+        }
+        });
+        
+        // Preparar datos para el gráfico
+        const years = Object.keys(andaluciaData).sort();
+        // @ts-ignore
+        const activityRates = years.map(year => andaluciaData[year].activity_rate);
+        // @ts-ignore
+        const projectCounts = years.map(year => andaluciaData[year].project_count);
+        
+        const ctx = document.getElementById('andaluciaChart');
+        if (!ctx) {
+            console.error("No se encontró el canvas 'andaluciaChart'");
+            return;
+        }
+        // @ts-ignore
+        new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: years,
+            datasets: [
+            {
+                label: 'Tasa de Actividad (%)',
+                data: activityRates,
+                backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 1
+            },
+            {
+                label: 'Número de Proyectos',
+                data: projectCounts,
+                backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+            title: {
+                display: true,
+                text: 'Datos de Andalucía por Año',
+                font: { weight: 'bold', size: 18 }
+            },
+            subtitle: {
+                display: true,
+                text: 'Fuente: API G13 y API Empleo'
+            }
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                },ticks: {
+                stepSize: 10,
+                font: {
+                    size: 12
+                }
+                }
+            }
 
-
+        }
+        });
+    }
+    
     onMount(async () => {
         try {
             await loadScript('https://code.highcharts.com/highcharts.js');
@@ -229,8 +485,11 @@
             await loadScript('https://code.highcharts.com/modules/exporting.js');
             await loadScript('https://code.highcharts.com/modules/export-data.js');
             await loadScript('https://code.highcharts.com/modules/accessibility.js');
+            await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
 
-            await getData();
+            await getData18();
+            await getDataG13();
+
         } catch (err) {
             errorMessage = `Error cargando scripts de Highcharts: ${err}`;
             console.error(err);
@@ -248,22 +507,127 @@
 <div class="wrapper">
     <div class="container">
         <h2 style="text-align: center;">Integraciones <br><i>Jaime Duffy Panés</i></h2>
-        <hr style="width: 100%; animation: loadHrGraph 1s" />
-
-        <div class="article">
-			<h3>Distribución de ayudas DANA por municipios</h3>
-		</div>
-        
-        <div class="graph-container">
-            <figure class="highcharts-figure">
-                <div id="container"></div>
-                {#if loadingData}
-                    <p>Cargando datos...</p>
-                {/if}
-                {#if errorMessage}
-                    <p style="color: red">{errorMessage}</p>
-                {/if}
-            </figure>
+        <hr style="width: 100%; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
+        <div transition:fade={{ duration: 400 }}>
+            <!-- Widget G18-dana-grants-subsidies-stats -->
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Distribución de ayudas DANA por municipios
+                </h3>
+                <p>
+					Este gráfico representa cómo se reparte la ayuda por la dana para cada municipio.
+				</p>
+                <a style="color: #fff;" href={API_G18} target="_blank"><i>G18-dana-grants-subsidies-stats</i></a>
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </figure>
+            </div>
+            <!-- Integración G11-autonomy-dependence-applications -->
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Integración: Comparativa de población activa y población dependiente
+                </h3>
+                <p>
+                    Este gráfico muestra la comparación entre la población dependiente (API G11) y la 
+                    población activa para Andalucía, Cataluña y Aragón en el año 2024.
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G11} target="_blank">
+                    <i>G11-autonomy-dependence-applications</i>
+                </a>
+                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
+                    <i>API: Datos de Empleo</i>
+                </a>
+                <div class="chart-container">
+                    <div id="combinedChart"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>   
+            </div>
+            <!-- Integración G10-radars-stats -->
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Integración: TITULO
+                </h3>
+                <p>
+                    DESCRIPCION
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G10} target="_blank">
+                    <i>G10-radars-stats</i>
+                </a>
+                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
+                    <i>API: Datos de Empleo</i>
+                </a>
+                <div class="chart-container">
+                    <div id="combinedChart"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>   
+            </div>
+            <!-- Widget G13-water-supply-improvements -->
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Integración: Número de proyectos y tasa de actividad
+                </h3>
+                <p>
+                    Este gráfico mustra el numero de proyectos y la tasa de actividad en andalucía según los años.
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G13} target="_blank">
+                    <i>G13-water-supply-improvements</i>
+                </a>
+                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
+                    <i>API: Datos de Empleo</i>
+                </a>
+                <div class="chart-container">
+                    {#if loadingData}
+                      <div class="loading">Cargando datos...</div>
+                    {:else if errorMessage}
+                      <div class="error">{errorMessage}</div>
+                    {:else}
+                      <canvas id="andaluciaChart"></canvas>
+                    {/if}
+                </div>
+            </div>
+            <!-- Widget G17-university-academic-performance -->
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Widget: TITULO
+                </h3>
+                <p>
+                    DESCRIPCION
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G10} target="_blank">
+                    <i>G10-radars-stats</i>
+                </a>
+                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
+                    <i>API: Datos de Empleo</i>
+                </a>
+                <div class="chart-container">
+                    <div id="combinedChart"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>   
+            </div>
+            <!-- API EXTERNA PROXY -->
+            <!-- API EXTERNA -->
+            <!-- API EXTERNA -->
         </div>
     </div>
 </div>

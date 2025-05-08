@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { fade } from 'svelte/transition';
-	import Highcharts from 'highcharts';
+	//import Highcharts from 'highcharts';
 
 	let DEVEL_HOST = 'http://localhost:16078';
 	let BASE_API = '/api/v1/education-data';
