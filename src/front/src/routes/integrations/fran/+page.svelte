@@ -702,7 +702,7 @@
 <div class="wrapper">
 	<div class="container">
 		<h2 style="text-align: center;">Integraciones <br /><i>Francisco Javier</i></h2>
-		<hr style="width: 100%; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
+		<hr style="width: 55em; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
 		<div transition:fade={{ duration: 400 }}>
 			<div class="article" style="margin-top: 0;">
 				<h3 style="font-size: 1.5em; text-transform: none;">
