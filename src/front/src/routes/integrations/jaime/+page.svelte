@@ -22,11 +22,14 @@
 	let data11 = [];
 	// @ts-ignore
 	let data13 = [];
+    // @ts-ignore
     let data10 = [];
     // @ts-ignore
     let data18 = [];
     // @ts-ignore
     let employmentData = [];
+    // @ts-ignore
+    let employmentDataG13 = [];
 
     let loadingData = true;
     let errorMessage = "";
@@ -49,13 +52,46 @@
     /*
     FETCH a las APIS
     */
+   //Fetch grupo 11
+   async function getDataG11() {
+        loadingData = true;
+        errorMessage = "";
+        data11 = [];
+        try {
+            console.log(`Solicitando datos a: ${API_G11}`);
+            let res = await fetch(API_G11, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error(`Error en la respuesta: ${res.status}`);
+            }
+
+            let data = await res.json();
+
+            data11 = data;
+            console.log(`Datos recibidos: ${data11.length} registros`);
+
+            renderChart11();
+
+        } catch (error) {
+            console.error(`ERROR G11: ${error}`);
+            // @ts-ignore
+            errorMessage = `Error al cargar datos G11: ${error.message}`;
+        } finally {
+            loadingData = false;
+        }
+    }
 
     //Fetch grupo 13- Integración
     async function getDataG13() {
         loadingData = true;
         errorMessage = "";
         data13 = [];
-        employmentData = [];
+        employmentDataG13 = [];
 
         try {
             let emp = await fetch(API_EMPLOYMENT, {
@@ -70,7 +106,7 @@
             }
 
             let empData = await emp.json();
-            employmentData = empData;
+            employmentDataG13 = empData;
 
             console.log(`Solicitando datos a: ${API_G13}`);
             let res = await fetch(API_G13, {
@@ -193,17 +229,29 @@
         }
     }
 
-    //fetch grupo 10
+    //fetch grupo 10- Integración
     async function getDataG10() {
         loadingData = true;
         errorMessage = "";
         data10 = [];
-
-        const url = `${API_G10}?autonomousCommunity=Andalucía&year=2023`
+        employmentData = [];
         
         try {
+            let emp = await fetch(API_EMPLOYMENT, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!emp.ok) {
+                throw new Error(`Error en la respuesta: ${emp.status}`);
+            }
+
+            let empData = await emp.json();
+            employmentData = empData;
             console.log(`Solicitando datos a: ${API_G10}`);
-            const res = await fetch(url, {
+            const res = await fetch(API_G10, {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json'
@@ -374,7 +422,7 @@
         const andaluciaData = {};
         
         // @ts-ignore
-        employmentData.forEach(item => {
+        employmentDataG13.forEach(item => {
         if (item.autonomous_community?.toLowerCase() === 'andalucía' && 
             item.education_level === 'TOTAL') {
             
@@ -425,6 +473,8 @@
             console.error("No se encontró el canvas 'andaluciaChart'");
             return;
         }
+
+        console.log("Datos del gráfico:", activityRates, projectCounts);
         // @ts-ignore
         new Chart(ctx, {
         type: 'bar',
@@ -451,33 +501,141 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-            title: {
-                display: true,
-                text: 'Datos de Andalucía por Año',
-                font: { weight: 'bold', size: 18 }
+                title: {
+                    display: true,
+                    text: 'Datos de Andalucía por Año',
+                    font: { weight: 'bold', size: 18 }
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Fuente: API G13 y API Empleo'
+                }
             },
-            subtitle: {
-                display: true,
-                text: 'Fuente: API G13 y API Empleo'
-            }
-            },
-            options: {
-                scales: {
+            scales: {
                 y: {
-                    beginAtZero: true
-                }
-                },ticks: {
-                stepSize: 10,
-                font: {
-                    size: 12
-                }
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 10,
+                        font: {
+                            size: 12
+                        }
+                    }
                 }
             }
-
         }
         });
     }
     
+    async function renderChart10() {
+        loadingData = false;
+        await tick();
+
+        const ctx = document.getElementById('chart10');
+        if (!ctx) {
+            console.error("No se encontró el canvas 'chart10'");
+            return;
+        }
+
+        const context = /** @type {HTMLCanvasElement} */ (ctx).getContext('2d');
+        if (!context) {
+            console.error("No se pudo obtener el contexto 2D del canvas");
+            return;
+        }
+
+        if (data10.length === 0 || employmentData.length === 0) {
+            errorMessage = "No hay datos disponibles para mostrar el gráfico";
+            return;
+        }
+
+        // Mapa de normalización
+        const normalizeCommunityNames = {
+            "Madrid": "Madrid (Comunidad de)",
+            "Navarra": "Navarra (Comunidad Foral de)"
+        };
+
+        function normalize(name) {
+            return normalizeCommunityNames[name] || name;
+        }
+
+        const uniqueCommunities = [...new Set(data10.map(item => normalize(item.autonomousCommunity)))];
+        const chartData = [];
+
+        uniqueCommunities.forEach(community => {
+            const totalComplaints = data10
+                .filter(item => normalize(item.autonomousCommunity) === community)
+                .reduce((sum, item) => sum + (item.complaint || 0), 0);
+
+            const unemploymentEntry = employmentData.find(item =>
+                normalize(item.autonomous_community) === community &&
+                item.year === 2023 &&
+                item.education_level === "TOTAL"
+            );
+
+            if (unemploymentEntry) {
+                chartData.push({
+                    x: totalComplaints,
+                    y: unemploymentEntry.unemployment_rate,
+                    community
+                });
+            }
+        });
+
+        // Crear el gráfico
+        new Chart(context, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Tasa de paro vs. Número de multas por Comunidad',
+                    data: chartData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    pointRadius: 8,
+                    pointHoverRadius: 12
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const point = context.raw;
+                                return `${point.community}: ${point.x} multas, ${point.y}% paro`;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Relación entre tasa de paro (2023) y número de multas por Comunidad Autónoma'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Número de multas'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Tasa de paro (%)'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        console.log("Datos del gráfico:", chartData);
+    }
+
+
     onMount(async () => {
         try {
             await loadScript('https://code.highcharts.com/highcharts.js');
@@ -489,6 +647,7 @@
 
             await getData18();
             await getDataG13();
+            await getDataG10();
 
         } catch (err) {
             errorMessage = `Error cargando scripts de Highcharts: ${err}`;
@@ -528,38 +687,13 @@
                     {/if}
                 </figure>
             </div>
-            <!-- Integración G11-autonomy-dependence-applications -->
-            <div class="article">
-                <h3 style="font-size: 1.5em; text-transform: none;">
-                    Integración: Comparativa de población activa y población dependiente
-                </h3>
-                <p>
-                    Este gráfico muestra la comparación entre la población dependiente (API G11) y la 
-                    población activa para Andalucía, Cataluña y Aragón en el año 2024.
-                </p>
-                <a style="color: #fff; margin-right: 1rem;" href={API_G11} target="_blank">
-                    <i>G11-autonomy-dependence-applications</i>
-                </a>
-                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
-                    <i>API: Datos de Empleo</i>
-                </a>
-                <div class="chart-container">
-                    <div id="combinedChart"></div>
-                    {#if loadingData}
-                        <p>Cargando datos...</p>
-                    {/if}
-                    {#if errorMessage}
-                        <p style="color: red">{errorMessage}</p>
-                    {/if}
-                </div>   
-            </div>
             <!-- Integración G10-radars-stats -->
             <div class="article">
                 <h3 style="font-size: 1.5em; text-transform: none;">
-                    Integración: TITULO
+                    Integración: Número de multas por tasa de paro
                 </h3>
                 <p>
-                    DESCRIPCION
+                    Este gráfico nos muestra el número de multas de las comunidades autónomas junto con la tasa de paro. 
                 </p>
                 <a style="color: #fff; margin-right: 1rem;" href={API_G10} target="_blank">
                     <i>G10-radars-stats</i>
@@ -568,14 +702,14 @@
                     <i>API: Datos de Empleo</i>
                 </a>
                 <div class="chart-container">
-                    <div id="combinedChart"></div>
                     {#if loadingData}
-                        <p>Cargando datos...</p>
+                      <div class="loading">Cargando datos...</div>
+                    {:else if errorMessage}
+                      <div class="error">{errorMessage}</div>
+                    {:else}
+                      <canvas id="chart10" width="800" height="400"></canvas>
                     {/if}
-                    {#if errorMessage}
-                        <p style="color: red">{errorMessage}</p>
-                    {/if}
-                </div>   
+                </div>                
             </div>
             <!-- Widget G13-water-supply-improvements -->
             <div class="article">
@@ -597,37 +731,34 @@
                     {:else if errorMessage}
                       <div class="error">{errorMessage}</div>
                     {:else}
-                      <canvas id="andaluciaChart"></canvas>
+                      <canvas id="andaluciaChart" width="800" height="400"></canvas>
                     {/if}
                 </div>
             </div>
-            <!-- Widget G17-university-academic-performance -->
-            <div class="article">
-                <h3 style="font-size: 1.5em; text-transform: none;">
-                    Widget: TITULO
-                </h3>
-                <p>
-                    DESCRIPCION
-                </p>
-                <a style="color: #fff; margin-right: 1rem;" href={API_G10} target="_blank">
-                    <i>G10-radars-stats</i>
-                </a>
-                <a style="color: #fff;" href={API_EMPLOYMENT} target="_blank">
-                    <i>API: Datos de Empleo</i>
-                </a>
-                <div class="chart-container">
-                    <div id="combinedChart"></div>
-                    {#if loadingData}
-                        <p>Cargando datos...</p>
-                    {/if}
-                    {#if errorMessage}
-                        <p style="color: red">{errorMessage}</p>
-                    {/if}
-                </div>   
-            </div>
+            <!-- Widget G17-university-academic-performance --> 
             <!-- API EXTERNA PROXY -->
             <!-- API EXTERNA -->
             <!-- API EXTERNA -->
         </div>
     </div>
 </div>
+
+
+<style>
+.chart-container {
+    max-width: 45em;
+    margin: 2em auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.473);
+    padding: 1em;
+    background: #052a42;
+    border-radius: 10px;
+    min-height: 400px;
+}
+
+canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+}
+
+</style>
