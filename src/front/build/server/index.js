@@ -1,4 +1,5 @@
 import { r as render, s as set, L as LEGACY_PROPS, g as get, f as flushSync, d as define_property, m as mutable_source, i as init_operations, a as get_first_child, H as HYDRATION_START, b as get_next_sibling, c as HYDRATION_ERROR, e as HYDRATION_END, h as hydration_failed, j as clear_text_content, k as array_from, l as component_root, n as set_active_reaction, o as set_active_effect, p as is_array, q as active_effect, t as active_reaction, u as create_text, v as branch, w as push, x as setContext, y as pop, z as push$1, A as component_context, B as pop$1, C as BROWSER } from './chunks/index-B0di9SGT.js';
+import { j as json, t as text } from './chunks/index2-BIAFQWR9.js';
 import { d as decode_pathname, a as decode_params, n as normalize_path, b as disable_search, v as validate_layout_server_exports, c as validate_layout_exports, e as validate_page_server_exports, f as validate_page_exports, r as resolve, m as make_trackable, g as readable, w as writable } from './chunks/exports-xLFvL73x.js';
 
 let base = "";
@@ -540,7 +541,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1hegxqw"
+  version_hash: "1s66qwo"
 };
 async function get_hooks() {
   let handle;
@@ -1946,36 +1947,6 @@ function add_resolution_suffix(pathname) {
 }
 function strip_resolution_suffix(pathname) {
   return pathname.slice(0, -ROUTE_SUFFIX.length);
-}
-function json(data, init2) {
-  const body2 = JSON.stringify(data);
-  const headers2 = new Headers(init2?.headers);
-  if (!headers2.has("content-length")) {
-    headers2.set("content-length", encoder$3.encode(body2).byteLength.toString());
-  }
-  if (!headers2.has("content-type")) {
-    headers2.set("content-type", "application/json");
-  }
-  return new Response(body2, {
-    ...init2,
-    headers: headers2
-  });
-}
-const encoder$3 = new TextEncoder();
-function text(body2, init2) {
-  const headers2 = new Headers(init2?.headers);
-  if (!headers2.has("content-length")) {
-    const encoded = encoder$3.encode(body2);
-    headers2.set("content-length", encoded.byteLength.toString());
-    return new Response(encoded, {
-      ...init2,
-      headers: headers2
-    });
-  }
-  return new Response(body2, {
-    ...init2,
-    headers: headers2
-  });
 }
 function coalesce_to_error(err) {
   return err instanceof Error || err && /** @type {any} */

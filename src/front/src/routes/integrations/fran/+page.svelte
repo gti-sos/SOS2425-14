@@ -390,6 +390,202 @@
 		});
 	}
 
+	// API externa: Weather
+	let weatherDatasets = [];
+
+	async function getWeatherData() {
+		const cities = ['Sevilla', 'Madrid', 'Barcelona', 'Valencia', 'Bilbao'];
+		const apiKey = '55118ddd755b760e6675758a815cbb0d';
+
+		weatherDatasets = [];
+
+		for (const city of cities) {
+			try {
+				const res = await fetch(
+					`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+				);
+				const data = await res.json();
+
+				if (res.ok) {
+					weatherDatasets.push({
+						label: city,
+						data: [
+							{
+								x: data.main.temp,
+								y: data.main.humidity,
+								r: Math.max(3, data.wind.speed * 2)
+							}
+						],
+						backgroundColor: getColorForCity(city)
+					});
+				} else {
+					console.warn(`Error obteniendo datos para ${city}:`, data?.message);
+				}
+			} catch (err) {
+				console.error(`Error con ${city}:`, err);
+			}
+		}
+
+		renderWeatherChart();
+	}
+
+	function getColorForCity(city) {
+		const colors = {
+			Sevilla: '#FF6384',
+			Madrid: '#36A2EB',
+			Barcelona: '#FFCE56',
+			Valencia: '#4BC0C0',
+			Bilbao: '#9966FF'
+		};
+		return colors[city] || '#aaa';
+	}
+
+	// Render Graph Weather API
+	let weatherChartInstance;
+
+	function renderWeatherChart() {
+		const ctx = document.getElementById('externalChart')?.getContext('2d');
+		if (!ctx) return;
+
+		if (weatherChartInstance) {
+			weatherChartInstance.destroy();
+		}
+
+		weatherChartInstance = new Chart(ctx, {
+			type: 'bubble',
+			data: {
+				datasets: weatherDatasets
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: {
+							color: '#fff'
+						}
+					},
+					title: {
+						display: true,
+						text: 'Condiciones climáticas en ciudades de España',
+						color: '#fff',
+						font: {
+							size: 18,
+							weight: 'bold'
+						}
+					}
+				},
+				scales: {
+					x: {
+						title: {
+							display: true,
+							text: 'Temperatura (°C)',
+							color: '#fff'
+						},
+						ticks: { color: '#fff' }
+					},
+					y: {
+						title: {
+							display: true,
+							text: 'Humedad (%)',
+							color: '#fff'
+						},
+						ticks: { color: '#fff' }
+					}
+				}
+			}
+		});
+	}
+
+	// Llamada al proxy local de AEMET
+	let aemetData = [];
+
+	async function getAEMETData() {
+		loadingData = true;
+		errorMessage = '';
+
+		try {
+			const res = await fetch('/api/aemet'); // asumimos que tu +server.js está en esa ruta
+			if (!res.ok) throw new Error('Error al obtener los datos del servidor proxy');
+
+			const data = await res.json();
+			aemetData = data;
+			console.log(aemetData);
+			renderAEMETChart(aemetData);
+		} catch (error) {
+			console.error('Error cargando datos AEMET:', error);
+			errorMessage = 'No se pudieron cargar los datos AEMET.';
+		} finally {
+			loadingData = false;
+		}
+	}
+
+	// Render Grahp API AEMET
+	let chartAEMETInstance;
+
+	function renderAEMETChart(data) {
+		const temperaturas = data?.[0]?.prediccion?.dia?.[0]?.temperatura?.dato;
+
+		if (!temperaturas || !Array.isArray(temperaturas) || temperaturas.length === 0) {
+			console.warn('No hay datos de temperatura disponibles');
+			mensaje.textContent = 'No hay datos de temperatura disponibles.';
+			return;
+		}
+
+		const scatterData = temperaturas.map((t) => ({
+			x: Number(t.hora),
+			y: Number(t.value)
+		}));
+
+		const ctx = document.getElementById('aemetChart')?.getContext('2d');
+		if (!ctx) return;
+
+		if (chartAEMETInstance) {
+			chartAEMETInstance.destroy();
+			chartAEMETInstance = null;
+		}
+
+		chartAEMETInstance = new Chart(ctx, {
+			type: 'scatter',
+			data: {
+				datasets: [
+					{
+						label: 'Temperatura horaria (°C)',
+						data: scatterData,
+						backgroundColor: '#36A2EB'
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: { color: '#fff' }
+					},
+					title: {
+						display: true,
+						text: 'Temperatura Horaria en Sevilla',
+						color: '#fff',
+						font: { size: 20, weight: 'bold' }
+					}
+				},
+				scales: {
+					x: {
+						title: { display: true, text: 'Hora', color: '#fff' },
+						ticks: { color: '#fff' },
+						type: 'linear',
+						position: 'bottom'
+					},
+					y: {
+						title: { display: true, text: 'Temperatura (°C)', color: '#fff' },
+						ticks: { color: '#fff' }
+					}
+				}
+			}
+		});
+
+		mensaje.textContent = '';
+	}
+
 	//Esta funcion carga los scripts en vez de svelte:head
 	function loadScript(src) {
 		return new Promise((resolve, reject) => {
@@ -413,6 +609,8 @@
 			await get20Data();
 			await get12Data();
 			await get13Data();
+			await getWeatherData();
+			await getAEMETData();
 		} catch (error) {
 			errorMessage = `Error cargando scripts: ${error}`;
 			console.error(error);
@@ -443,7 +641,7 @@
 				</p>
 				<a style="color: #fff;" href={API_G15} target="_blank"><i>G15 - ocupied-grand-stats</i></a>
 				<figure class="chartjs-figure" transition:fade>
-                    {#if loadingData}
+					{#if loadingData}
 						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
 					{/if}
 					<canvas id="15Chart"></canvas>
@@ -463,7 +661,7 @@
 					><i>G20 - accidents-with-animals</i></a
 				>
 				<figure class="chartjs-figure" transition:fade>
-                    {#if loadingData}
+					{#if loadingData}
 						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
 					{/if}
 					<canvas id="20Chart"></canvas>
@@ -480,7 +678,7 @@
 				</p>
 				<a style="color: #fff;" href={API_G12} target="_blank"><i>G12 - annual-consumptions</i></a>
 				<figure class="chartjs-figure" transition:fade>
-                    {#if loadingData}
+					{#if loadingData}
 						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
 					{/if}
 					<canvas id="12Chart"></canvas>
@@ -501,6 +699,41 @@
 						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
 					{/if}
 					<canvas id="13Chart"></canvas>
+				</figure>
+			</div>
+			<div class="article" style="margin-top: 2em;">
+				<h3>Comparativa Climática de Varias Ciudades</h3>
+				<p>
+					Este gráfico de burbujas permite comparar en tiempo real la temperatura, humedad y
+					velocidad del viento en cinco ciudades españolas: Sevilla, Madrid, Barcelona, Valencia y
+					Bilbao.
+				</p>
+				<a style="color: #fff;" href="https://openweathermap.org/current" target="_blank">
+					<i>API externa - OpenWeatherMap</i>
+				</a>
+				<figure class="chartjs-figure" transition:fade>
+					<canvas id="externalChart"></canvas>
+				</figure>
+			</div>
+			<div class="article" style="margin-top: 0;">
+				<h3 style="font-size: 1.5em; text-transform: none;">
+					Temperatura Horaria en Sevilla (AEMET)
+				</h3>
+				<p>
+					Este gráfico de dispersión representa las temperaturas registradas en distintas horas del
+					día en Sevilla, según los datos proporcionados por la Agencia Estatal de Meteorología.
+					Permite visualizar cómo varía la temperatura a lo largo de la jornada.
+				</p>
+				<a
+					style="color: #fff;"
+					href="https://www.aemet.es/es/eltiempo/prediccion/municipios/sevilla-id41091"
+					target="_blank"
+				>
+					<i>AEMET - Predicción Sevilla</i>
+				</a>
+				<figure class="chartjs-figure" transition:fade>
+					<p id="mensaje" style="color: #fff; text-align: center; font-weight: bold;"></p>
+					<canvas id="aemetChart"></canvas>
 				</figure>
 			</div>
 		</div>

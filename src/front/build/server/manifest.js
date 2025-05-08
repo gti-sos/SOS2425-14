@@ -10,23 +10,23 @@ return {
 	assets: new Set(["favicon.png","images/crime_data.webp","images/enrollment_data.jpg","images/labor_data.jpg"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.DesKOMAM.js",app:"_app/immutable/entry/app.D6xSkRzG.js",imports:["_app/immutable/entry/start.DesKOMAM.js","_app/immutable/chunks/BSc2Qz-A.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js","_app/immutable/entry/app.D6xSkRzG.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/D1bc0aDY.js","_app/immutable/chunks/BgiXASfF.js","_app/immutable/chunks/D1Iy4rpg.js","_app/immutable/chunks/DoZVsEKz.js","_app/immutable/chunks/CiueXfto.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.Dc410l5O.js",app:"_app/immutable/entry/app.DO0IMGOa.js",imports:["_app/immutable/entry/start.Dc410l5O.js","_app/immutable/chunks/DFIZWy6Y.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js","_app/immutable/entry/app.DO0IMGOa.js","_app/immutable/chunks/CpQaROA0.js","_app/immutable/chunks/D1bc0aDY.js","_app/immutable/chunks/BgiXASfF.js","_app/immutable/chunks/D1Iy4rpg.js","_app/immutable/chunks/DoZVsEKz.js","_app/immutable/chunks/CiueXfto.js","_app/immutable/chunks/BGUR6pdq.js","_app/immutable/chunks/BXqaL1Zo.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-BX-PNIwj.js')),
-			__memo(() => import('./chunks/1-DSelo4LU.js')),
+			__memo(() => import('./chunks/0-BGNP0yKf.js')),
+			__memo(() => import('./chunks/1-DboVA5po.js')),
 			__memo(() => import('./chunks/2-BMGt7CPw.js')),
 			__memo(() => import('./chunks/3-Clar_Oxq.js')),
 			__memo(() => import('./chunks/4-2UqykP7G.js')),
-			__memo(() => import('./chunks/5-DW9k25hv.js')),
-			__memo(() => import('./chunks/6-jpP7KfyU.js')),
-			__memo(() => import('./chunks/7-Bct5SyYz.js')),
-			__memo(() => import('./chunks/8-731-exc6.js')),
+			__memo(() => import('./chunks/5-B2axqcNv.js')),
+			__memo(() => import('./chunks/6-DUqjVxPJ.js')),
+			__memo(() => import('./chunks/7-CwioVes8.js')),
+			__memo(() => import('./chunks/8-CjUzbPuq.js')),
 			__memo(() => import('./chunks/9-CIJA6Op-.js')),
-			__memo(() => import('./chunks/10-DMjsvgqn.js')),
-			__memo(() => import('./chunks/11-DXELLkL8.js')),
+			__memo(() => import('./chunks/10-SIYWsNTj.js')),
+			__memo(() => import('./chunks/11-D33XnSMg.js')),
 			__memo(() => import('./chunks/12-B3Gz_KYD.js')),
 			__memo(() => import('./chunks/13-BIivCd5L.js')),
-			__memo(() => import('./chunks/14-BljhCEv8.js')),
+			__memo(() => import('./chunks/14-Cat93MUj.js')),
 			__memo(() => import('./chunks/15-BDxRrAlk.js'))
 		],
 		routes: [
@@ -50,6 +50,13 @@ return {
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 4 },
 				endpoint: null
+			},
+			{
+				id: "/api/aemet",
+				pattern: /^\/api\/aemet\/?$/,
+				params: [],
+				page: null,
+				endpoint: __memo(() => import('./chunks/_server-DkPu3l0z.js'))
 			},
 			{
 				id: "/cybercrime",
