@@ -777,7 +777,7 @@
 				</figure>
 			</div>
 			<div class="article" style="margin-top: 2em;">
-				<h3>Comparativa Climática de Varias Ciudades</h3>
+				<h3 style="font-size: 1.5em; text-transform: none;">Comparativa Climática de Varias Ciudades (Weather)</h3>
 				<p>
 					Este gráfico de burbujas permite comparar en tiempo real la temperatura, humedad y
 					velocidad del viento en cinco ciudades españolas: Sevilla, Madrid, Barcelona, Valencia y
