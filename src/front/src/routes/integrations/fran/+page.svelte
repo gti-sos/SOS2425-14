@@ -395,38 +395,32 @@
 
 	async function getWeatherData() {
 		const cities = ['Sevilla', 'Madrid', 'Barcelona', 'Valencia', 'Bilbao'];
-		const apiKey = '55118ddd755b760e6675758a815cbb0d';
-
 		weatherDatasets = [];
 
-		for (const city of cities) {
-			try {
-				const res = await fetch(
-					`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-				);
-				const data = await res.json();
+		try {
+			const res = await fetch('/api/openweather');
+			if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
 
-				if (res.ok) {
-					weatherDatasets.push({
-						label: city,
-						data: [
-							{
-								x: data.main.temp,
-								y: data.main.humidity,
-								r: Math.max(3, data.wind.speed * 2)
-							}
-						],
-						backgroundColor: getColorForCity(city)
-					});
-				} else {
-					console.warn(`Error obteniendo datos para ${city}:`, data?.message);
-				}
-			} catch (err) {
-				console.error(`Error con ${city}:`, err);
+			const allData = await res.json();
+
+			for (const data of allData) {
+				weatherDatasets.push({
+					label: data.name,
+					data: [
+						{
+							x: data.main.temp,
+							y: data.main.humidity,
+							r: Math.max(3, data.wind.speed * 2)
+						}
+					],
+					backgroundColor: getColorForCity(data.name)
+				});
 			}
-		}
 
-		renderWeatherChart();
+			renderWeatherChart();
+		} catch (error) {
+			console.error('Error al obtener datos del clima:', error);
+		}
 	}
 
 	function getColorForCity(city) {
@@ -506,10 +500,8 @@
 		try {
 			const res = await fetch('/api/aemet'); // asumimos que tu +server.js está en esa ruta
 			if (!res.ok) throw new Error('Error al obtener los datos del servidor proxy');
-
 			const data = await res.json();
 			aemetData = data;
-			console.log(aemetData);
 			renderAEMETChart(aemetData);
 		} catch (error) {
 			console.error('Error cargando datos AEMET:', error);
@@ -586,6 +578,94 @@
 		mensaje.textContent = '';
 	}
 
+	// Fetch API externa: NASA proxy local
+	let nasaData = [];
+
+	async function getNASAData() {
+		const mensaje = document.getElementById('mensaje-nasa');
+		if (mensaje) mensaje.textContent = 'Cargando datos...';
+
+		try {
+			const res = await fetch('/api/nasa');
+			const data = await res.json();
+			nasaData = data;
+			renderNASAChart(nasaData);
+			if (mensaje) mensaje.textContent = '';
+		} catch (err) {
+			console.error('Error al obtener datos de NASA:', err);
+			if (mensaje) mensaje.textContent = 'Error al obtener datos de NASA.';
+		}
+	}
+
+	// Render Graph NASA
+	let chartNASAInstance;
+
+	function renderNASAChart(data) {
+		const topItems = data.slice(0, 5);
+
+		const labels = topItems.map((item) => item.title);
+		const descLengths = topItems.map((item) => item.explanation.length);
+
+		const ctx = document.getElementById('nasaChart')?.getContext('2d');
+		if (!ctx) return;
+
+		if (chartNASAInstance) {
+			chartNASAInstance.destroy();
+			chartNASAInstance = null;
+		}
+
+		chartNASAInstance = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels,
+				datasets: [
+					{
+						label: 'Longitud de la explicación',
+						data: descLengths,
+						backgroundColor: '#36A2EB'
+					}
+				]
+			},
+			options: {
+				indexAxis: 'y',
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: {
+							color: '#fff'
+						}
+					},
+					title: {
+						display: true,
+						text: 'Longitud de las descripciones en APOD (NASA)',
+						color: '#fff',
+						font: {
+							size: 20,
+							weight: 'bold'
+						}
+					}
+				},
+				scales: {
+					x: {
+						ticks: {
+							color: '#fff'
+						},
+						title: {
+							display: true,
+							text: 'Número de caracteres',
+							color: '#fff'
+						}
+					},
+					y: {
+						ticks: {
+							color: '#fff'
+						}
+					}
+				}
+			}
+		});
+	}
+
 	//Esta funcion carga los scripts en vez de svelte:head
 	function loadScript(src) {
 		return new Promise((resolve, reject) => {
@@ -611,6 +691,7 @@
 			await get13Data();
 			await getWeatherData();
 			await getAEMETData();
+			await getNASAData();
 		} catch (error) {
 			errorMessage = `Error cargando scripts: ${error}`;
 			console.error(error);
@@ -734,6 +815,23 @@
 				<figure class="chartjs-figure" transition:fade>
 					<p id="mensaje" style="color: #fff; text-align: center; font-weight: bold;"></p>
 					<canvas id="aemetChart"></canvas>
+				</figure>
+			</div>
+			<div class="article" style="margin-top: 0;">
+				<h3 style="font-size: 1.5em; text-transform: none;">
+					Comparativa de Descripciones en Publicaciones APOD (NASA)
+				</h3>
+				<p>
+					Este gráfico muestra la longitud de las descripciones en los resultados de imágenes y
+					vídeos de la NASA (Astronomy Picture of the Day), permitiendo una visión del nivel de
+					detalle en cada contenido.
+				</p>
+				<a style="color: #fff;" href="https://images-api.nasa.gov" target="_blank"
+					><i>NASA Images API</i></a
+				>
+				<figure class="chartjs-figure" transition:fade>
+					<p id="mensaje-nasa" style="color: white; text-align: center; margin-top: 1em;"></p>
+					<canvas id="nasaChart"></canvas>
 				</figure>
 			</div>
 		</div>
