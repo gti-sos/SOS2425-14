@@ -16,20 +16,14 @@
 	let loadingData = true;
 	let errorMessage = '';
 
-	// Fetch a API_G15
+	// Fetch a API_G15 proxy local
 	async function get15Data() {
 		loadingData = true;
 		errorMessage = '';
 
 		try {
 			console.log(`Solicitando datos a: ${API_G15}`);
-			const res = await fetch(API_G15, {
-				method: 'GET',
-				headers: {
-					Accept: 'application/json'
-				}
-			});
-
+			const res = await fetch('/api/g15');
 			if (!res.ok) {
 				throw new Error(`Error en la respuesta: ${res.status}`);
 			}
