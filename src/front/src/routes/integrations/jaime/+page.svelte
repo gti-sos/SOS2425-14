@@ -309,7 +309,7 @@
     }
 
     // Grafica widget grupo 18
-    function renderChart18() {
+    async function renderChart18() {
         // @ts-ignore
         console.log("Estructura de los primeros datos:", JSON.stringify(data18[0], null, 2));
         
@@ -416,138 +416,183 @@
         });
     }
 
-   
-    async function renderChart13() {
-        await tick(); 
-        const andaluciaData = {};
-        
-        // @ts-ignore
-        employmentDataG13.forEach(item => {
-        if (item.autonomous_community?.toLowerCase() === 'andalucía' && 
-            item.education_level === 'TOTAL') {
-            
-            const year = item.year.toString();
-            
-            // @ts-ignore
-            if (!andaluciaData[year]) {
-                // @ts-ignore
-                andaluciaData[year] = {
-                    activity_rate: null,
-                    project_count: null
-                };
-            }
-            // @ts-ignore
-            andaluciaData[year].activity_rate = item.activity_rate;
-        }
-        });
-        
-        // @ts-ignore
-        data13.forEach(item => {
-        if (item.autonomous_community?.toLowerCase() === 'andalucía' || 
-            item.autonomous_community?.toLowerCase() === 'andalucia') {
-            
-            const year = item.year.toString();
-            
-            // @ts-ignore
-            if (!andaluciaData[year]) {
-            // @ts-ignore
-            andaluciaData[year] = {
-                activity_rate: null,
-                project_count: null
-            };
-            }
-            // @ts-ignore
-            andaluciaData[year].project_count = item.project_count;
-        }
-        });
-        
-        // Preparar datos para el gráfico
-        const years = Object.keys(andaluciaData).sort();
-        // @ts-ignore
-        const activityRates = years.map(year => andaluciaData[year].activity_rate);
-        // @ts-ignore
-        const projectCounts = years.map(year => andaluciaData[year].project_count);
-        
-        const ctx = document.getElementById('andaluciaChart');
-        if (!ctx) {
-            console.error("No se encontró el canvas 'andaluciaChart'");
+    function renderChart17() {
+        if (!Array.isArray(data17) || data17.length === 0) {
+            errorMessage = "No hay datos disponibles de universidades para mostrar el gráfico.";
             return;
         }
 
-        console.log("Datos del gráfico:", activityRates, projectCounts);
-        // @ts-ignore
-        new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: years,
-            datasets: [
-            {
-                label: 'Tasa de Actividad (%)',
-                data: activityRates,
-                backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                borderColor: 'rgb(255, 99, 132)',
-                borderWidth: 1
+        const grouped = {};
+
+        data17.forEach(item => {
+            const name = item.degree || "Desconocido";
+            if (!grouped[name]) grouped[name] = 0;
+            grouped[name] += item.cohortStudents || 0;
+        });
+
+        const sortedEntries = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+        const topUniversities = sortedEntries.slice(0, 6);
+        const otherSum = sortedEntries.slice(6).reduce((acc, [, value]) => acc + value, 0);
+        if (otherSum > 0) topUniversities.push(['Otras', otherSum]);
+
+        // Generar el array requerido por C3.js
+        const columns = topUniversities.map(([label, value]) => [label, value]);
+
+        // Generar el gráfico
+        c3.generate({
+            bindto: '#chart17',
+            data: {
+                type: 'donut',
+                columns: columns
             },
-            {
-                label: 'Número de Proyectos',
-                data: projectCounts,
-                backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 1
-            }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Datos de Andalucía por Año',
-                    font: { weight: 'bold', size: 18 }
-                },
-                subtitle: {
-                    display: true,
-                    text: 'Fuente: API G13 y API Empleo'
-                }
+            donut: {
+                title: "Estudiantes por universidad"
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 10,
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            }
-        }
         });
     }
-    
-    async function renderChart10() {
-        loadingData = false;
+
+
+
+   
+    async function renderChart13() {
         await tick();
 
-        const ctx = document.getElementById('chart10');
-        if (!ctx) {
-            console.error("No se encontró el canvas 'chart10'");
+        const andaluciaData = {};
+
+        // Unificar datos por año
+        employmentDataG13.forEach(item => {
+            if (item.autonomous_community?.toLowerCase() === 'andalucía' && item.education_level === 'TOTAL') {
+                const year = item.year.toString();
+                if (!andaluciaData[year]) {
+                    andaluciaData[year] = { activity_rate: null, project_count: null };
+                }
+                andaluciaData[year].activity_rate = item.activity_rate;
+            }
+        });
+
+        data13.forEach(item => {
+            if (item.autonomous_community?.toLowerCase() === 'andalucía' || item.autonomous_community?.toLowerCase() === 'andalucia') {
+                const year = item.year.toString();
+                if (!andaluciaData[year]) {
+                    andaluciaData[year] = { activity_rate: null, project_count: null };
+                }
+                andaluciaData[year].project_count = item.project_count;
+            }
+        });
+
+        const years = Object.keys(andaluciaData).sort();
+
+        const activityRateSeries = ['Tasa de Actividad (%)'];
+        const projectCountSeries = ['Número de Proyectos'];
+
+        years.forEach(year => {
+            const data = andaluciaData[year];
+            activityRateSeries.push(data.activity_rate ?? 0);
+            projectCountSeries.push(data.project_count ?? 0);
+        });
+
+        // Renderizar el gráfico con c3.js
+        c3.generate({
+            bindto: '#andaluciaChart',
+            data: {
+                x: 'x',
+                columns: [
+                    ['x', ...years],
+                    activityRateSeries,
+                    projectCountSeries
+                ],
+                types: {
+                    'Tasa de Actividad (%)': 'area-spline',
+                    'Número de Proyectos': 'area-spline'
+                },
+                labels: true
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    label: 'Año'
+                },
+                y: {
+                    label: 'Valores'
+                }
+            },
+            title: {
+                text: 'Evolución de Proyectos y Tasa de Actividad en Andalucía'
+            },
+            legend: {
+                position: 'right'
+            }
+        });
+    }
+
+
+    function renderChart11() {
+        if (!Array.isArray(data11) || data11.length === 0) {
+            errorMessage = "No hay datos disponibles para mostrar el gráfico.";
             return;
         }
 
-        const context = /** @type {HTMLCanvasElement} */ (ctx).getContext('2d');
-        if (!context) {
-            console.error("No se pudo obtener el contexto 2D del canvas");
-            return;
-        }
+        const etiquetas = [...new Set(data11.map(d => `${d.place} ${d.year}`))];
 
+        const autonomia = ['Autonomía'];
+        const dependencia = ['Dependencia'];
+
+        etiquetas.forEach(label => {
+            const [place, year] = label.split(/ (?=\d{4}$)/);
+            const entry = data11.find(d => d.place === place && d.year.toString() === year);
+            autonomia.push(entry?.request || 0);
+            dependencia.push(entry?.dependent_population || 0);
+        });
+
+        c3.generate({
+            bindto: '#chart11',
+            data: {
+                x: 'x',
+                columns: [
+                    ['x', ...etiquetas],
+                    autonomia,
+                    dependencia
+                ],
+                type: 'bar',
+                labels: true
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    label: {
+                        text: 'Comunidad y Año',
+                        position: 'outer-center'
+                    },
+                    tick: {
+                        rotate: 45,
+                        multiline: false
+                    }
+                },
+                y: {
+                    label: {
+                        text: 'Solicitudes',
+                        position: 'outer-middle'
+                    }
+                }
+            },
+            title: {
+                text: 'Comparativa de Solicitudes de Autonomía y Dependencia por Comunidad Autónoma y Año'
+            },
+            legend: {
+                position: 'right'
+            },
+            tooltip: {
+                grouped: false
+            }
+        });
+    }
+
+    function renderChart10() {
         if (data10.length === 0 || employmentData.length === 0) {
             errorMessage = "No hay datos disponibles para mostrar el gráfico";
             return;
         }
 
-        // Mapa de normalización
         const normalizeCommunityNames = {
             "Madrid": "Madrid (Comunidad de)",
             "Navarra": "Navarra (Comunidad Foral de)"
@@ -557,8 +602,17 @@
             return normalizeCommunityNames[name] || name;
         }
 
-        const uniqueCommunities = [...new Set(data10.map(item => normalize(item.autonomousCommunity)))];
         const chartData = [];
+
+        const xs = {};
+        const columns = [
+            ['x'], // x-axis (multas)
+            ['Tasa de Paro (%)'] // y-axis
+        ];
+
+        const communities = [];
+
+        const uniqueCommunities = [...new Set(data10.map(item => normalize(item.autonomousCommunity)))];
 
         uniqueCommunities.forEach(community => {
             const totalComplaints = data10
@@ -572,68 +626,54 @@
             );
 
             if (unemploymentEntry) {
-                chartData.push({
-                    x: totalComplaints,
-                    y: unemploymentEntry.unemployment_rate,
-                    community
-                });
+                communities.push(community);
+                columns[0].push(totalComplaints);
+                columns[1].push(unemploymentEntry.unemployment_rate);
             }
         });
 
-        // Crear el gráfico
-        new Chart(context, {
-            type: 'scatter',
+        console.log("Datos:", columns);
+
+        c3.generate({
+            bindto: '#chart10',
             data: {
-                datasets: [{
-                    label: 'Tasa de paro vs. Número de multas por Comunidad',
-                    data: chartData,
-                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    pointRadius: 8,
-                    pointHoverRadius: 12
-                }]
+                xs: {
+                    'Tasa de Paro (%)': 'x'
+                },
+                columns: columns,
+                type: 'scatter',
+                labels: true
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const point = context.raw;
-                                return `${point.community}: ${point.x} multas, ${point.y}% paro`;
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Relación entre tasa de paro (2023) y número de multas por Comunidad Autónoma'
+            axis: {
+                x: {
+                    label: 'Número de multas',
+                    tick: {
+                        fit: false
                     }
                 },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Número de multas'
-                        },
-                        beginAtZero: true
+                y: {
+                    label: 'Tasa de paro (%)'
+                }
+            },
+            tooltip: {
+                format: {
+                    title: function (_, i) {
+                        return communities[i];
                     },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Tasa de paro (%)'
-                        },
-                        beginAtZero: true
+                    value: function (value, ratio, id) {
+                        return `${id === 'x' ? 'Multas' : 'Paro'}: ${value}`;
                     }
                 }
+            },
+            title: {
+                text: 'Relación entre tasa de paro (2023) y número de multas por Comunidad Autónoma'
+            },
+            legend: {
+                position: 'right'
             }
         });
-
-        console.log("Datos del gráfico:", chartData);
     }
+
 
 
     onMount(async () => {
@@ -643,11 +683,14 @@
             await loadScript('https://code.highcharts.com/modules/exporting.js');
             await loadScript('https://code.highcharts.com/modules/export-data.js');
             await loadScript('https://code.highcharts.com/modules/accessibility.js');
-            await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js');
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js');
 
             await getData18();
             await getDataG13();
             await getDataG10();
+            await getDataG17();
+            await getDataG11();
 
         } catch (err) {
             errorMessage = `Error cargando scripts de Highcharts: ${err}`;
@@ -661,6 +704,7 @@
 	<title>Integrations - Jaime Duffy Panés</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
 </svelte:head>
 
 <div class="wrapper">
@@ -671,21 +715,23 @@
             <!-- Widget G18-dana-grants-subsidies-stats -->
             <div class="article">
                 <h3 style="font-size: 1.5em; text-transform: none;">
-                    Distribución de ayudas DANA por municipios
+                    Widget: Distribución de ayudas DANA por municipios
                 </h3>
                 <p>
 					Este gráfico representa cómo se reparte la ayuda por la dana para cada municipio.
 				</p>
                 <a style="color: #fff;" href={API_G18} target="_blank"><i>G18-dana-grants-subsidies-stats</i></a>
-                <figure class="highcharts-figure">
-                    <div id="container"></div>
-                    {#if loadingData}
-                        <p>Cargando datos...</p>
-                    {/if}
-                    {#if errorMessage}
-                        <p style="color: red">{errorMessage}</p>
-                    {/if}
-                </figure>
+                <div class="chart-container">
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                        {#if loadingData}
+                            <p>Cargando datos...</p>
+                        {/if}
+                        {#if errorMessage}
+                            <p style="color: red">{errorMessage}</p>
+                        {/if}
+                    </figure>
+                </div>
             </div>
             <!-- Integración G10-radars-stats -->
             <div class="article">
@@ -702,12 +748,12 @@
                     <i>API: Datos de Empleo</i>
                 </a>
                 <div class="chart-container">
+                    <div id="chart10" style="max-width: 800px; margin: auto;"></div>
                     {#if loadingData}
-                      <div class="loading">Cargando datos...</div>
-                    {:else if errorMessage}
-                      <div class="error">{errorMessage}</div>
-                    {:else}
-                      <canvas id="chart10" width="800" height="400"></canvas>
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
                     {/if}
                 </div>                
             </div>
@@ -726,16 +772,57 @@
                     <i>API: Datos de Empleo</i>
                 </a>
                 <div class="chart-container">
+                    <div id="andaluciaChart" style="max-width: 700px; margin: auto;"></div>
                     {#if loadingData}
-                      <div class="loading">Cargando datos...</div>
-                    {:else if errorMessage}
-                      <div class="error">{errorMessage}</div>
-                    {:else}
-                      <canvas id="andaluciaChart" width="800" height="400"></canvas>
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
                     {/if}
                 </div>
             </div>
             <!-- Widget G17-university-academic-performance --> 
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Widget: Distribución de Estudiantes por Grado Universitario
+                </h3>
+                <p>
+                    Este gráfico en formato donut muestra la proporción de estudiantes matriculados en los distintos grados universitarios, destacando los seis con mayor volumen. Los grados restantes se agrupan en la categoría “Otras” para facilitar la visualización comparativa.
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G17} target="_blank">
+                    <i>G17-university-academic-performance</i>
+                </a>
+                <div class="chart-container">
+                    <div id="chart17" style="max-width: 600px; margin: auto;"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>
+            </div>
+            <!-- Widget G11-autonomy-dependence-applications --> 
+            <div class="article">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Widget: Comparativa de Solicitudes de Autonomía y Dependencia por Comunidad Autónoma
+                </h3>
+                <p>
+                    Este gráfico de barras muestra la comparación entre el número de solicitudes de autonomía y de dependencia realizadas por diferentes comunidades autónomas en los años 2023 y 2024. Permite visualizar la relación entre ambas necesidades sociales y observar la distribución geográfica del apoyo solicitado.
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_G11} target="_blank">
+                    <i>G11-autonomy-dependence-applications</i>
+                </a>
+                <div class="chart-container">
+                    <div id="chart11" style="max-width: 600px; margin: auto;"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>
+            </div>
             <!-- API EXTERNA PROXY -->
             <!-- API EXTERNA -->
             <!-- API EXTERNA -->
@@ -754,11 +841,36 @@
     border-radius: 10px;
     min-height: 400px;
 }
+.c3 text {
+  fill: black !important;
+}
 
-canvas {
-    display: block;
-    width: 100% !important;
-    height: auto !important;
+.c3-legend-item text {
+  fill: black !important;
+}
+
+.c3-tooltip {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #333;
+}
+
+.c3-axis path,
+.c3-axis line {
+  stroke: #555;
+}
+/* Fuerza texto de C3.js a negro */
+.c3-chart text,
+.c3-legend-item text,
+.c3-axis text {
+  fill: black !important;
+}
+
+/* Tooltips C3.js */
+.c3-tooltip {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #333;
 }
 
 </style>
