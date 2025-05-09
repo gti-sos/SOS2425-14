@@ -2,11 +2,19 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { dev } from '$app/environment';
+
+	let DEVEL_HOST = 'http://localhost:16078';
 
 	const API_G15 = 'https://sos2425-15.onrender.com/api/v1/ocupied-grand-stats/';
 	const API_G20 = 'https://sos2425-20.onrender.com/api/v1/accidents-with-animals';
 	const API_G12 = 'https://sos2425-12.onrender.com/api/v1/annual-consumptions';
 	const API_G13 = 'https://sos2425-13.onrender.com/api/v2/national-parks';
+
+	let API_EDUCATION = '/api/v1/education-data';
+	if (dev) {
+		API_EDUCATION = DEVEL_HOST + API_EDUCATION;
+	}
 
 	let data15 = [];
 	let data20 = [];
@@ -17,86 +25,98 @@
 	let errorMessage = '';
 
 	// Fetch a API_G15 proxy local
-	async function get15Data() {
+	async function get15AndEducationData() {
 		loadingData = true;
 		errorMessage = '';
 
 		try {
 			console.log(`Solicitando datos a: ${API_G15}`);
-			const res = await fetch('/api/g15');
-			if (!res.ok) {
-				throw new Error(`Error en la respuesta: ${res.status}`);
-			}
+			const resG15 = await fetch('/api/g15');
+			if (!resG15.ok) throw new Error('Error al obtener datos de G15');
+			const dataG15 = await resG15.json();
 
-			const data = await res.json();
-			data15 = data;
-			console.log(`Datos recibidos: ${data15.length} registros`);
+			console.log(`Solicitando datos a: ${API_EDUCATION}`);
+			const resEdu = await fetch(API_EDUCATION);
+			if (!resEdu.ok) throw new Error('Error al obtener datos de education-data');
+			const dataEdu = await resEdu.json();
 
-			render15Chart();
-		} catch (error) {
-			console.error(`ERROR al obtener datos de ${API_G15}: ${error}`);
-			errorMessage = `Error al cargar datos: ${error.message}`;
+			const year = 2021;
+			const provinciasSeleccionadas = ['cadiz', 'sevilla', 'granada'];
+
+			const combinedData = provinciasSeleccionadas.map((provincia) => {
+				const suelo = dataG15.find(
+					(r) => r.province.toLowerCase() === provincia && r.year === year
+				);
+
+				// FP media por comunidad autónoma según provincia
+				const comunidad =
+					provincia === 'cadiz' || provincia === 'sevilla' || provincia === 'granada'
+						? 'Andalucia'
+						: null;
+
+				const educ = dataEdu.find(
+					(r) => r.autonomous_community.toLowerCase() === comunidad.toLowerCase() && r.year === year
+				);
+
+				const fpRate = educ ? (educ.basic_fp + educ.middle_grade + educ.higher_grade) / 3 : 0;
+
+				return {
+					province: provincia,
+					x: suelo?.ground ?? 0,
+					y: suelo?.wooded ?? 0,
+					r: fpRate
+				};
+			});
+			console.log(`Datos recibidos: ${combinedData.length} registros`);
+			renderBubbleChart(combinedData);
+		} catch (err) {
+			console.error('Error combinando datos G15 + Education:', err);
+			errorMessage = 'No se pudieron cargar los datos integrados.';
 		} finally {
 			loadingData = false;
 		}
 	}
 
 	// Render de la grafica
-	let chart15Instance;
-	let selectedYear15 = 2021;
-	let selectedProvince15 = 'cadiz';
+	let chartG15EduInstance;
 
-	function render15Chart() {
-		const record = data15.find(
-			(r) =>
-				Number(r.year) === Number(selectedYear15) &&
-				r.province.toLowerCase() === selectedProvince15.toLowerCase()
-		);
-
-		if (!record) return;
-
-		const ctx = document.getElementById('15Chart')?.getContext('2d');
+	function renderBubbleChart(data) {
+		const ctx = document.getElementById('g15EduChart')?.getContext('2d');
 		if (!ctx) return;
 
-		if (chart15Instance) {
-			chart15Instance.destroy();
-			chart15Instance = null;
+		if (chartG15EduInstance) {
+			chartG15EduInstance.destroy();
+			chartG15EduInstance = null;
 		}
 
-		chart15Instance = new Chart(ctx, {
-			type: 'doughnut',
+		chartG15EduInstance = new Chart(ctx, {
+			type: 'bubble',
 			data: {
-				labels: ['Ground', 'Grass', 'Wooded', 'Non Agrarian Surface'],
-				datasets: [
-					{
-						label: `${record.province.toUpperCase()} - ${selectedYear15}`,
-						data: [
-							record.ground ?? 0,
-							record.grass ?? 0,
-							record.wooded ?? 0,
-							record.non_agrarian_surface ?? 0
-						],
-						backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0']
-					}
-				]
+				datasets: data.map((d) => ({
+					label: d.province.toUpperCase(),
+					data: [{ x: d.x, y: d.y, r: d.r }],
+					backgroundColor: 'rgba(255, 99, 132, 0.5)'
+				}))
 			},
 			options: {
 				responsive: true,
 				plugins: {
-					legend: {
-						labels: {
-							color: '#fff'
-						}
-					},
 					title: {
 						display: true,
-						text: 'Distribución del Uso del Suelo en Cádiz',
+						text: 'Relación entre Suelo y Tasa FP (2021)',
 						color: '#fff',
-						font: {
-							size: 20,
-							weight: 'bold',
-							family: 'Arial'
-						}
+						font: { size: 20, weight: 'bold' }
+					},
+					legend: { labels: { color: '#fff' } }
+				},
+				scales: {
+					x: {
+						title: { display: true, text: 'Superficie de Suelo (ground)', color: '#fff' },
+						ticks: { color: '#fff' }
+					},
+					y: {
+						title: { display: true, text: 'Superficie Arbolada (wooded)', color: '#fff' },
+						ticks: { color: '#fff' }
 					}
 				}
 			}
@@ -122,7 +142,6 @@
 			const data = await res.json();
 			data20 = data;
 			console.log(`Datos recibidos: ${data20.length} registros`);
-
 			render20Chart();
 		} catch (error) {
 			console.error(`ERROR al obtener datos de ${API_G20}: ${error}`);
@@ -192,103 +211,109 @@
 	}
 
 	//Fetch a API_G12
-	async function get12Data() {
-		loadingData = true;
+	async function get12AndEducationData() {
+		let loadingData = true;
 		errorMessage = '';
 
 		try {
+			// G12
 			console.log(`Solicitando datos a: ${API_G12}`);
-			const res = await fetch(API_G12, {
-				method: 'GET',
-				headers: { Accept: 'application/json' }
+			const resG12 = await fetch(API_G12);
+			if (!resG12.ok) throw new Error('Error al obtener datos de G12');
+			const dataG12Raw = await resG12.json();
+			// EDUCATION
+			console.log(`Solicitando datos a: ${API_EDUCATION}`);
+			const resEdu = await fetch(API_EDUCATION);
+			if (!resEdu.ok) throw new Error('Error al obtener datos de education-data');
+			const dataEduRaw = await resEdu.json();
+			// Año y comunidades seleccionadas
+			const year = 2021;
+			const comunidades = ['Andalucia', 'Madrid', 'Cataluña', 'Galicia', 'Comunitat Valenciana'];
+
+			const combinedData = comunidades.map((comunidad) => {
+				const g12 = dataG12Raw.find(
+					(r) => r.aacc.toLowerCase().includes(comunidad.toLowerCase()) && r.year === year
+				);
+
+				const edu = dataEduRaw.find(
+					(r) =>
+						r.autonomous_community.toLowerCase().includes(comunidad.toLowerCase()) &&
+						r.year === year
+				);
+				return {
+					comunidad,
+					consumo: g12?.total_consumption ?? 0,
+					tasaMatriculacion:
+						((edu?.basic_fp ?? 0) + (edu?.middle_grade ?? 0) + (edu?.higher_grade ?? 0)) * 10000
+				};
 			});
-
-			if (!res.ok) {
-				throw new Error(`Error en la respuesta: ${res.status}`);
-			}
-
-			const data = await res.json();
-			data12 = data;
-			console.log(`Datos recibidos: ${data12.length} registros`);
-
-			render12Chart();
-		} catch (error) {
-			console.error(`ERROR al obtener datos de ${API_G12}: ${error}`);
-			errorMessage = `Error al cargar datos: ${error.message}`;
+			console.log(`Datos recibidos: ${combinedData.length} registros`);
+			renderCombinedChart(combinedData);
+		} catch (err) {
+			console.error('Error integrando G12 + Education:', err);
+			errorMessage = 'Error cargando datos combinados.';
 		} finally {
 			loadingData = false;
 		}
 	}
 
 	// Render del Grafico
-	let chart12Instance;
-	let selectedYear12 = 2021;
-	let selectedCommunity12 = 'Andalucía';
+	let chartCombinedInstance;
 
-	function render12Chart() {
-		const record = data12.find(
-			(r) =>
-				Number(r.year) === Number(selectedYear12) &&
-				r.aacc.toLowerCase().includes(selectedCommunity12.toLowerCase())
-		);
-
-		if (!record) return;
-
-		const ctx = document.getElementById('12Chart')?.getContext('2d');
+	function renderCombinedChart(data) {
+		const ctx = document.getElementById('combinedChart')?.getContext('2d');
 		if (!ctx) return;
 
-		if (chart12Instance) {
-			chart12Instance.destroy();
-			chart12Instance = null;
+		if (chartCombinedInstance) {
+			chartCombinedInstance.destroy();
+			chartCombinedInstance = null;
 		}
 
-		chart12Instance = new Chart(ctx, {
-			type: 'radar',
+		const labels = data.map((d) => d.comunidad);
+		const consumos = data.map((d) => d.consumo);
+		const tasas = data.map((d) => d.tasaMatriculacion);
+
+		chartCombinedInstance = new Chart(ctx, {
+			type: 'bar',
 			data: {
-				labels: ['Electricidad', 'Gas', 'Otros'],
+				labels,
 				datasets: [
 					{
-						label: `${record.aacc} - ${selectedYear12}`,
-						data: [record.electricity ?? 0, record.gas ?? 0, record.other ?? 0],
-						backgroundColor: 'rgba(54, 162, 235, 0.2)',
-						borderColor: '#36A2EB',
-						pointBackgroundColor: '#fff',
-						pointBorderColor: '#36A2EB'
+						label: 'Consumo Energético (MWh)',
+						data: consumos,
+						backgroundColor: 'rgba(75, 192, 192, 0.6)',
+						yAxisID: 'y'
+					},
+					{
+						label: 'Tasa de Matriculación en FP (esc. ×10⁴)',
+						data: tasas,
+						backgroundColor: 'rgba(255, 99, 132, 0.6)',
+						yAxisID: 'y1'
 					}
 				]
 			},
 			options: {
 				responsive: true,
 				plugins: {
-					legend: {
-						labels: { color: '#fff' }
-					},
+					legend: { labels: { color: '#fff' } },
 					title: {
 						display: true,
-						text: 'Distribución del Consumo Energético',
+						text: 'Consumo Energético vs Tasa de Matriculación en FP (2021)',
 						color: '#fff',
-						font: {
-							size: 20,
-							weight: 'bold',
-							family: 'Arial'
-						}
+						font: { size: 20 }
 					}
 				},
 				scales: {
-					r: {
-						pointLabels: {
-							color: '#fff'
-						},
-						grid: {
-							color: 'rgba(255,255,255,0.2)'
-						},
-						angleLines: {
-							color: 'rgba(255,255,255,0.2)'
-						},
-						ticks: {
-							color: '#fff',
-							beginAtZero: true
-						}
+					y: {
+						type: 'linear',
+						position: 'left',
+						ticks: { color: '#fff' }
+					},
+					y1: {
+						type: 'linear',
+						position: 'right',
+						grid: { drawOnChartArea: false },
+						ticks: { color: '#fff' }
 					}
 				}
 			}
@@ -392,6 +417,7 @@
 		weatherDatasets = [];
 
 		try {
+			console.log(`Solicitando datos a: /api/openweather`);
 			const res = await fetch('/api/openweather');
 			if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
 
@@ -410,7 +436,7 @@
 					backgroundColor: getColorForCity(data.name)
 				});
 			}
-
+			console.log(`Datos recibidos: ${weatherDatasets.length} registros`);
 			renderWeatherChart();
 		} catch (error) {
 			console.error('Error al obtener datos del clima:', error);
@@ -492,10 +518,12 @@
 		errorMessage = '';
 
 		try {
-			const res = await fetch('/api/aemet'); // asumimos que tu +server.js está en esa ruta
+			console.log(`Solicitando datos a: /api/aemet`);
+			const res = await fetch('/api/aemet');
 			if (!res.ok) throw new Error('Error al obtener los datos del servidor proxy');
 			const data = await res.json();
 			aemetData = data;
+			console.log(`Datos recibidos: ${aemetData.length} registros`);
 			renderAEMETChart(aemetData);
 		} catch (error) {
 			console.error('Error cargando datos AEMET:', error);
@@ -580,9 +608,11 @@
 		if (mensaje) mensaje.textContent = 'Cargando datos...';
 
 		try {
+			console.log(`Solicitando datos a: /api/nasa`);
 			const res = await fetch('/api/nasa');
 			const data = await res.json();
 			nasaData = data;
+			console.log(`Datos recibidos: ${nasaData.length} registros`);
 			renderNASAChart(nasaData);
 			if (mensaje) mensaje.textContent = '';
 		} catch (err) {
@@ -679,9 +709,9 @@
 			// Charts.js
 			await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
 
-			await get15Data();
+			await get15AndEducationData();
 			await get20Data();
-			await get12Data();
+			await get12AndEducationData();
 			await get13Data();
 			await getWeatherData();
 			await getAEMETData();
@@ -706,20 +736,21 @@
 		<div transition:fade={{ duration: 400 }}>
 			<div class="article" style="margin-top: 0;">
 				<h3 style="font-size: 1.5em; text-transform: none;">
-					Distribución del Uso del Suelo en Cádiz
+					Relación entre Uso del Suelo y Formación Profesional (2021)
 				</h3>
 				<p>
-					Este gráfico representa cómo se reparte la superficie de la provincia de Cádiz entre
-					distintos usos del suelo: superficie cultivada, pastos, terreno forestal y superficie no
-					agraria. La visualización permite observar de forma clara qué tipo de aprovechamiento
-					predomina en el territorio durante el año seleccionado.
+					Este gráfico tipo burbuja relaciona el uso del suelo (suelo desnudo y superficie arbolada) con 
+					la tasa media de matriculación en Formación Profesional en provincias seleccionadas de Andalucía.
+					El eje X representa la superficie de suelo, el eje Y la superficie arbolada y el tamaño de cada burbuja
+					indica la tasa de FP promedio.
 				</p>
 				<a style="color: #fff;" href={API_G15} target="_blank"><i>G15 - ocupied-grand-stats</i></a>
+				<a style="color: #fff; margin-left:1em;" href={API_EDUCATION} target="_blank"><i> G14-education-data</i></a>
 				<figure class="chartjs-figure" transition:fade>
 					{#if loadingData}
 						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
 					{/if}
-					<canvas id="15Chart"></canvas>
+					<canvas id="g15EduChart"></canvas>
 				</figure>
 			</div>
 			<div class="article" style="margin-top: 1em;">
@@ -742,21 +773,22 @@
 					<canvas id="20Chart"></canvas>
 				</figure>
 			</div>
-			<div class="article" style="margin-top: 0;">
-				<h3 style="font-size: 1.5em; text-transform: none;">
-					Distribución del Consumo Energético por Fuente
-				</h3>
+			<div class="article">
+				<h3 style="font-size: 1.5em;">Consumo Energético vs Tasa de Matriculación en FP (2021)</h3>
 				<p>
-					Este gráfico radar muestra cómo se reparte el consumo energético entre electricidad, gas y
-					otras fuentes en Andalucía durante el año 2021. Esta visualización permite comparar
-					fácilmente las prioridades energéticas regionales y su evolución temporal.
+					Este gráfico compara el consumo total de energía en distintas comunidades autónomas con la
+					tasa de matriculación en Formación Profesional. Permite observar si existe alguna relación
+					entre desarrollo energético y acceso a estudios técnicos.
 				</p>
 				<a style="color: #fff;" href={API_G12} target="_blank"><i>G12 - annual-consumptions</i></a>
+				<a style="color: #fff; margin-left:1em;" href={API_EDUCATION} target="_blank"><i> G14-education-data</i></a>
 				<figure class="chartjs-figure" transition:fade>
 					{#if loadingData}
-						<p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
+						<p style="color: #fff; text-align: center; font-weight: bold;">
+							Cargando datos combinados...
+						</p>
 					{/if}
-					<canvas id="12Chart"></canvas>
+					<canvas id="combinedChart"></canvas>
 				</figure>
 			</div>
 			<div class="article" style="margin-top: 0;">
@@ -777,7 +809,9 @@
 				</figure>
 			</div>
 			<div class="article" style="margin-top: 2em;">
-				<h3 style="font-size: 1.5em; text-transform: none;">Comparativa Climática de Varias Ciudades (Weather)</h3>
+				<h3 style="font-size: 1.5em; text-transform: none;">
+					Comparativa Climática de Varias Ciudades (Weather)
+				</h3>
 				<p>
 					Este gráfico de burbujas permite comparar en tiempo real la temperatura, humedad y
 					velocidad del viento en cinco ciudades españolas: Sevilla, Madrid, Barcelona, Valencia y
