@@ -5,7 +5,7 @@
 	import { fade } from 'svelte/transition';
 
 	let DEVEL_HOST = 'http://localhost:16078';
-	let BASE_API = '/api/v1/education-data';
+	let BASE_API = '/api/v1/cybercrime-data';
 
 	if (dev) {
 		BASE_API = DEVEL_HOST + BASE_API;
@@ -68,7 +68,7 @@
 			myData = data;
 			console.log(`Datos recibidos: ${myData.length} registros para ${selectedCommunity}`);
 
-			// Extraer años y niveles educativos únicos
+			// Extraer años y niveles de cibercriminalidad únicos
 			years = [...new Set(myData.map((item) => item.year))].sort();
 
 			renderChart();
@@ -87,15 +87,15 @@
 			return;
 		}
 
-		const basic = [];
-		const middle = [];
-		const higher = [];
+		const criminal_ofense = [];
+		const cybercrime = [];
+		const arrested_investigated = [];
 
 		years.forEach((year) => {
 			const record = myData.find((r) => String(r.year) === String(year));
-			basic.push(record?.basic_fp ?? 0);
-			middle.push(record?.middle_grade ?? 0);
-			higher.push(record?.higher_grade ?? 0);
+			criminal_ofense.push(record?.criminal_ofense ?? 0);
+			cybercrime.push(record?.cybercrime ?? 0);
+			arrested_investigated.push(record?.arrested_investigated ?? 0);
 		});
 
 		const ctx = document.getElementById('pieChart')?.getContext('2d');
@@ -108,7 +108,7 @@
 				labels: ['FP Básica', 'Grado Medio', 'Grado Superior'],
 				datasets: [
 					{
-						data: [basic[0], middle[0], higher[0]], // Usar los datos del primer año
+						data: [criminal_ofense[0], cybercrime[0], arrested_investigated[0]], // Usar los datos del primer año
 						backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
 					}
 				]
@@ -123,7 +123,7 @@
 					},
 					title: {
 						display: true,
-						text: 'Distribución de Matrículas por Nivel Educativo',
+						text: 'Distribución de Matrículas por Nivel de Cibercriminalidad',
 						color: '#fff',
 						font: {
 							size: 20,
@@ -164,14 +164,14 @@
 </script>
 
 <svelte:head>
-	<title>Gráficas - Datos de Educación</title>
+	<title>Gráficas - Datos de Cibercriminalidad</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
 <div class="wrapper">
 	<div class="container">
-		<h2>Gráficas de Datos de Educación</h2>
+		<h2>Gráficas de Datos de Cibercriminalidad</h2>
 		<hr style="width: 55em; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
 
 		<!-- Selector de comunidad -->
@@ -194,10 +194,10 @@
 			<div transition:fade={{ duration: 400 }}>
 				<div class="article">
 					<h3 style="font-size: 1.5em; text-transform: none;">
-						Distribución de Matrículas por Nivel Educativo
+						Distribución de Matrículas por Nivel de Cibercriminalidad
 					</h3>
 					<p>
-						Visualiza la distribución de las matrículas en los diferentes niveles educativos
+						Visualiza la distribución de las matrículas en los diferentes niveles de Cibercriminalidad
 						(Básica, Grado Medio, Grado Superior) para la comunidad autónoma seleccionada.
 					</p>
 					<br />
