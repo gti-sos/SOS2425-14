@@ -224,7 +224,7 @@
 	</div>
 </div>
 
-<style>
+<style> 
 	.chartjs-figure {
 		min-width: 45em;
 		max-width: 45em;
@@ -233,5 +233,6 @@
 		padding: 1em;
 		background: #052a42;
 		border-radius: 10px;
-	}
-</style>
+	} 
+</style> 
+ 
