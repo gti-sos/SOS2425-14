@@ -192,10 +192,10 @@ async function getFinesAndCybercrimeData() {
 }
 
 // Render gráfico combinado para G20 (Fines vs Cybercrime)
-function renderCombinedChartG20(data) {
+function renderScatterChart(data) {
     Highcharts.chart('combinedChart', {
         chart: {
-            type: 'bar',
+            type: 'scatter', // Tipo 'scatter' para gráfico de dispersión
             backgroundColor: '#052a42', // Fondo oscuro
         },
         title: {
@@ -248,27 +248,18 @@ function renderCombinedChartG20(data) {
             opposite: true
         }],
         tooltip: {
-            pointFormat: 'Infracciones: {point.y} mm, Delitos Cibernéticos: {point.r}',
+            pointFormat: 'Infracciones: {point.y}, Delitos Cibernéticos: {point.r}',
             style: {
                 color: '#fff'
             }
         },
         series: [{
             name: 'Infracciones',
-            data: data.map(d => d.fines),
+            data: data.map(d => [d.fines, d.cybercrime]), // Usando el gráfico de dispersión
             color: '#36a2eb',
-            dataLabels: {
-                enabled: true,
-                format: '{point.y} ',
-                style: {
-                    color: '#fff',
-                    fontWeight: 'bold'
-                }
-            }
-        }, {
-            name: 'Delitos Cibernéticos',
-            data: data.map(d => d.cybercrime),
-            color: '#ff6384',
+            marker: {
+                radius: 8 // Tamaño de los puntos
+            },
             dataLabels: {
                 enabled: true,
                 format: '{point.y} ',
@@ -285,6 +276,7 @@ function renderCombinedChartG20(data) {
         }
     });
 }
+
 
 // Esta función carga los scripts en vez de svelte:head
 function loadScript(src) {
