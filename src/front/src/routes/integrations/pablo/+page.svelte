@@ -62,36 +62,78 @@
     }
 
     // Render de la gráfica de Precipitación vs Criminalidad (Gráfico de Columnas)
-    function renderColumnChart(data) {
-        Highcharts.chart('g15CrimeChart', {
-            chart: {
-                type: 'column'
+function renderColumnChart(data) {
+    Highcharts.chart('g15CrimeChart', {
+        chart: {
+            type: 'column',
+            backgroundColor: '#052a42', // Fondo oscuro
+        },
+        title: {
+            text: 'Relación entre Precipitación y Cibercriminalidad (2020)',
+            style: { 
+                color: '#fff', 
+                fontWeight: 'bold' 
+            }
+        },
+        xAxis: {
+            categories: data.map(d => d.province),
+            title: { 
+                text: 'Provincias', 
+                style: { 
+                    color: '#fff' 
+                } 
             },
-            title: {
-                text: 'Relación entre Precipitación y Cibercriminalidad (2020)',
-                style: { color: '#fff', fontWeight: 'bold' }
+            labels: { 
+                style: { 
+                    color: '#fff' 
+                } 
             },
-            xAxis: {
-                categories: data.map(d => d.province),
-                title: { text: 'Provincias', style: { color: '#fff' } },
-                labels: { style: { color: '#fff' } }
+        },
+        yAxis: {
+            min: 0,
+            title: { 
+                text: 'Precipitación Anual (mm)', 
+                style: { 
+                    color: '#fff' 
+                } 
             },
-            yAxis: {
-                min: 0,
-                title: { text: 'Precipitación Anual (mm)', style: { color: '#fff' } },
-                labels: { style: { color: '#fff' } }
-            },
-            tooltip: {
-                pointFormat: 'Precipitación: {point.y} mm, Tasa de Cibercriminalidad: {point.r}'
-            },
-            series: [{
-                name: 'Provincias',
-                data: data.map(d => ({ name: d.province, y: d.x, r: d.r })),
-                color: '#36a2eb'
-            }],
-            legend: { itemStyle: { color: '#fff' } }
-        });
-    }
+            labels: { 
+                style: { 
+                    color: '#fff' 
+                } 
+            }
+        },
+        tooltip: {
+            pointFormat: 'Precipitación: {point.y} mm, Tasa de Cibercriminalidad: {point.r}',
+            style: {
+                color: '#fff'
+            }
+        },
+        series: [{
+            name: 'Provincias',
+            data: data.map(d => ({ 
+                name: d.province, 
+                y: d.x, 
+                r: d.r 
+            })),
+            color: '#36a2eb',
+            dataLabels: {
+                enabled: true, // Habilitar las etiquetas
+                format: '{point.y} mm', // Mostrar el valor de la precipitación en cada barra
+                style: {
+                    color: '#fff',
+                    fontWeight: 'bold'
+                }
+            }
+        }],
+        legend: { 
+            itemStyle: { 
+                color: '#fff' 
+            }
+        }
+    });
+}
+
 
     // Esta función carga los scripts en vez de svelte:head
     function loadScript(src) {
