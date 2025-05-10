@@ -43,8 +43,8 @@
 	];
 
 	let selectedBarYear = '';
-
 	let selectedCommunity = '';
+
 	// Función que se ejecuta cuando se cambia la comunidad seleccionada
 	function handleCommunityChange() {
 		errorMessage = '';
@@ -74,7 +74,7 @@
 			years = [...new Set(myData.map((item) => item.year))].sort();
 
 			renderChart();
-			renderBarChart();
+			renderBarChart(); // Añadido para renderizar el gráfico de barras
 		} catch (error) {
 			console.error(`ERROR al obtener datos de ${API}: ${error}`);
 			// @ts-ignore
@@ -103,7 +103,7 @@
 
 		Highcharts.chart('container', {
 			chart: {
-				type: 'column',
+				type: 'area', // Cambiar el tipo de gráfico a 'area'
 				backgroundColor: '#052a42',
 				spacing: [30, 25, 30, 25]
 			},
@@ -128,9 +128,7 @@
 					text: 'Número de Delitos',
 					style: { color: '#fff', fontWeight: '800' }
 				},
-				labels: {
-					style: { color: '#fff' }
-				},
+				labels: { style: { color: '#fff' } },
 				gridLineColor: '#ffffff33'
 			},
 			xAxis: {
@@ -139,63 +137,39 @@
 					text: 'AÑO',
 					style: { color: '#fff', fontWeight: '800' }
 				},
-				labels: {
-					style: { color: '#fff' }
-				}
+				labels: { style: { color: '#fff' } }
 			},
 			legend: {
 				layout: 'vertical',
 				align: 'right',
 				verticalAlign: 'middle',
-				itemStyle: {
-					color: '#fff'
-				}
+				itemStyle: { color: '#fff' }
 			},
 			plotOptions: {
 				area: {
 					fillOpacity: 0.5,
-					marker: {
-						enabled: false
-					}
+					marker: { enabled: false }
 				},
 				series: {
-					label: {
-						connectorAllowed: false
-					}
+					label: { connectorAllowed: false }
 				}
 			},
 			series: [
-				{
-					name: 'FP Básica',
-					data: criminalOfense,
-					color: '#36A2EB'
-				},
-				{
-					name: 'Grado Medio',
-					data: cybersecurity,
-					color: '#FFCE56'
-				},
-				{
-					name: 'Grado Superior',
-					data: arrestedInvestigated,
-					color: '#FF6384'
-				}
+				{ name: 'Ofensa criminal', data: criminalOfense, color: '#36A2EB' },
+				{ name: 'Ciberseguridad', data: cybersecurity, color: '#FFCE56' },
+				{ name: 'Investigados Arrestados', data: arrestedInvestigated, color: '#FF6384' }
 			],
 			responsive: {
-				rules: [
-					{
-						condition: {
-							maxWidth: 500
-						},
-						chartOptions: {
-							legend: {
-								layout: 'horizontal',
-								align: 'center',
-								verticalAlign: 'bottom'
-							}
+				rules: [{
+					condition: { maxWidth: 500 },
+					chartOptions: {
+						legend: {
+							layout: 'horizontal',
+							align: 'center',
+							verticalAlign: 'bottom'
 						}
 					}
-				]
+				}]
 			}
 		});
 	}
@@ -218,63 +192,37 @@
 		}
 
 		barChartInstance = new Chart(ctx, {
-			type: 'bar',
+			type: 'pie', // Cambiar a tipo 'pie' (gráfico circular)
 			data: {
 				labels: ['Ofensa Criminal', 'Ciberseguridad', 'Investigados arrestados'],
-				datasets: [
-					{
-						label: `${selectedCommunity} - ${yearToShow}`,
-						data: [record.criminal_ofense ?? 0, record.cybersecurity ?? 0, record.arrested_investigated ?? 0],
-						backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384']
-					}
-				]
+				datasets: [{
+					label: `${selectedCommunity} - ${yearToShow}`,
+					data: [record.criminal_ofense ?? 0, record.cybersecurity ?? 0, record.arrested_investigated ?? 0],
+					backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384']
+				}]
 			},
 			options: {
 				responsive: true,
 				plugins: {
 					legend: {
-						labels: {
-							color: '#fff'
-						}
+						labels: { color: '#fff' }
 					},
 					title: {
 						display: true,
-						text: 'Distribución de delitos por tipo de delito',
+						text: 'Distribución de delitos por nivel de cibercriminalidad',
 						color: '#fff',
-						font: {
-							size: 20,
-							weight: 'bold',
-							family: 'Arial'
-						}
+						font: { size: 20, weight: 'bold', family: 'Arial' }
 					}
 				},
 				scales: {
-					x: {
-						ticks: {
-							color: '#fff'
-						},
-						title: {
-							display: true,
-							text: 'Nivel de cibercriminalidad',
-							color: '#fff'
-						}
-					},
-					y: {
-						ticks: {
-							color: '#fff'
-						},
-						title: {
-							display: true,
-							text: 'Número de Delitos',
-							color: '#fff'
-						}
-					}
+					x: { ticks: { color: '#fff' }, title: { display: true, text: 'Nivel de cibercriminalidad', color: '#fff' } },
+					y: { ticks: { color: '#fff' }, title: { display: true, text: 'Número de Delitos', color: '#fff' } }
 				}
 			}
 		});
 	}
 
-	//Esta funcion carga los scripts en vez de svelte:head
+	// Esta función carga los scripts en vez de svelte:head
 	// @ts-ignore
 	function loadScript(src) {
 		return new Promise((resolve, reject) => {
@@ -304,7 +252,7 @@
 
 			await getData();
 		} catch (error) {
-			errorMessage = `Error cargando scripts de HighCharts: ${err}`;
+			errorMessage = `Error cargando scripts de HighCharts: ${error}`;
 			console.error(error);
 		}
 	});
@@ -366,7 +314,7 @@
 						Distribución de delitos por nivel de cibercriminalidad en el año seleccionado
 					</h3>
 					<p>
-						Compara el número de delitos en los distintos tipos de de cibercriminalidad
+						Compara el número de delitos en los distintos tipos de cibercriminalidad
 						durante un año específico en la comunidad autónoma seleccionada, permitiendo analizar la
 						distribución entre Ofensas criminales, ciberseguridad y Investigados arrestado.
 					</p>
