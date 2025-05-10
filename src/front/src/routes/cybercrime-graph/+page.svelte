@@ -88,13 +88,13 @@
 		}
 
 		const criminal_ofense = [];
-		const cybercrime = [];
+		const cybersecurity = [];
 		const arrested_investigated = [];
 
 		years.forEach((year) => {
 			const record = myData.find((r) => String(r.year) === String(year));
 			criminal_ofense.push(record?.criminal_ofense ?? 0);
-			cybercrime.push(record?.cybercrime ?? 0);
+			cybersecurity.push(record?.cybersecurity ?? 0);
 			arrested_investigated.push(record?.arrested_investigated ?? 0);
 		});
 
@@ -105,10 +105,10 @@
 		new Chart(ctx, {
 			type: 'pie',
 			data: {
-				labels: ['FP Básica', 'Grado Medio', 'Grado Superior'],
+				labels: ['Ofensa criminal', 'Ciberseguridad', 'Investigados arrestados'],
 				datasets: [
 					{
-						data: [criminal_ofense[0], cybercrime[0], arrested_investigated[0]], // Usar los datos del primer año
+						data: [criminal_ofense[0], cybersecurity[0], arrested_investigated[0]], // Usar los datos del primer año
 						backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384'],
 					}
 				]
@@ -123,7 +123,7 @@
 					},
 					title: {
 						display: true,
-						text: 'Distribución de Matrículas por Nivel de Cibercriminalidad',
+						text: 'Distribución de Delitos por Nivel de Cibercriminalidad',
 						color: '#fff',
 						font: {
 							size: 20,
@@ -194,11 +194,11 @@
 			<div transition:fade={{ duration: 400 }}>
 				<div class="article">
 					<h3 style="font-size: 1.5em; text-transform: none;">
-						Distribución de Matrículas por Nivel de Cibercriminalidad
+						Distribución de Delitos por Nivel de Cibercriminalidad
 					</h3>
 					<p>
-						Visualiza la distribución de las matrículas en los diferentes niveles de Cibercriminalidad
-						(Básica, Grado Medio, Grado Superior) para la comunidad autónoma seleccionada.
+						Visualiza la distribución de las delitos en los diferentes niveles de Cibercriminalidad
+						(Ofensa criminal,Ciberseguridad,Investigados arrestados) para la comunidad autónoma seleccionada.
 					</p>
 					<br />
 					<figure class="chartjs-figure">
