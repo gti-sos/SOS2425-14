@@ -160,7 +160,7 @@ async function getFinesAndCybercrimeData() {
 
         // Año y comunidades seleccionadas
         const year = 2023;
-        const comunidades = ['Madrid', 'Andalucia']; // Comunidades seleccionadas
+        const comunidades = ['Madrid']; // Comunidades seleccionadas
 
         const combinedData = comunidades.map((comunidad) => {
             // Buscar el año y comunidad correspondiente en los datos de tu compañero
@@ -182,7 +182,7 @@ async function getFinesAndCybercrimeData() {
         });
 
         console.log(`Datos combinados: ${combinedData.length} registros`);
-        renderCombinedChartG20(combinedData); // Llamamos a la función para renderizar la gráfica
+        renderCombinedChart(combinedData); // Llamamos a la función para renderizar la gráfica
     } catch (err) {
         console.error('Error al combinar datos de fines y cybercrime:', err);
         errorMessage = 'Error cargando los datos combinados.';
@@ -192,99 +192,182 @@ async function getFinesAndCybercrimeData() {
 }
 
 // Render gráfico combinado para G20 (Fines vs Cybercrime)
-function renderCombinedChartG20(data) {
-    Highcharts.chart('combinedChart', {
-        chart: {
-            type: 'bar',
-            backgroundColor: '#052a42', // Fondo oscuro
-        },
-        title: {
-            text: 'Infracciones vs Delitos Cibernéticos por Comunidad (2023)',
-            style: { 
-                color: '#fff', 
-                fontWeight: 'bold' 
-            }
-        },
-        xAxis: {
-            categories: data.map(d => d.comunidad),
-            title: { 
-                text: 'Comunidades', 
-                style: { 
-                    color: '#fff' 
-                } 
+    function renderCombinedChart(data) {
+        Highcharts.chart('combinedChart', {
+            chart: {
+                type: 'bar',
+                backgroundColor: '#052a42'
             },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-        },
-        yAxis: [{
-            min: 0,
-            title: { 
-                text: 'Infracciones (Fines)', 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
-            }
-        }, {
-            min: 0,
-            title: { 
-                text: 'Delitos Cibernéticos (Cybercrime)', 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-            opposite: true
-        }],
-        tooltip: {
-            pointFormat: 'Infracciones: {point.y} mm, Delitos Cibernéticos: {point.r}',
-            style: {
-                color: '#fff'
-            }
-        },
-        series: [{
-            name: 'Infracciones',
-            data: data.map(d => d.fines),
-            color: '#36a2eb',
-            dataLabels: {
-                enabled: true,
-                format: '{point.y} ',
+            title: {
+                text: 'Infracciones ITV vs Cibercrimen en Madrid (2023)',
                 style: {
                     color: '#fff',
                     fontWeight: 'bold'
                 }
-            }
-        }, {
-            name: 'Delitos Cibernéticos',
-            data: data.map(d => d.cybercrime),
-            color: '#ff6384',
-            dataLabels: {
-                enabled: true,
-                format: '{point.y} ',
+            },
+            xAxis: {
+                categories: ['Madrid'],
+                title: {
+                    text: null
+                },
+                labels: {
+                    style: { color: '#fff' }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad',
+                    style: { color: '#fff' }
+                },
+                labels: {
+                    style: { color: '#fff' }
+                }
+            },
+            legend: {
+                reversed: true,
+                itemStyle: {
+                    color: '#fff'
+                }
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            color: '#fff',
+                            fontWeight: 'bold'
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                shared: true,
                 style: {
-                    color: '#fff',
-                    fontWeight: 'bold'
+                    color: '#fff'
+                }
+            },
+            series: [{
+                name: 'Cibercrimen',
+                data: data.map(d => d.cybercrime),
+                color: '#ff6384'
+            }, {
+                name: 'Infracciones ITV',
+                data: data.map(d => d.fines),
+                color: '#36a2eb'
+            }]
+        });
+    }
+
+
+//API EXTERNA: news api
+    let newsDatasets = [];
+
+    async function getNewsData() {
+        // Ciudades o temas que quieras investigar, como en el clima pero con categorías o fuentes para las noticias
+        const categories = ['business', 'technology', 'sports', 'entertainment', 'health'];
+        newsDatasets = [];
+
+        try {
+            console.log(`Solicitando datos a: /api/newsapi`);
+            const res = await fetch('/api/newsapi');  // Aquí debería ir la llamada al servidor proxy
+            if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
+
+            const allData = await res.json();
+
+            for (const categoryGroup of allData) {
+                for (const article of categoryGroup.articles) {
+                    newsDatasets.push({
+                        label: article.title,
+                        data: [
+                            {
+                                x: Math.random() * 100,
+                                y: Math.random() * 100,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: getColorForCategory(article.source.name)
+                    });
                 }
             }
-        }],
-        legend: { 
-            itemStyle: { 
-                color: '#fff' 
-            }
+
+            console.log(`Datos recibidos: ${newsDatasets.length} registros`);
+            renderNewsChart();  // Función para renderizar el gráfico
+        } catch (error) {
+            console.error('Error al obtener datos de las noticias:', error);
         }
-    });
-}
+    }
+
+    // Asignamos un color a las noticias dependiendo de la fuente o categoría
+    function getColorForCategory(source) {
+        const colors = {
+            'BBC News': '#FF6384',
+            'CNN': '#36A2EB',
+            'Reuters': '#FFCE56',
+            'TechCrunch': '#4BC0C0',
+            'ESPN': '#9966FF'
+        };
+        return colors[source] || '#aaa';
+    }
+
+    // Renderizamos el gráfico con las noticias
+    let newsChartInstance;
+
+    function renderNewsChart() {
+        const ctx = document.getElementById('externalChart')?.getContext('2d');
+        if (!ctx) return;
+
+        if (newsChartInstance) {
+            newsChartInstance.destroy();
+        }
+
+        newsChartInstance = new Chart(ctx, {
+            type: 'bubble',  // Mantenemos el tipo de gráfico de burbujas
+            data: {
+                datasets: newsDatasets  // Los datos de las noticias se pasan aquí
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Noticias populares por fuente',
+                        color: '#fff',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Posición aleatoria (X)',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Posición aleatoria (Y)',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' }
+                    }
+                }
+            }
+        });
+    }
+
+
 
 // Esta función carga los scripts en vez de svelte:head
 function loadScript(src) {
@@ -303,9 +386,12 @@ onMount(async () => {
     try {
         // Cargar Highcharts
         await loadScript('https://code.highcharts.com/highcharts.js');
-        
+        await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
+
+
         await get15AndCrimeData();
         await getFinesAndCybercrimeData();
+        await getNewsData();
 
     } catch (error) {
         errorMessage = `Error cargando scripts: ${error}`;
@@ -358,6 +444,21 @@ onMount(async () => {
                         <p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
                     {/if}
                     <div id="combinedChart"></div> <!-- Aquí se renderiza el gráfico G20 -->
+                </figure>
+            </div>
+            <!--news api-->
+            <div class="article" style="margin-top: 2em;">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Noticias
+                </h3>
+                <p>
+                    Este gráfico de burbujas permite comparar en tiempo real las noticias.
+                </p>
+                <a style="color: #fff;" href="https://openweathermap.org/current" target="_blank">
+                    <i>API externa - NewsApi</i>
+                </a>
+                <figure class="chartjs-figure" transition:fade>
+                    <canvas id="externalChart"></canvas>
                 </figure>
             </div>
         </div>
