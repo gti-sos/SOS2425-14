@@ -155,6 +155,13 @@ return {
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 15 },
 				endpoint: null
+			},
+			{
+				id: "/integrations/jaime",
+				pattern: /^\/integrations\/pablo\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 16 },
+				endpoint: null
 			}
 		],
 		prerendered_routes: new Set([]),
