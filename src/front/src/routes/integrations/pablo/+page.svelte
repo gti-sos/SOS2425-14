@@ -292,19 +292,20 @@ function renderCombinedChart(data) {
 
             const allData = await res.json();
 
-            for (const data of allData.articles) {
-                // Llenamos el array con los datos que queremos mostrar
-                newsDatasets.push({
-                    label: data.title, // Título de la noticia
-                    data: [
-                        {
-                            x: Math.random() * 100,  // Esto se reemplaza con la posición X, podemos usar algo aleatorio o relevante
-                            y: Math.random() * 100,  // Lo mismo para el eje Y
-                            r: 10  // Representación del "tamaño", que puede ser un valor estático o dinámico
-                        }
-                    ],
-                    backgroundColor: getColorForCategory(data.source.name)  // Color dependiendo de la fuente
-                });
+            for (const categoryGroup of allData) {
+                for (const article of categoryGroup.articles) {
+                    newsDatasets.push({
+                        label: article.title,
+                        data: [
+                            {
+                                x: Math.random() * 100,
+                                y: Math.random() * 100,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: getColorForCategory(article.source.name)
+                    });
+                }
             }
 
             console.log(`Datos recibidos: ${newsDatasets.length} registros`);
