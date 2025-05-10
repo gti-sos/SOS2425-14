@@ -1,249 +1,415 @@
-<script lang="ts">
-  // @ts-nocheck
-  import { onMount } from 'svelte';
-  import { dev } from '$app/environment';
-  import { fade } from 'svelte/transition';
-  import Chart from 'chart.js/auto';
+<script>
+	// @ts-nocheck
+	import { onMount } from 'svelte';
+	import { dev } from '$app/environment';
+	import { fade } from 'svelte/transition';
+	//import Highcharts from 'highcharts';
 
-  let DEVEL_HOST = 'http://localhost:16078';
-  let BASE_API = '/api/v1/cybercrime-data';
+	let DEVEL_HOST = 'http://localhost:16078';
+	let BASE_API = '/api/v1/cybercrime-data';
 
-  if (dev) {
-    BASE_API = DEVEL_HOST + BASE_API;
-  }
+	if (dev) {
+		BASE_API = DEVEL_HOST + BASE_API;
+	}
 
-  let myData = [];
-  let years = [];
-  let loadingData = true;
-  let errorMessage = '';
+	let myData = [];
+	let years = [];
+	let loadingData = true;
+	let errorMessage = '';
 
-  let showChart = false;
+	let showChart = false;
 
-  // Lista de comunidades autónomas españolas
-  const communities = [
-    'Andalucia',
-    'Madrid',
-    'Cataluña',
-    'Valencia',
-    'Galicia',
-    'Pais Vasco',
-    'Castilla-La Mancha',
-    'Castilla y Leon',
-    'Murcia',
-    'Aragon',
-    'Baleares',
-    'Cantabria',
-    'Extremadura',
-    'La Rioja',
-    'Ceuta y Melilla',
-    'TOTAL'
-  ];
+	// Lista de comunidades autónomas españolas
+	const communities = [
+		'Andalucia',
+		'Aragon',
+		'Asturias',
+		'Baleares',
+		'Canarias',
+		'Cantabria',
+		'Castilla-La Mancha',
+		'Castilla y Leon',
+		'Cataluña',
+		'Comunitat Valenciana',
+		'Extremadura',
+		'Galicia',
+		'Madrid',
+		'Murcia',
+		'Navarra',
+		'Pais Vasco',
+		'La Rioja',
+		'Ceuta y Melilla',
+		'TOTAL'
+	];
 
-  let selectedCommunity = '';
-  
-  // Función que se ejecuta cuando se cambia la comunidad seleccionada
-  function handleCommunityChange() {
-    errorMessage = '';
-    showChart = true;
-    getData();
-  }
+	let selectedBarYear = '';
 
-  async function getData() {
-    loadingData = true;
-    errorMessage = '';
+	let selectedCommunity = '';
+	// Función que se ejecuta cuando se cambia la comunidad seleccionada
+	function handleCommunityChange() {
+		errorMessage = '';
+		showChart = true;
+		getData();
+	}
 
-    // Construir la URL con el parámetro de la comunidad seleccionada
-    const API = `${BASE_API}?autonomous_community=${encodeURIComponent(selectedCommunity)}`;
+	async function getData() {
+		loadingData = true;
+		errorMessage = '';
 
-    try {
-      console.log(`Solicitando datos a: ${API}`);
-      const res = await fetch(API, { method: 'GET' });
-      if (!res.ok) {
-        throw new Error(`Error en la respuesta: ${res.status}`);
-      }
+		// Construir la URL con el parámetro de la comunidad seleccionada
+		const API = `${BASE_API}?autonomous_community=${encodeURIComponent(selectedCommunity)}`;
 
-      const data = await res.json();
-      myData = data;
-      console.log(`Datos recibidos: ${myData.length} registros para ${selectedCommunity}`);
+		try {
+			console.log(`Solicitando datos a: ${API}`);
+			const res = await fetch(API, { method: 'GET' });
+			if (!res.ok) {
+				throw new Error(`Error en la respuesta: ${res.status}`);
+			}
 
-      // Extraer años únicos
-      years = [...new Set(myData.map((item) => item.year))].sort();
+			const data = await res.json();
+			myData = data;
+			console.log(`Datos recibidos: ${myData.length} registros para ${selectedCommunity}`);
 
-      renderPieChart();
-    } catch (error) {
-      console.error(`ERROR al obtener datos de ${API}: ${error}`);
-      errorMessage = `Error al cargar datos: ${error.message}`;
-    } finally {
-      loadingData = false;
-    }
-  }
+			// Extraer años y tipos de delitos únicos
+			years = [...new Set(myData.map((item) => item.year))].sort();
 
-  function renderPieChart() {
-    if (myData.length === 0) {
-      errorMessage = 'No hay datos disponibles para la comunidad seleccionada';
-      return;
-    }
+			renderChart();
+			renderBarChart();
+		} catch (error) {
+			console.error(`ERROR al obtener datos de ${API}: ${error}`);
+			// @ts-ignore
+			errorMessage = `Error al cargar datos: ${error.message}`;
+		} finally {
+			loadingData = false;
+		}
+	}
 
-    const criminalOfense = [];
-    const cybersecurity = [];
-    const arrestedInvestigated = [];
+	function renderChart() {
+		if (myData.length === 0) {
+			errorMessage = 'No hay datos disponibles para la comunidad seleccionada';
+			return;
+		}
 
-    myData.forEach((record) => {
-      criminalOfense.push(record.criminal_ofense ?? 0);
-      cybersecurity.push(record.cybersecurity ?? 0);
-      arrestedInvestigated.push(record.arrested_investigated ?? 0);
-    });
+		const criminalOfense = [];
+		const cybersecurity = [];
+		const arrestedInvestigated = [];
 
-    const ctx = document.getElementById('pieChart')?.getContext('2d');
-    if (!ctx) return;
+		years.forEach((year) => {
+			const record = myData.find((r) => String(r.year) === String(year));
+			criminalOfense.push(record?.criminal_ofense ?? 0);
+			cybersecurity.push(record?.cybersecurity ?? 0);
+			arrestedInvestigated.push(record?.arrested_investigated ?? 0);
+		});
 
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Ciberseguridad', 'Delitos Criminales', 'Arrestados/Investigados'],
-        datasets: [
-          {
-            label: `Distribución de Cibercrimen en ${selectedCommunity}`,
-            data: [
-              criminalOfense.reduce((a, b) => a + b, 0),
-              cybersecurity.reduce((a, b) => a + b, 0),
-              arrestedInvestigated.reduce((a, b) => a + b, 0),
-            ],
-            backgroundColor: ['#4dc9f6', '#f67019', '#f53794'],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: `Distribución de Cibercrimen en ${selectedCommunity}`,
-            color: '#fff',
-            font: {
-              size: 16,
-              weight: 'bold',
-            },
-          },
-        },
-      },
-    });
-  }
+		Highcharts.chart('container', {
+			chart: {
+				type: 'column',
+				backgroundColor: '#052a42',
+				spacing: [30, 25, 30, 25]
+			},
+			title: {
+				text: 'Evolución de las Tasas de Delitos',
+				align: 'left',
+				style: {
+					color: '#fff',
+					fontWeight: '800'
+				}
+			},
+			subtitle: {
+				text: `Delitos en ${selectedCommunity}`,
+				align: 'left',
+				style: {
+					color: '#fff',
+					fontWeight: 'bold'
+				}
+			},
+			yAxis: {
+				title: {
+					text: 'Número de Delitos',
+					style: { color: '#fff', fontWeight: '800' }
+				},
+				labels: {
+					style: { color: '#fff' }
+				},
+				gridLineColor: '#ffffff33'
+			},
+			xAxis: {
+				categories: years,
+				title: {
+					text: 'AÑO',
+					style: { color: '#fff', fontWeight: '800' }
+				},
+				labels: {
+					style: { color: '#fff' }
+				}
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				itemStyle: {
+					color: '#fff'
+				}
+			},
+			plotOptions: {
+				area: {
+					fillOpacity: 0.5,
+					marker: {
+						enabled: false
+					}
+				},
+				series: {
+					label: {
+						connectorAllowed: false
+					}
+				}
+			},
+			series: [
+				{
+					name: 'FP Básica',
+					data: criminalOfense,
+					color: '#36A2EB'
+				},
+				{
+					name: 'Grado Medio',
+					data: cybersecurity,
+					color: '#FFCE56'
+				},
+				{
+					name: 'Grado Superior',
+					data: arrestedInvestigated,
+					color: '#FF6384'
+				}
+			],
+			responsive: {
+				rules: [
+					{
+						condition: {
+							maxWidth: 500
+						},
+						chartOptions: {
+							legend: {
+								layout: 'horizontal',
+								align: 'center',
+								verticalAlign: 'bottom'
+							}
+						}
+					}
+				]
+			}
+		});
+	}
 
-  onMount(async () => {
-    await getData();
-  });
+	let barChartInstance;
+
+	function renderBarChart() {
+		const yearToShow = selectedBarYear || Math.max(...years);
+		const record = myData.find((r) => Number(r.year) === Number(yearToShow));
+
+		if (!record) return;
+
+		const ctx = document.getElementById('barChart')?.getContext('2d');
+		if (!ctx) return;
+
+		// Destruir el gráfico anterior si existe
+		if (barChartInstance) {
+			barChartInstance.destroy();
+			barChartInstance = null;
+		}
+
+		barChartInstance = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Ofensa Criminal', 'Ciberseguridad', 'Investigados arrestados'],
+				datasets: [
+					{
+						label: `${selectedCommunity} - ${yearToShow}`,
+						data: [record.criminal_ofense ?? 0, record.cybersecurity ?? 0, record.arrested_investigated ?? 0],
+						backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384']
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: {
+							color: '#fff'
+						}
+					},
+					title: {
+						display: true,
+						text: 'Distribución de delitos por tipo de delito',
+						color: '#fff',
+						font: {
+							size: 20,
+							weight: 'bold',
+							family: 'Arial'
+						}
+					}
+				},
+				scales: {
+					x: {
+						ticks: {
+							color: '#fff'
+						},
+						title: {
+							display: true,
+							text: 'Nivel de cibercriminalidad',
+							color: '#fff'
+						}
+					},
+					y: {
+						ticks: {
+							color: '#fff'
+						},
+						title: {
+							display: true,
+							text: 'Número de Delitos',
+							color: '#fff'
+						}
+					}
+				}
+			}
+		});
+	}
+
+	//Esta funcion carga los scripts en vez de svelte:head
+	// @ts-ignore
+	function loadScript(src) {
+		return new Promise((resolve, reject) => {
+			const existing = document.querySelector(`script[src="${src}"]`);
+			// @ts-ignore
+			if (existing) return resolve();
+
+			const script = document.createElement('script');
+			script.src = src;
+			script.onload = resolve;
+			script.onerror = reject;
+			document.head.appendChild(script);
+		});
+	}
+
+	onMount(async () => {
+		try {
+			// HighCharts
+			await loadScript('https://code.highcharts.com/highcharts.js');
+			await loadScript('https://code.highcharts.com/modules/series-label.js');
+			await loadScript('https://code.highcharts.com/modules/exporting.js');
+			await loadScript('https://code.highcharts.com/modules/export-data.js');
+			await loadScript('https://code.highcharts.com/modules/accessibility.js');
+
+			// Charts.js
+			await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
+
+			await getData();
+		} catch (error) {
+			errorMessage = `Error cargando scripts de HighCharts: ${err}`;
+			console.error(error);
+		}
+	});
 </script>
 
 <svelte:head>
-  <title>Gráfico de Cibercrimen</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Graphs - Cybercrime Data</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
 <div class="wrapper">
-  <div class="container">
-    <h2>Gráficas de Datos de Cibercrimen</h2>
-    <hr style="width: 55em; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
+	<div class="container">
+		<h2>Gráficas de cybercrime-data</h2>
+		<hr style="width: 55em; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
 
-    <!-- Selector de comunidad -->
-    <div class="graph-container" style="background: none; box-shadow: none; padding: 0.5em 0;">
-      <h3>Selecciona la comunidad autónoma:</h3>
-      <select
-        class="custom-select"
-        bind:value={selectedCommunity}
-        on:change={handleCommunityChange}
-        style="width: 150%;"
-      >
-        <option disabled value="">Selecciona una comunidad</option>
-        {#each communities as community}
-          <option value={community}>{community}</option>
-        {/each}
-      </select>
-    </div>
+		<!-- Selector de comunidad -->
+		<div class="graph-container" style="background: none; box-shadow: none; padding: 0.5em 0;">
+			<h3>Selecciona la comunidad autónoma:</h3>
+			<select
+				class="custom-select"
+				bind:value={selectedCommunity}
+				on:change={handleCommunityChange}
+				style="width: 150%;"
+			>
+				<option disabled value="">Selecciona una comunidad</option>
+				{#each communities as community}
+					<option value={community}>{community}</option>
+				{/each}
+			</select>
+		</div>
 
-    {#if showChart}
-      <div transition:fade={{ duration: 400 }}>
-        <div class="article">
-          <h3 style="font-size: 1.5em; text-transform: none;">
-            Distribución de Cibercrimen por Categoría
-          </h3>
-          <p>
-            Visualiza cómo se distribuyen los incidentes de ciberseguridad, los delitos criminales y los arrestos/investigaciones en la comunidad autónoma seleccionada.
-          </p>
-          <br />
-          <figure class="chartjs-figure">
-            <canvas id="pieChart"></canvas>
-            {#if loadingData}
-              <p>Cargando Datos...</p>
-            {/if}
-            {#if errorMessage}
-              <p style="background-color: rgb(247, 111, 111); padding: 10px 20px;">
-                {errorMessage}
-              </p>
-            {/if}
-          </figure>
-        </div>
-      </div>
-    {/if}
-  </div>
+		{#if showChart}
+			<div transition:fade={{ duration: 400 }}>
+				<div class="article">
+					<h3 style="font-size: 1.5em; text-transform: none;">
+						Evolución temporal de las tasas de delitos por nivel de cibercriminalidad
+					</h3>
+					<p>
+						Visualiza cómo han cambiado las tasas de delitos a lo largo del tiempo y entre distintas comunidades
+						autónomas.
+					</p>
+					<br />
+					<figure class="highcharts-figure">
+						<div id="container">
+							{#if loadingData}
+								<p>Cargando Datos...</p>
+							{/if}
+							{#if errorMessage}
+								<p style="background-color: rgb(247, 111, 111); padding: 10px 20px;">
+									{errorMessage}
+								</p>
+							{/if}
+						</div>
+					</figure>
+				</div>
+				<div class="article" style="margin-top: 0;">
+					<h3 style="font-size: 1.5em; text-transform: none;">
+						Distribución de delitos por nivel de cibercriminalidad en el año seleccionado
+					</h3>
+					<p>
+						Compara el número de delitos en los distintos tipos de de cibercriminalidad
+						durante un año específico en la comunidad autónoma seleccionada, permitiendo analizar la
+						distribución entre Ofensas criminales, ciberseguridad y Investigados arrestado.
+					</p>
+					<div
+						class="graph-container"
+						style="background: none; box-shadow: none; padding: 0.5em 0; margin-top: -1em; font-size: 90%;"
+					>
+						<h3 style="font-size: 1.2em; text-transform: none; font-weight: 500;">
+							Selecciona el Año:
+						</h3>
+						<select bind:value={selectedBarYear} on:change={renderBarChart} class="custom-select">
+							<option disabled value="">Selecciona un año</option>
+							{#each years as year}
+								<option value={year}>{year}</option>
+							{/each}
+						</select>
+					</div>
+					{#if selectedBarYear}
+						<figure class="chartjs-figure" transition:fade>
+							<canvas id="barChart"></canvas>
+						</figure>
+					{/if}
+				</div>
+			</div>
+		{/if}
+	</div>
 </div>
+
 <style>
-  .chartjs-figure {
-    min-width: 45em;
-    max-width: 45em;
-    margin: 2em auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.473);
-    padding: 1em;
-    background: #052a42;
-    border-radius: 10px;
-  }
-
-  /* Estilos adicionales */
-  .wrapper {
-    padding: 2rem;
-    background-color: #e5e5e5;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
-
-  h2 {
-    color: #052a42;
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-
-  hr {
-    border: 1px solid #052a42;
-    width: 100%;
-    margin: 20px 0;
-  }
-
-  .graph-container {
-    margin-bottom: 20px;
-  }
-
-  .custom-select {
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100%;
-    background-color: #f5f5f5;
-  }
-
-  .article {
-    margin-bottom: 2rem;
-  }
+	.highcharts-figure,
+	.highcharts-data-table table {
+		min-width: 45em;
+		max-width: 45em;
+		margin: 1em auto;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.459);
+	}
+	.chartjs-figure {
+		min-width: 45em;
+		max-width: 45em;
+		margin: 2em auto;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.473);
+		padding: 1em;
+		background: #052a42;
+		border-radius: 10px;
+	}
 </style>
