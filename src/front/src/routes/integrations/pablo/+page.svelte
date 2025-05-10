@@ -404,6 +404,7 @@ onMount(async () => {
         
         await get15AndCrimeData();
         await getFinesAndCybercrimeData();
+        await getNewsData();
 
     } catch (error) {
         errorMessage = `Error cargando scripts: ${error}`;
@@ -456,6 +457,22 @@ onMount(async () => {
                         <p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
                     {/if}
                     <div id="combinedChart"></div> <!-- Aquí se renderiza el gráfico G20 -->
+                </figure>
+            </div>
+            <!--news api-->
+            <div class="article" style="margin-top: 2em;">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Comparativa Climática de Varias Ciudades (Weather)
+                </h3>
+                <p>
+                    Este gráfico de burbujas permite comparar en tiempo real la temperatura, humedad y
+                    velocidad del viento en cinco ciudades españolas: Sevilla, Madrid, Barcelona, Valencia y Bilbao.
+                </p>
+                <a style="color: #fff;" href="https://openweathermap.org/current" target="_blank">
+                    <i>API externa - OpenWeatherMap</i>
+                </a>
+                <figure class="chartjs-figure" transition:fade>
+                    <canvas id="externalChart"></canvas>
                 </figure>
             </div>
         </div>
