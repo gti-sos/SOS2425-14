@@ -1,67 +1,73 @@
 <script>
-    // @ts-nocheck
-    import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
-    import { dev } from '$app/environment';
+// @ts-nocheck
+import { onMount } from 'svelte';
+import { fade } from 'svelte/transition';
+import { dev } from '$app/environment';
 
-    let DEVEL_HOST = 'http://localhost:16078';
-    const API_G15 = 'https://sos2425-15.onrender.com/api/v1/precipitation-stats/';
-    let API_CYBERCRIME = '/api/v1/cybercrime-data';
-    if (dev) {
-        API_CYBERCRIME = DEVEL_HOST + API_CYBERCRIME;
+let DEVEL_HOST = 'http://localhost:16078';
+
+const API_G15 = 'https://sos2425-15.onrender.com/api/v1/precipitation-stats/';
+const API_G20 = 'https://sos2425-20.onrender.com/api/v1/fines/';
+
+
+let API_CYBERCRIME = '/api/v1/cybercrime-data';
+if (dev) {
+    API_CYBERCRIME = DEVEL_HOST + API_CYBERCRIME;
+}
+
+let data15 = [];
+let data20 = [];
+
+let loadingData = true;
+let errorMessage = '';
+
+// Fetch API G15 + datos criminales
+async function get15AndCrimeData() {
+    loadingData = true;
+    errorMessage = '';
+    try {
+        console.log(`Solicitando datos a: ${API_G15}`);
+        const resG15 = await fetch('/api/g15precipitation');
+        if (!resG15.ok) throw new Error('Error al obtener datos de G15');
+        const dataG15 = await resG15.json();
+
+        console.log(`Solicitando datos a: ${API_CYBERCRIME}`);
+        const resCrime = await fetch(API_CYBERCRIME);
+        if (!resCrime.ok) throw new Error('Error al obtener datos de cybercrime-data');
+        const dataCrime = await resCrime.json();
+
+        const year = 2020;
+        const provinciasSeleccionadas = ['almería', 'granada', 'jaén'];
+
+        const combinedData = provinciasSeleccionadas.map((provincia) => {
+            const meteo = dataG15.find(
+                (r) => r.province.toLowerCase() === provincia && r.year === year
+            );
+            // Relación provincia ↔ comunidad autónoma
+            const comunidad =
+                provincia === 'almería' || provincia === 'granada' || provincia === 'jaén'
+                    ? 'Andalucia'
+                    : null;
+
+            const crimen = dataCrime.find(
+                (r) => r.autonomous_community.toLowerCase() === comunidad?.toLowerCase() && r.year === year
+            );
+
+            const cyberRate = crimen ? crimen.cybersecurity / 10000 : 0;
+
+            return { province: provincia, x: meteo?.annual_precipitation ?? 0, y: meteo?.deviation ?? 0, r: cyberRate };
+        });
+        console.log(`Datos combinados: ${combinedData.length} registros`);
+        renderColumnChart(combinedData);
+    } catch (err) {
+        console.error('Error combinando datos G15 + Criminalidad:', err);
+        errorMessage = 'No se pudieron cargar los datos meteorológicos y criminales.';
+    } finally {
+        loadingData = false;
     }
+}
 
-    let data15 = [];
-    let loadingData = true;
-    let errorMessage = '';
-
-    // Fetch a API_G15 + datos criminales
-    async function get15AndCrimeData() {
-        loadingData = true;
-        errorMessage = '';
-        try {
-            console.log(`Solicitando datos a: ${API_G15}`);
-            const resG15 = await fetch('/api/g15precipitation');
-            if (!resG15.ok) throw new Error('Error al obtener datos de G15');
-            const dataG15 = await resG15.json();
-
-            console.log(`Solicitando datos a: ${API_CYBERCRIME}`);
-            const resCrime = await fetch(API_CYBERCRIME);
-            if (!resCrime.ok) throw new Error('Error al obtener datos de cybercrime-data');
-            const dataCrime = await resCrime.json();
-
-            const year = 2020;
-            const provinciasSeleccionadas = ['almería', 'granada', 'jaén'];
-
-            const combinedData = provinciasSeleccionadas.map((provincia) => {
-                const meteo = dataG15.find(
-                    (r) => r.province.toLowerCase() === provincia && r.year === year
-                );
-                // Relación provincia ↔ comunidad autónoma
-                const comunidad =
-                    provincia === 'almería' || provincia === 'granada' || provincia === 'jaén'
-                        ? 'Andalucia'
-                        : null;
-
-                const crimen = dataCrime.find(
-                    (r) => r.autonomous_community.toLowerCase() === comunidad?.toLowerCase() && r.year === year
-                );
-
-                const cyberRate = crimen ? crimen.cybersecurity / 10000 : 0;
-
-                return { province: provincia, x: meteo?.annual_precipitation ?? 0, y: meteo?.deviation ?? 0, r: cyberRate };
-            });
-            console.log(`Datos combinados: ${combinedData.length} registros`);
-            renderColumnChart(combinedData);
-        } catch (err) {
-            console.error('Error combinando datos G15 + Criminalidad:', err);
-            errorMessage = 'No se pudieron cargar los datos meteorológicos y criminales.';
-        } finally {
-            loadingData = false;
-        }
-    }
-
-    // Render de la gráfica de Precipitación vs Criminalidad (Gráfico de Columnas)
+// Render de la gráfica de Precipitación vs Criminalidad (Gráfico de Columnas)
 function renderColumnChart(data) {
     Highcharts.chart('g15CrimeChart', {
         chart: {
@@ -134,30 +140,178 @@ function renderColumnChart(data) {
     });
 }
 
+// Fetch API G20
+async function getFinesAndCybercrimeData() {
+    let loadingData = true;
+    errorMessage = '';
 
-    // Esta función carga los scripts en vez de svelte:head
-    function loadScript(src) {
-        return new Promise((resolve, reject) => {
-            const existing = document.querySelector(`script[src="${src}"]`);
-            if (existing) return resolve();
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
+    try {
+        // Solicitar datos de la API de tu compañero
+        console.log(`Solicitando datos a: ${API_G20}`);
+        const resG20 = await fetch(API_G20);
+        if (!resG20.ok) throw new Error('Error al obtener datos de API_G20');
+        const dataG20Raw = await resG20.json();
+
+        // Solicitar datos de tu API
+        console.log(`Solicitando datos a: ${API_CYBERCRIME}`);
+        const resCrime = await fetch(API_CYBERCRIME);
+        if (!resCrime.ok) throw new Error('Error al obtener datos de API_CYBERCRIME');
+        const dataCrimeRaw = await resCrime.json();
+
+        // Año y comunidades seleccionadas
+        const year = 2023;
+        const comunidades = ['Madrid', 'Andalucia']; // Comunidades seleccionadas
+
+        const combinedData = comunidades.map((comunidad) => {
+            // Buscar el año y comunidad correspondiente en los datos de tu compañero
+            const finesData = dataG20Raw.find(
+                (r) => r.city.toLowerCase().includes(comunidad.toLowerCase()) && r.year === year
+            );
+
+            // Buscar el año y comunidad correspondiente en tus datos (cybercrime)
+            const cybercrimeData = dataCrimeRaw.find(
+                (r) => r.autonomous_community.toLowerCase().includes(comunidad.toLowerCase()) && r.year === year
+            );
+
+            // Combinar la información de ambas fuentes
+            return {
+                comunidad,
+                fines: finesData ? finesData.itv : 0, // Suponiendo que 'itv' es el número de infracciones
+                cybercrime: cybercrimeData ? cybercrimeData.criminal_ofense : 0 // Suponiendo que 'criminal_ofense' es el número de delitos cibernéticos
+            };
         });
-    }
 
-    onMount(async () => {
-        try {
-            // Cargar Highcharts
-            await loadScript('https://code.highcharts.com/highcharts.js');
-            await get15AndCrimeData();
-        } catch (error) {
-            errorMessage = `Error cargando scripts: ${error}`;
-            console.error(error);
+        console.log(`Datos combinados: ${combinedData.length} registros`);
+        renderCombinedChartG20(combinedData); // Llamamos a la función para renderizar la gráfica
+    } catch (err) {
+        console.error('Error al combinar datos de fines y cybercrime:', err);
+        errorMessage = 'Error cargando los datos combinados.';
+    } finally {
+        loadingData = false;
+    }
+}
+
+// Render gráfico combinado para G20 (Fines vs Cybercrime)
+function renderCombinedChartG20(data) {
+    Highcharts.chart('combinedChart', {
+        chart: {
+            type: 'bar',
+            backgroundColor: '#052a42', // Fondo oscuro
+        },
+        title: {
+            text: 'Infracciones vs Delitos Cibernéticos por Comunidad (2023)',
+            style: { 
+                color: '#fff', 
+                fontWeight: 'bold' 
+            }
+        },
+        xAxis: {
+            categories: data.map(d => d.comunidad),
+            title: { 
+                text: 'Comunidades', 
+                style: { 
+                    color: '#fff' 
+                } 
+            },
+            labels: { 
+                style: { 
+                    color: '#fff' 
+                } 
+            },
+        },
+        yAxis: [{
+            min: 0,
+            title: { 
+                text: 'Infracciones (Fines)', 
+                style: { 
+                    color: '#fff' 
+                } 
+            },
+            labels: { 
+                style: { 
+                    color: '#fff' 
+                } 
+            }
+        }, {
+            min: 0,
+            title: { 
+                text: 'Delitos Cibernéticos (Cybercrime)', 
+                style: { 
+                    color: '#fff' 
+                } 
+            },
+            labels: { 
+                style: { 
+                    color: '#fff' 
+                } 
+            },
+            opposite: true
+        }],
+        tooltip: {
+            pointFormat: 'Infracciones: {point.y} mm, Delitos Cibernéticos: {point.r}',
+            style: {
+                color: '#fff'
+            }
+        },
+        series: [{
+            name: 'Infracciones',
+            data: data.map(d => d.fines),
+            color: '#36a2eb',
+            dataLabels: {
+                enabled: true,
+                format: '{point.y} ',
+                style: {
+                    color: '#fff',
+                    fontWeight: 'bold'
+                }
+            }
+        }, {
+            name: 'Delitos Cibernéticos',
+            data: data.map(d => d.cybercrime),
+            color: '#ff6384',
+            dataLabels: {
+                enabled: true,
+                format: '{point.y} ',
+                style: {
+                    color: '#fff',
+                    fontWeight: 'bold'
+                }
+            }
+        }],
+        legend: { 
+            itemStyle: { 
+                color: '#fff' 
+            }
         }
     });
+}
+
+// Esta función carga los scripts en vez de svelte:head
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${src}"]`);
+        if (existing) return resolve();
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+onMount(async () => {
+    try {
+        // Cargar Highcharts
+        await loadScript('https://code.highcharts.com/highcharts.js');
+        
+        await get15AndCrimeData();
+        await getFinesAndCybercrimeData();
+
+    } catch (error) {
+        errorMessage = `Error cargando scripts: ${error}`;
+        console.error(error);
+    }
+});
 </script>
 
 <svelte:head>
@@ -173,7 +327,7 @@ function renderColumnChart(data) {
         <div transition:fade={{ duration: 400 }}>
             <div class="article" style="margin-top: 0;">
                 <h3 style="font-size: 1.5em; text-transform: none;">
-                    Relación entre Precipitacion y Cibercriminalidad (2021)
+                    Relación entre Precipitación y Cibercriminalidad (2021)
                 </h3>
                 <p>
                     Este gráfico de columnas relaciona la precipitación anual con la tasa de delitos de cibercrimen en
@@ -186,6 +340,24 @@ function renderColumnChart(data) {
                         <p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
                     {/if}
                     <div id="g15CrimeChart"></div>
+                </figure>
+            </div>
+
+            <!-- Sección del gráfico G20 -->
+            <div class="article" style="margin-top: 3em;">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Relación entre Infracciones y Cibercriminalidad por Comunidad (2023)
+                </h3>
+                <p>
+                    Este gráfico de barras muestra la relación entre las infracciones (ITV) y los delitos de cibercriminalidad por comunidades en el año 2023.
+                </p>
+                <a style="color: #fff;" href={API_G20} target="_blank"><i>G20 - fines-data</i></a>
+                <a style="color: #fff; margin-left:1em;" href={API_CYBERCRIME} target="_blank"><i> G14-cybercrime-data</i></a>
+                <figure class="chartjs-figure" transition:fade>
+                    {#if loadingData}
+                        <p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
+                    {/if}
+                    <div id="combinedChart"></div> <!-- Aquí se renderiza el gráfico G20 -->
                 </figure>
             </div>
         </div>
