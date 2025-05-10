@@ -160,7 +160,7 @@ async function getFinesAndCybercrimeData() {
 
         // Año y comunidades seleccionadas
         const year = 2023;
-        const comunidades = ['Madrid', 'Andalucia']; // Comunidades seleccionadas
+        const comunidades = ['Madrid']; // Comunidades seleccionadas
 
         const combinedData = comunidades.map((comunidad) => {
             // Buscar el año y comunidad correspondiente en los datos de tu compañero
@@ -276,6 +276,113 @@ function renderCombinedChart(data) {
         }
     });
 }
+
+//API EXTERNA: news api
+    let newsDatasets = [];
+
+    async function getNewsData() {
+        // Ciudades o temas que quieras investigar, como en el clima pero con categorías o fuentes para las noticias
+        const categories = ['business', 'technology', 'sports', 'entertainment', 'health'];
+        newsDatasets = [];
+
+        try {
+            console.log(`Solicitando datos a: /api/newsapi`);
+            const res = await fetch('/api/newsapi');  // Aquí debería ir la llamada al servidor proxy
+            if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
+
+            const allData = await res.json();
+
+            for (const data of allData.articles) {
+                // Llenamos el array con los datos que queremos mostrar
+                newsDatasets.push({
+                    label: data.title, // Título de la noticia
+                    data: [
+                        {
+                            x: Math.random() * 100,  // Esto se reemplaza con la posición X, podemos usar algo aleatorio o relevante
+                            y: Math.random() * 100,  // Lo mismo para el eje Y
+                            r: 10  // Representación del "tamaño", que puede ser un valor estático o dinámico
+                        }
+                    ],
+                    backgroundColor: getColorForCategory(data.source.name)  // Color dependiendo de la fuente
+                });
+            }
+
+            console.log(`Datos recibidos: ${newsDatasets.length} registros`);
+            renderNewsChart();  // Función para renderizar el gráfico
+        } catch (error) {
+            console.error('Error al obtener datos de las noticias:', error);
+        }
+    }
+
+    // Asignamos un color a las noticias dependiendo de la fuente o categoría
+    function getColorForCategory(source) {
+        const colors = {
+            'BBC News': '#FF6384',
+            'CNN': '#36A2EB',
+            'Reuters': '#FFCE56',
+            'TechCrunch': '#4BC0C0',
+            'ESPN': '#9966FF'
+        };
+        return colors[source] || '#aaa';
+    }
+
+    // Renderizamos el gráfico con las noticias
+    let newsChartInstance;
+
+    function renderNewsChart() {
+        const ctx = document.getElementById('externalChart')?.getContext('2d');
+        if (!ctx) return;
+
+        if (newsChartInstance) {
+            newsChartInstance.destroy();
+        }
+
+        newsChartInstance = new Chart(ctx, {
+            type: 'bubble',  // Mantenemos el tipo de gráfico de burbujas
+            data: {
+                datasets: newsDatasets  // Los datos de las noticias se pasan aquí
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Noticias populares por fuente',
+                        color: '#fff',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Posición aleatoria (X)',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Posición aleatoria (Y)',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' }
+                    }
+                }
+            }
+        });
+    }
+
+
 
 // Esta función carga los scripts en vez de svelte:head
 function loadScript(src) {
