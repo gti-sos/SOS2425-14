@@ -192,91 +192,90 @@ async function getFinesAndCybercrimeData() {
 }
 
 // Render gráfico combinado para G20 (Fines vs Cybercrime)
-function renderScatterChart(data) {
+function renderCombinedChart(data) {
     Highcharts.chart('combinedChart', {
         chart: {
-            type: 'scatter', // Tipo 'scatter' para gráfico de dispersión
-            backgroundColor: '#052a42', // Fondo oscuro
+            backgroundColor: '#052a42'
         },
         title: {
             text: 'Infracciones vs Delitos Cibernéticos por Comunidad (2023)',
-            style: { 
-                color: '#fff', 
-                fontWeight: 'bold' 
+            style: {
+                color: '#fff',
+                fontWeight: 'bold'
             }
         },
         xAxis: {
             categories: data.map(d => d.comunidad),
-            title: { 
-                text: 'Comunidades', 
-                style: { 
-                    color: '#fff' 
-                } 
+            title: {
+                text: 'Comunidades',
+                style: {
+                    color: '#fff'
+                }
             },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            }
         },
         yAxis: [{
             min: 0,
-            title: { 
-                text: 'Infracciones (Fines)', 
-                style: { 
-                    color: '#fff' 
-                } 
+            title: {
+                text: 'Cantidad',
+                style: {
+                    color: '#fff'
+                }
             },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
+            labels: {
+                style: {
+                    color: '#fff'
+                }
             }
-        }, {
-            min: 0,
-            title: { 
-                text: 'Delitos Cibernéticos (Cybercrime)', 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-            labels: { 
-                style: { 
-                    color: '#fff' 
-                } 
-            },
-            opposite: true
         }],
         tooltip: {
-            pointFormat: 'Infracciones: {point.y}, Delitos Cibernéticos: {point.r}',
+            shared: true,
             style: {
                 color: '#fff'
             }
         },
         series: [{
             name: 'Infracciones',
-            data: data.map(d => [d.fines, d.cybercrime]), // Usando el gráfico de dispersión
+            type: 'column',
+            data: data.map(d => d.fines),
             color: '#36a2eb',
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                style: {
+                    color: '#fff',
+                    fontWeight: 'bold'
+                }
+            }
+        }, {
+            name: 'Delitos Cibernéticos',
+            type: 'area',
+            data: data.map(d => d.cybercrime),
+            color: '#ff6384',
+            fillOpacity: 0.4,
             marker: {
-                radius: 8 // Tamaño de los puntos
+                enabled: false
             },
             dataLabels: {
                 enabled: true,
-                format: '{point.y} ',
+                format: '{point.y}',
                 style: {
                     color: '#fff',
                     fontWeight: 'bold'
                 }
             }
         }],
-        legend: { 
-            itemStyle: { 
-                color: '#fff' 
+        legend: {
+            itemStyle: {
+                color: '#fff'
             }
         }
     });
 }
-
 
 // Esta función carga los scripts en vez de svelte:head
 function loadScript(src) {
