@@ -22,7 +22,7 @@
         errorMessage = '';
         try {
             console.log(`Solicitando datos a: ${API_G15}`);
-            const resG15 = await fetch(API_G15);
+            const resG15 = await fetch('/api/g15precipitation');
             if (!resG15.ok) throw new Error('Error al obtener datos de G15');
             const dataG15 = await resG15.json();
 
@@ -133,7 +133,7 @@
 			document.head.appendChild(script);
 		});
 	}
-    
+
 	onMount(async () => {
 		try {
 			// Charts.js
@@ -158,7 +158,7 @@
             <h2 style="text-align: center;">Integraciones <br /><i>Pablo</i></h2>
             <hr style="width: 55em; animation: loadHrGraph 1s; transition: all 0.3s ease;" />
             <div transition:fade={{ duration: 400 }}>
-                <!-- G15 - ocupied-grand-stats -->
+                <!-- G15 - precipitation-stats -->
                 <div class="article" style="margin-top: 0;">
                     <h3 style="font-size: 1.5em; text-transform: none;">
                         Relación entre Precipitacion y Cibercriminalidad (2021)
@@ -169,8 +169,8 @@
                         El eje X representa la superficie de suelo, el eje Y la superficie arbolada y el tamaño de cada burbuja
                         indica la tasa de crimen promedio.
                     </p>
-                    <a style="color: #fff;" href={API_G15} target="_blank"><i>G15 - ocupied-grand-stats</i></a>
-                    <a style="color: #fff; margin-left:1em;" href={API_EDUCATION} target="_blank"><i> G14-education-data</i></a>
+                    <a style="color: #fff;" href={API_G15} target="_blank"><i>G15 - precipitation-stats</i></a>
+                    <a style="color: #fff; margin-left:1em;" href={API_CYBERCRIME} target="_blank"><i> G14-cybercrime-data</i></a>
                     <figure class="chartjs-figure" transition:fade>
                         {#if loadingData}
                             <p style="color: #fff; text-align: center; font-weight: bold;">Cargando datos...</p>
