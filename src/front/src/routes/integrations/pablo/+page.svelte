@@ -182,7 +182,7 @@ async function getFinesAndCybercrimeData() {
         });
 
         console.log(`Datos combinados: ${combinedData.length} registros`);
-        renderCombinedChartG20(combinedData); // Llamamos a la función para renderizar la gráfica
+        renderCombinedChart(combinedData); // Llamamos a la función para renderizar la gráfica
     } catch (err) {
         console.error('Error al combinar datos de fines y cybercrime:', err);
         errorMessage = 'Error cargando los datos combinados.';
