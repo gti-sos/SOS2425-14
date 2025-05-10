@@ -157,7 +157,7 @@ return {
 				endpoint: null
 			},
 			{
-				id: "/integrations/jaime",
+				id: "/integrations/pablo",
 				pattern: /^\/integrations\/pablo\/?$/,
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 16 },
