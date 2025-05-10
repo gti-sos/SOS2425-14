@@ -12,9 +12,13 @@
 	const API_G13 = 'https://sos2425-13.onrender.com/api/v1/water-supply-improvements';
 	const API_G10 = 'https://sos2425-10.onrender.com/api/v1/radars-stats';
     let API_EMPLOYMENT = "/api/v1/employment-data";
+    const API_POPULATION= "https://restcountries.com/v3.1/all";
+    let API_FRUTAS = "/api/v1/proxy/fruits";
+    let API_COVID= "https://disease.sh/v3/covid-19/countries";
 
     if(dev){
         API_EMPLOYMENT = DEVEL_HOST + API_EMPLOYMENT;
+        API_FRUTAS = DEVEL_HOST + API_FRUTAS;
     }
     // @ts-ignore
 	let data17 = [];
@@ -674,6 +678,132 @@
         });
     }
 
+    async function renderCountries() {
+        let res = await fetch(API_POPULATION, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+        if (!res.ok) {
+            throw new Error(`Error en la respuesta: ${res.status}`);
+        }
+        const countries = await res.json();
+
+        const top = countries
+            .map(c => [c.name.common, c.population])
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6);
+
+        c3.generate({
+            bindto: "#chartcountries",
+            data: {
+                columns: top,
+                type: 'pie'
+            },
+            title: {
+                text: 'Top 6 países por población'
+            }
+        });
+    }
+
+    let FruitContainer; 
+    async function renderFruit() {
+        let res = await fetch(API_FRUTAS, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+        if (!res.ok) {
+            throw new Error(`Error en la respuesta: ${res.status}`);
+        }
+        const fruits = await res.json();
+        const items = new vis.DataSet(
+        fruits.map((fruit, i) => ({
+            x: i,
+            y: fruit.nutritions.sugar,
+            label: fruit.name,
+            content: fruit.name
+        }))
+        );
+
+        const options = {
+        start: -1,
+        end: fruits.length,
+        drawPoints: {
+            style: 'circle'
+        },
+        shaded: {
+            orientation: 'bottom'
+        },
+        dataAxis: {
+            left: {
+            title: {
+                text: 'Azúcar (g)'
+            }
+            }
+        },
+        orientation: 'bottom'
+        };
+
+        new vis.Graph2d(FruitContainer, items, options);
+    }
+
+    let CovidScatterContainer;
+
+    async function renderCovid() {
+        let res = await fetch(API_COVID, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+        if (!res.ok) {
+            throw new Error(`Error en la respuesta: ${res.status}`);
+        }
+
+        const countries = await res.json();
+
+        const items = new vis.DataSet(
+            countries
+                .filter(c => c.population && c.cases)
+                .map((c, i) => ({
+                    x: c.population,
+                    y: c.cases,
+                    label: c.country,
+                    content: c.country
+                }))
+        );
+
+        const options = {
+            style: 'points',
+            drawPoints: {
+                style: 'circle',
+                size: 5
+            },
+            dataAxis: {
+                left: {
+                    title: { text: 'Casos totales' }
+                },
+                bottom: {
+                    title: { text: 'Población total' }
+                }
+            },
+            orientation: 'bottom',
+            showMajorLabels: true,
+            showMinorLabels: true,
+            shaded: false,
+            width: '100%',
+            height: '400px'
+        };
+
+        new vis.Graph2d(CovidScatterContainer, items, options);
+    }
+
 
 
     onMount(async () => {
@@ -685,12 +815,16 @@
             await loadScript('https://code.highcharts.com/modules/accessibility.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js');
+            await loadScript('https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js');
 
             await getData18();
             await getDataG13();
             await getDataG10();
             await getDataG17();
             await getDataG11();
+            await renderFruit();
+            await renderCountries();
+            await renderCovid();
 
         } catch (err) {
             errorMessage = `Error cargando scripts de Highcharts: ${err}`;
@@ -705,6 +839,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" />
 </svelte:head>
 
 <div class="wrapper">
@@ -824,8 +959,56 @@
                 </div>
             </div>
             <!-- API EXTERNA PROXY -->
+            <div class="article">
+                <h3>Widget API externa: Comparativa de contenido de azúcar por fruta</h3>
+                <p>Este gráfico muestra la cantidad de azúcar (en gramos) contenida en diferentes frutas.
+                <a style="color: #fff; margin-right: 1rem;" href={API_FRUTAS} target="_blank">
+                    <i>Frutas API</i>
+                </a>
+                <div class="chart-container">
+                    <div bind:this={FruitContainer} style="height: 400px;"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>
+            </div>
             <!-- API EXTERNA -->
+            <div class="article">
+                <h3>Widget API externa: Distribución de los países más poblados del mundo</h3>
+                <p>Este gráfico representa la distribución demográfica de los países más poblados del mundo.</p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_POPULATION} target="_blank">
+                    <i>Countries API</i>
+                </a>
+                <div class="chart-container">
+                    <div id="chartcountries"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>
+            </div>
             <!-- API EXTERNA -->
+            <div class="article">
+                <h3>Widget API externa: Distribución de los países más poblados del mundo</h3>
+                <p>Este gráfico representa la distribución demográfica de los países más poblados del mundo.</p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_POPULATION} target="_blank">
+                    <i>Countries API</i>
+                </a>
+                <div class="chart-container">
+                    <div id="chartcountries"></div>
+                    {#if loadingData}
+                        <p>Cargando datos...</p>
+                    {/if}
+                    {#if errorMessage}
+                        <p style="color: red">{errorMessage}</p>
+                    {/if}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -841,36 +1024,4 @@
     border-radius: 10px;
     min-height: 400px;
 }
-.c3 text {
-  fill: black !important;
-}
-
-.c3-legend-item text {
-  fill: black !important;
-}
-
-.c3-tooltip {
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid #333;
-}
-
-.c3-axis path,
-.c3-axis line {
-  stroke: #555;
-}
-/* Fuerza texto de C3.js a negro */
-.c3-chart text,
-.c3-legend-item text,
-.c3-axis text {
-  fill: black !important;
-}
-
-/* Tooltips C3.js */
-.c3-tooltip {
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid #333;
-}
-
 </style>

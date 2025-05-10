@@ -1,6 +1,8 @@
 import express from "express";
 import Datastore from "nedb";
 import fs from "fs";
+import fetch from "node-fetch";
+
 const initialData = JSON.parse(fs.readFileSync(new URL("../json/data-jdp.json", import.meta.url)));
 
 const db = new Datastore();
@@ -434,6 +436,25 @@ router.delete("/employment-data/:autonomous_community/:year/:education_level", (
         res.status(200).json({ message: "Recurso eliminado correctamente" });
     });
 });
+
+/****************************************************
+ * PROXY - Redirige a la API de frutas externa (con fetch)
+ ****************************************************/
+router.get("/proxy/fruits", async (req, res) => {
+    try {
+        const externalRes = await fetch("https://www.fruityvice.com/api/fruit/all");
+
+        if (!externalRes.ok) {
+            return res.status(externalRes.status).json({ error: "Error al obtener frutas" });
+        }
+
+        const data = await externalRes.json();
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json({ error: "Error interno al conectar con la API externa", details: err.message });
+    }
+});
+
 
 
 /****************************************************

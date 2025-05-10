@@ -34,6 +34,7 @@
     "highcharts": "^12.2.0",
     "nedb": "^1.8.0",
     "newman": "^6.2.1",
+    "node-fetch": "^3.3.2",
     "papaparse": "^5.5.2",
     "playwright": "^1.52.0",
     "xlsx": "^0.18.5"
