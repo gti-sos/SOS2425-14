@@ -192,90 +192,74 @@ async function getFinesAndCybercrimeData() {
 }
 
 // Render gráfico combinado para G20 (Fines vs Cybercrime)
-function renderCombinedChart(data) {
-    Highcharts.chart('combinedChart', {
-        chart: {
-            backgroundColor: '#052a42'
-        },
-        title: {
-            text: 'Infracciones vs Delitos Cibernéticos por Comunidad (2023)',
-            style: {
-                color: '#fff',
-                fontWeight: 'bold'
-            }
-        },
-        xAxis: {
-            categories: data.map(d => d.comunidad),
-            title: {
-                text: 'Comunidades',
-                style: {
-                    color: '#fff'
-                }
+    function renderCombinedChart(data) {
+        Highcharts.chart('combinedChart', {
+            chart: {
+                type: 'bar',
+                backgroundColor: '#052a42'
             },
-            labels: {
-                style: {
-                    color: '#fff'
-                }
-            }
-        },
-        yAxis: [{
-            min: 0,
             title: {
-                text: 'Cantidad',
-                style: {
-                    color: '#fff'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#fff'
-                }
-            }
-        }],
-        tooltip: {
-            shared: true,
-            style: {
-                color: '#fff'
-            }
-        },
-        series: [{
-            name: 'Infracciones',
-            type: 'column',
-            data: data.map(d => d.fines),
-            color: '#36a2eb',
-            dataLabels: {
-                enabled: true,
-                format: '{point.y}',
+                text: 'Infracciones ITV vs Cibercrimen en Madrid (2023)',
                 style: {
                     color: '#fff',
                     fontWeight: 'bold'
                 }
-            }
-        }, {
-            name: 'Delitos Cibernéticos',
-            type: 'area',
-            data: data.map(d => d.cybercrime),
-            color: '#ff6384',
-            fillOpacity: 0.4,
-            marker: {
-                enabled: false
             },
-            dataLabels: {
-                enabled: true,
-                format: '{point.y}',
-                style: {
-                    color: '#fff',
-                    fontWeight: 'bold'
+            xAxis: {
+                categories: ['Madrid'],
+                title: {
+                    text: null
+                },
+                labels: {
+                    style: { color: '#fff' }
                 }
-            }
-        }],
-        legend: {
-            itemStyle: {
-                color: '#fff'
-            }
-        }
-    });
-}
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad',
+                    style: { color: '#fff' }
+                },
+                labels: {
+                    style: { color: '#fff' }
+                }
+            },
+            legend: {
+                reversed: true,
+                itemStyle: {
+                    color: '#fff'
+                }
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            color: '#fff',
+                            fontWeight: 'bold'
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                shared: true,
+                style: {
+                    color: '#fff'
+                }
+            },
+            series: [{
+                name: 'Cibercrimen',
+                data: data.map(d => d.cybercrime),
+                color: '#ff6384'
+            }, {
+                name: 'Infracciones ITV',
+                data: data.map(d => d.fines),
+                color: '#36a2eb'
+            }]
+        });
+    }
+
 
 //API EXTERNA: news api
     let newsDatasets = [];
@@ -402,7 +386,9 @@ onMount(async () => {
     try {
         // Cargar Highcharts
         await loadScript('https://code.highcharts.com/highcharts.js');
-        
+        await loadScript('https://cdn.jsdelivr.net/npm/chart.js');
+
+
         await get15AndCrimeData();
         await getFinesAndCybercrimeData();
         await getNewsData();
@@ -463,14 +449,13 @@ onMount(async () => {
             <!--news api-->
             <div class="article" style="margin-top: 2em;">
                 <h3 style="font-size: 1.5em; text-transform: none;">
-                    Comparativa Climática de Varias Ciudades (Weather)
+                    Noticias
                 </h3>
                 <p>
-                    Este gráfico de burbujas permite comparar en tiempo real la temperatura, humedad y
-                    velocidad del viento en cinco ciudades españolas: Sevilla, Madrid, Barcelona, Valencia y Bilbao.
+                    Este gráfico de burbujas permite comparar en tiempo real las noticias.
                 </p>
                 <a style="color: #fff;" href="https://openweathermap.org/current" target="_blank">
-                    <i>API externa - OpenWeatherMap</i>
+                    <i>API externa - NewsApi</i>
                 </a>
                 <figure class="chartjs-figure" transition:fade>
                     <canvas id="externalChart"></canvas>
