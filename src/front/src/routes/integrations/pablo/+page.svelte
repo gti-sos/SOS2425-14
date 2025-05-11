@@ -476,9 +476,6 @@ function renderPostChart(labels, data, colors) {
 
 //Api opennotify astros
 // API EXTERNA: Open Notify (Astronautas en el espacio)
-// Función para obtener los datos de astronautas desde OpenNotify
-// API EXTERNA: Open Notify (Astronautas en el espacio)
-// Función para obtener los datos de astronautas desde OpenNotify
 async function getAstronautsData() {
     try {
         console.log(`Solicitando datos a: /api/opennotify`);
@@ -566,11 +563,6 @@ function getColorForAstronaut(craft) {
     return colors[craft] || '#FFCE56'; // Si no tiene color asignado, ponemos un color predeterminado
 }
 
-
-
-
-
-
 // Esta función carga los scripts en vez de svelte:head
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -617,7 +609,7 @@ onMount(async () => {
         <div transition:fade={{ duration: 400 }}>
             <div class="article" style="margin-top: 0;">
                 <h3 style="font-size: 1.5em; text-transform: none;">
-                    Relación entre Precipitación y Cibercriminalidad (2021)
+                    Relación entre Precipitación y Cibercriminalidad (2020)
                 </h3>
                 <p>
                     Este gráfico de columnas relaciona la precipitación anual con la tasa de delitos de cibercrimen en
