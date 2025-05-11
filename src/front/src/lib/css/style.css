@@ -1454,3 +1454,58 @@ select.empty option {
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
+/* --- C3.js --- */
+/* ==== forzar texto blanco en TODO C3 SVG ==== */
+.c3 svg text,
+.c3-axis text {
+  fill: #fff !important;
+}
+
+/* ==== ejes y grid lines ==== */
+.c3 .c3-axis path,
+.c3 .c3-axis line {
+  stroke: #888 !important;
+}
+
+/* ==== ticks ==== */
+.c3 .c3-axis-x .tick text,
+.c3 .c3-axis-y .tick text {
+  fill: #fff !important;
+}
+
+/* ==== tooltip ==== */
+.c3-tooltip-container {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  pointer-events: none; /* mantiene el comportamiento nativo */
+}
+.c3-tooltip table,
+.c3-tooltip table th,
+.c3-tooltip table td {
+  color: #fff !important;
+}
+  
+  /* --- ApexCharts --- */
+  /* Todos los <text> dentro de cualquier SVG de Apex */
+  .apexcharts text {
+	fill: #fff !important;
+  }
+  /* Líneas de grid y ejes */
+  .apexcharts .apexcharts-gridline,
+  .apexcharts .apexcharts-xaxis .apexcharts-gridline,
+  .apexcharts .apexcharts-yaxis .apexcharts-gridline {
+	stroke: #444 !important;
+  }
+  /* Tooltip */
+  .apexcharts-tooltip {
+	background: rgba(0,0,0,0.8) !important;
+	color: #fff !important;
+  }
+  /* Data labels sobre barras/puntos */
+  .apexcharts-data-label-labels .apexcharts-data-label text {
+	fill: #fff !important;
+  }
+  /* Leyenda */
+  .apexcharts-legend text {
+	fill: #fff !important;
+  }
+  

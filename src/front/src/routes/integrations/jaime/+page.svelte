@@ -710,101 +710,108 @@
 
     let FruitContainer; 
     async function renderFruit() {
-        let res = await fetch(API_FRUTAS, {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
+        const res = await fetch(API_FRUTAS, {
+            method: "GET",
+            headers: { 'Accept': 'application/json' }
+        });
         if (!res.ok) {
             throw new Error(`Error en la respuesta: ${res.status}`);
         }
         const fruits = await res.json();
-        const items = new vis.DataSet(
-        fruits.map((fruit, i) => ({
-            x: i,
-            y: fruit.nutritions.sugar,
-            label: fruit.name,
-            content: fruit.name
-        }))
-        );
+
+        const categories = fruits.map(f => f.name);
+        const data       = fruits.map(f => f.nutritions.sugar);
 
         const options = {
-        start: -1,
-        end: fruits.length,
-        drawPoints: {
-            style: 'circle'
-        },
-        shaded: {
-            orientation: 'bottom'
-        },
-        dataAxis: {
-            left: {
-            title: {
-                text: 'Azúcar (g)'
+            chart: {
+            type: 'bar',
+            height: 300,
+            toolbar: { show: false }
+            },
+            series: [
+            {
+                name: 'Azúcar (g)',
+                data
             }
+            ],
+            xaxis: {
+            categories,
+            title: { text: 'Fruta' },
+            labels: { rotate: -45 }
+            },
+            yaxis: {
+            title: { text: 'Azúcar (g)' }
+            },
+            tooltip: {
+            y: { 
+                formatter: v => `${v.toLocaleString()} g`
             }
-        },
-        orientation: 'bottom'
+            },
+            plotOptions: {
+            bar: {
+                columnWidth: '60%'
+            }
+            },
+            legend: { show: false }
         };
 
-        new vis.Graph2d(FruitContainer, items, options);
+        window._fruitChart = new ApexCharts(FruitContainer, options);
+        await window._fruitChart.render();
     }
-
-    let CovidScatterContainer;
+    let covidContainer;
 
     async function renderCovid() {
-        let res = await fetch(API_COVID, {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
+        const res = await fetch(API_COVID, {
+            method: "GET",
+            headers: { 'Accept': 'application/json' }
+        });
         if (!res.ok) {
             throw new Error(`Error en la respuesta: ${res.status}`);
         }
-
         const countries = await res.json();
-
-        const items = new vis.DataSet(
-            countries
-                .filter(c => c.population && c.cases)
-                .map((c, i) => ({
-                    x: c.population,
-                    y: c.cases,
-                    label: c.country,
-                    content: c.country
-                }))
-        );
-
+        console.log('Estructura de datos COVID (primeros 5):', countries.slice(0,5));
+        const seriesData = countries.map((d, i) => ({
+            x: i,
+            y: d.cases
+        }));
         const options = {
-            style: 'points',
-            drawPoints: {
-                style: 'circle',
-                size: 5
+            chart: {
+            type: 'scatter',
+            height: 300,
+            zoom: { enabled: true, type: 'xy' },
+            toolbar: { show: false }
             },
-            dataAxis: {
-                left: {
-                    title: { text: 'Casos totales' }
-                },
-                bottom: {
-                    title: { text: 'Población total' }
-                }
+            series: [
+            {
+                name: 'Casos',
+                data: seriesData
+            }
+            ],
+            xaxis: {
+            title: { text: 'País (índice)' },
+            labels: {
+                formatter: val => val.toString()
+            }
             },
-            orientation: 'bottom',
-            showMajorLabels: true,
-            showMinorLabels: true,
-            shaded: false,
-            width: '100%',
-            height: '400px'
+            yaxis: {
+            title: { text: 'Casos totales' }
+            },
+            tooltip: {
+            x: {
+                formatter: idx => countries[idx]?.country ?? idx
+            },
+            y: {
+                formatter: val => val.toLocaleString()
+            }
+            },
+            markers: {
+            size: 6
+            },
+            legend: { show: false }
         };
-
-        new vis.Graph2d(CovidScatterContainer, items, options);
-    }
-
-
+        window._covidChart = new ApexCharts(covidContainer, options);
+        await window._covidChart.render();
+        }
 
     onMount(async () => {
         try {
@@ -815,16 +822,16 @@
             await loadScript('https://code.highcharts.com/modules/accessibility.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js');
-            await loadScript('https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js');
+            await loadScript("https://cdn.jsdelivr.net/npm/apexcharts");
 
             await getData18();
             await getDataG13();
             await getDataG10();
             await getDataG17();
-            await getDataG11();
             await renderFruit();
             await renderCountries();
             await renderCovid();
+            await getDataG11();
 
         } catch (err) {
             errorMessage = `Error cargando scripts de Highcharts: ${err}`;
@@ -839,7 +846,8 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" />
+    <link href="src\front\src\lib\css\style.css" rel="stylesheet"
+  />
 </svelte:head>
 
 <div class="wrapper">
@@ -960,7 +968,7 @@
             </div>
             <!-- API EXTERNA PROXY -->
             <div class="article">
-                <h3>Widget API externa: Comparativa de contenido de azúcar por fruta</h3>
+                <h3>Widget API externa PROXY: Comparativa de contenido de azúcar por fruta</h3>
                 <p>Este gráfico muestra la cantidad de azúcar (en gramos) contenida en diferentes frutas.
                 <a style="color: #fff; margin-right: 1rem;" href={API_FRUTAS} target="_blank">
                     <i>Frutas API</i>
@@ -994,13 +1002,14 @@
             </div>
             <!-- API EXTERNA -->
             <div class="article">
-                <h3>Widget API externa: Distribución de los países más poblados del mundo</h3>
-                <p>Este gráfico representa la distribución demográfica de los países más poblados del mundo.</p>
-                <a style="color: #fff; margin-right: 1rem;" href={API_POPULATION} target="_blank">
-                    <i>Countries API</i>
+                <h3>Widget API externa: Casos totales de COVID-19 por país</h3>
+                <p>Este gráfico muestra la relación entre distintos países y el número total de casos confirmados de COVID-19 registrados en cada uno. Cada punto representa un país, posicionado de forma secuencial en el eje horizontal y con su número de casos totales en el eje vertical. Al pasar el cursor sobre cada punto se puede ver el nombre del país y la cifra correspondiente.
+                </p>
+                <a style="color: #fff; margin-right: 1rem;" href={API_COVID} target="_blank">
+                    <i>Covid API</i>
                 </a>
                 <div class="chart-container">
-                    <div id="chartcountries"></div>
+                    <div bind:this={covidContainer} style="height: 400px;"></div>
                     {#if loadingData}
                         <p>Cargando datos...</p>
                     {/if}
@@ -1024,4 +1033,5 @@
     border-radius: 10px;
     min-height: 400px;
 }
+
 </style>
