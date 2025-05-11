@@ -262,110 +262,312 @@ async function getFinesAndCybercrimeData() {
 
 
 //API EXTERNA: news api
-    let newsDatasets = [];
+let newsDatasets = [];
 
-    async function getNewsData() {
-        // Ciudades o temas que quieras investigar, como en el clima pero con categorías o fuentes para las noticias
-        const categories = ['business', 'technology', 'sports', 'entertainment', 'health'];
-        newsDatasets = [];
+async function getNewsData() {
+    try {
+        console.log(`Solicitando datos a: /api/newsapi`);
+        const res = await fetch('/api/newsapi');
+        if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
 
-        try {
-            console.log(`Solicitando datos a: /api/newsapi`);
-            const res = await fetch('/api/newsapi');  // Aquí debería ir la llamada al servidor proxy
-            if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
+        const allData = await res.json();
+        const titles = [];
+        const wordCounts = [];
+        const colors = [];
 
-            const allData = await res.json();
+        for (const categoryGroup of allData) {
+            for (const article of categoryGroup.articles) {
+                const title = article.title;
+                const wordCount = title.split(' ').length;
 
-            for (const categoryGroup of allData) {
-                for (const article of categoryGroup.articles) {
-                    newsDatasets.push({
-                        label: article.title,
-                        data: [
-                            {
-                                x: Math.random() * 100,
-                                y: Math.random() * 100,
-                                r: 10
-                            }
-                        ],
-                        backgroundColor: getColorForCategory(article.source.name)
-                    });
-                }
+                titles.push(title);
+                wordCounts.push(wordCount);
+                colors.push(getColorForCategory(article.source.name));
             }
-
-            console.log(`Datos recibidos: ${newsDatasets.length} registros`);
-            renderNewsChart();  // Función para renderizar el gráfico
-        } catch (error) {
-            console.error('Error al obtener datos de las noticias:', error);
-        }
-    }
-
-    // Asignamos un color a las noticias dependiendo de la fuente o categoría
-    function getColorForCategory(source) {
-        const colors = {
-            'BBC News': '#FF6384',
-            'CNN': '#36A2EB',
-            'Reuters': '#FFCE56',
-            'TechCrunch': '#4BC0C0',
-            'ESPN': '#9966FF'
-        };
-        return colors[source] || '#aaa';
-    }
-
-    // Renderizamos el gráfico con las noticias
-    let newsChartInstance;
-
-    function renderNewsChart() {
-        const ctx = document.getElementById('externalChart')?.getContext('2d');
-        if (!ctx) return;
-
-        if (newsChartInstance) {
-            newsChartInstance.destroy();
         }
 
-        newsChartInstance = new Chart(ctx, {
-            type: 'bubble',  // Mantenemos el tipo de gráfico de burbujas
-            data: {
-                datasets: newsDatasets  // Los datos de las noticias se pasan aquí
+        console.log(`Noticias procesadas: ${titles.length}`);
+        renderNewsChart(titles, wordCounts, colors);
+    } catch (error) {
+        console.error('Error al obtener datos de las noticias:', error);
+    }
+}
+
+function getColorForCategory(source) {
+    const colors = {
+        'BBC News': '#FF6384',
+        'CNN': '#36A2EB',
+        'Reuters': '#FFCE56',
+        'TechCrunch': '#4BC0C0',
+        'ESPN': '#9966FF'
+    };
+    return colors[source] || '#aaa';
+}
+
+let newsChartInstance;
+
+function renderNewsChart(labels, data, colors) {
+    const ctx = document.getElementById('externalChart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (newsChartInstance) {
+        newsChartInstance.destroy();
+    }
+
+    newsChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Nº de palabras en el título',
+                data: data,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#fff' }
+                },
+                title: {
+                    display: true,
+                    text: 'Cantidad de palabras por título de noticia',
+                    color: '#fff',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#fff'
-                        }
-                    },
+            scales: {
+                x: {
                     title: {
                         display: true,
-                        text: 'Noticias populares por fuente',
-                        color: '#fff',
-                        font: {
-                            size: 18,
-                            weight: 'bold'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Posición aleatoria (X)',
-                            color: '#fff'
-                        },
-                        ticks: { color: '#fff' }
+                        text: 'Número de palabras',
+                        color: '#fff'
                     },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Posición aleatoria (Y)',
-                            color: '#fff'
-                        },
-                        ticks: { color: '#fff' }
+                    ticks: { color: '#fff' }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff',
+                        callback: function(value, index) {
+                            const label = this.getLabelForValue(index);
+                            return label.length > 60 ? label.slice(0, 57) + '...' : label;
+                        }
                     }
                 }
             }
-        });
+        }
+    });
+}
+
+
+    // API EXTERNA: JSONPlaceholder
+    let jsonPlaceholderData = [];  // Aquí almacenaremos los datos de JSONPlaceholder
+
+    // Función para obtener los datos de JSONPlaceholder
+    async function getJsonPlaceholderData() {
+        try {
+            console.log(`Solicitando datos a: /api/jsonplaceholder`);
+            const res = await fetch('/api/jsonplaceholder'); // URL de la API proxy
+            if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
+
+            const allData = await res.json(); // Convertimos la respuesta en JSON
+            
+            // Limitar a solo los primeros 10 posts
+            const limitedData = allData.slice(0, 10);
+
+            const titles = [];
+            const wordCounts = [];
+            const colors = [];
+
+            for (const post of limitedData) {
+                const title = post.title;
+                const wordCount = title.split(' ').length;  // Contamos las palabras en el título
+
+                titles.push(title);
+                wordCounts.push(wordCount);
+
+                // Asignamos un color arbitrario para cada título
+                colors.push(getColorForPost(post.id));
+            }
+
+            console.log(`Posts procesados: ${titles.length}`);
+            renderPostChart(titles, wordCounts, colors);  // Renderizamos el gráfico
+        } catch (error) {
+            console.error('Error al obtener los datos de JSONPlaceholder:', error);
+        }
     }
+
+
+// Función para asignar colores arbitrarios a cada post según su ID
+function getColorForPost(postId) {
+    const colors = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF5733', '#C70039', '#900C3F', '#581845'
+    ];
+    return colors[postId % colors.length]; // Usamos el ID del post para seleccionar un color
+}
+
+let postChartInstance;
+
+// Función para renderizar el gráfico de barras con los títulos y la cantidad de palabras
+function renderPostChart(labels, data, colors) {
+    const ctx = document.getElementById('postChart')?.getContext('2d');
+    if (!ctx) return;
+
+    // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
+    if (postChartInstance) {
+        postChartInstance.destroy();
+    }
+
+    // Creamos el gráfico de barras
+    postChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Nº de palabras en el cuerpo',
+                data: data,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#fff' }
+                },
+                title: {
+                    display: true,
+                    text: 'Cantidad de palabras en los cuerpos de posts',
+                    color: '#fff',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Número de palabras',
+                        color: '#fff'
+                    },
+                    ticks: { color: '#fff' }
+                },
+                y: {
+                    ticks: {
+                        color: '#fff',
+                        callback: function(value, index) {
+                            const label = this.getLabelForValue(index);
+                            return label.length > 60 ? label.slice(0, 57) + '...' : label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+//Api opennotify astros
+// API EXTERNA: Open Notify (Astronautas en el espacio)
+// Función para obtener los datos de astronautas desde OpenNotify
+// API EXTERNA: Open Notify (Astronautas en el espacio)
+// Función para obtener los datos de astronautas desde OpenNotify
+async function getAstronautsData() {
+    try {
+        console.log(`Solicitando datos a: /api/opennotify`);
+        const res = await fetch('/api/opennotify', { method: 'GET' }); // Confirmamos que es un GET
+        if (!res.ok) throw new Error('Error al obtener datos del servidor proxy');
+
+        const data = await res.json(); // Convertimos la respuesta en JSON
+
+        // No limitamos los astronautas, mostramos todos
+        const astronautNames = [];
+        const craftCounts = []; // Contamos la cantidad de astronautas por nave
+        const colors = [];
+
+        const craftCountMap = {};
+
+        for (const astronaut of data.people) { // Recorremos todos los astronautas
+            astronautNames.push(astronaut.name); // Almacenamos el nombre del astronauta
+
+            const craft = astronaut.craft;
+            craftCountMap[craft] = (craftCountMap[craft] || 0) + 1;
+
+            colors.push(getColorForAstronaut(craft)); // Asignamos un color para cada astronauta
+        }
+
+        const craftLabels = Object.keys(craftCountMap);
+        const craftData = Object.values(craftCountMap);
+
+        console.log(`Astronautas procesados: ${astronautNames.length}`);
+        renderAstronautsChart(craftLabels, craftData, colors);  // Renderizamos el gráfico
+    } catch (error) {
+        console.error('Error al obtener los datos de astronautas:', error);
+    }
+}
+
+let astronautChartInstance;
+
+// Función para renderizar el gráfico tipo dona con la cantidad de astronautas por nave
+function renderAstronautsChart(labels, data, colors) {
+    const ctx = document.getElementById('astronautChart')?.getContext('2d');
+    if (!ctx) return;
+
+    // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
+    if (astronautChartInstance) {
+        astronautChartInstance.destroy();
+    }
+
+    // Creamos el gráfico de dona
+    astronautChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Número de astronautas por nave',
+                data: data,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#fff' }
+                },
+                title: {
+                    display: true,
+                    text: 'Distribución de astronautas por nave',
+                    color: '#fff',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Función para asignar colores a cada astronauta basado en la nave
+function getColorForAstronaut(craft) {
+    const colors = {
+        'ISS': '#FF6384',
+        'Tiangong': '#FFC300',
+    };
+
+    return colors[craft] || '#FFCE56'; // Si no tiene color asignado, ponemos un color predeterminado
+}
+
+
+
 
 
 
@@ -392,6 +594,8 @@ onMount(async () => {
         await get15AndCrimeData();
         await getFinesAndCybercrimeData();
         await getNewsData();
+        await getJsonPlaceholderData();
+        await getAstronautsData();
 
     } catch (error) {
         errorMessage = `Error cargando scripts: ${error}`;
@@ -459,6 +663,36 @@ onMount(async () => {
                 </a>
                 <figure class="chartjs-figure" transition:fade>
                     <canvas id="externalChart"></canvas>
+                </figure>
+            </div>
+            <!-- Sección Gráfico JSONPlaceholder -->
+            <div class="article" style="margin-top: 2em;">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Publicaciones de JSONPlaceholder
+                </h3>
+                <p>
+                    Este gráfico de barras muestra el número de palabras en el título de cada publicación de JSONPlaceholder.
+                </p>
+                <a style="color: #fff;" href="https://jsonplaceholder.typicode.com" target="_blank">
+                    <i>API externa - JSONPlaceholder</i>
+                </a>
+                <figure class="chartjs-figure" transition:fade>
+                    <canvas id="postChart"></canvas> <!-- Aquí usamos 'postChart' en lugar de 'externalChart' -->
+                 </figure>
+            </div>
+            <!-- Sección Gráfico Open Notify (Astronautas) -->
+            <div class="article" style="margin-top: 2em;">
+                <h3 style="font-size: 1.5em; text-transform: none;">
+                    Astronautas en el espacio
+                </h3>
+                <p>
+                    Este gráfico de barras muestra el número de astronautas en cada nave espacial actualmente en órbita.
+                </p>
+                <a style="color: #fff;" href="http://api.open-notify.org/astros.json" target="_blank">
+                    <i>API externa - Open Notify</i>
+                </a>
+                <figure class="chartjs-figure" transition:fade>
+                    <canvas id="astronautChart"></canvas> <!-- Aquí usamos 'astronautChart' en lugar de 'postChart' -->
                 </figure>
             </div>
         </div>
