@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 
-const API_KEY = '6c9141ca1a96465691c20e4a91f33005'; // Usa tu API Key de NewsAPI
-const categories = ['technology', 'business', 'sports', 'health', 'entertainment']; // Puedes cambiar las categorías a las que quieras acceder
+const API_KEY = '6c9141ca1a96465691c20e4a91f33005'; //API Key de NewsAPI
+const categories = ['technology', 'business', 'sports', 'health', 'entertainment']; // Cambiar las categorías a las que quieras acceder
 
 export async function GET() {
 	const results = [];
